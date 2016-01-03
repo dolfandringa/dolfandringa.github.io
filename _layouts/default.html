@@ -28,10 +28,7 @@
       <!-- Main -->
         <nav>
           <ul>
-            {% for page in site.pages limit:1 %}
-              <li class="first"><a href="{{ page.url }}">{{ page.title }}</a></li>
-            {% endfor %}
-            {% for page in site.pages offset:1 %}
+            {% for page in site.pages %}
               <li><a href="{{ page.url }}">{{ page.title }}</a></li>
             {% endfor %}
           </ul>

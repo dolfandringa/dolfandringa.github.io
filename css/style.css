@@ -766,7 +766,7 @@ nav ul li {
 }
 
 /* line 697, ../sass/style.scss */
-nav ul li.first {
+nav ul li:first-of-type {
   padding-left: 0px;
 }
 
@@ -1381,4 +1381,65 @@ body.is-touch .poptrox-popup .nav-next,
 body.is-touch .poptrox-popup .nav-previous,
 body.is-touch .poptrox-popup .closer {
   opacity: 1.0 !important;
+}
+/* line 1163, ../sass/style.scss */
+body.is-touch nav ul {
+  position: absolute;
+  top: 4em;
+  right: 4em;
+  text-align: right;
+}
+/* line 1170, ../sass/style.scss */
+body.is-touch nav ul::before {
+  content: '\f0c9';
+  font-size: 20px;
+  text-decoration: none;
+  border-radius: 100%;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 40px;
+  text-align: center;
+  width: 40px;
+  padding: 0px;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+/* line 30, ../sass/_mixins.scss */
+body.is-touch nav ul::before:before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none !important;
+}
+/* line 1184, ../sass/style.scss */
+body.is-touch nav:hover ul li {
+  background-color: #fff;
+}
+/* line 1187, ../sass/style.scss */
+body.is-touch nav:hover ul li {
+  display: block;
+  padding: 5px 10px;
+  border-left: 4px solid rgba(255, 255, 255, 0.5);
+  border-right: 4px solid rgba(255, 255, 255, 0.5);
+}
+/* line 1193, ../sass/style.scss */
+body.is-touch nav ul li:first-of-type {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 4px solid rgba(255, 255, 255, 0.5);
+}
+/* line 1198, ../sass/style.scss */
+body.is-touch nav ul li:last-of-type {
+  padding-bottom: 10px;
+  border-bottom: 4px solid rgba(255, 255, 255, 0.5);
+}
+/* line 1202, ../sass/style.scss */
+body.is-touch nav ul,
+body.is-touch nav ul li {
+  list-style-type: none;
+}
+/* line 1206, ../sass/style.scss */
+body.is-touch nav ul li {
+  display: none;
 }
