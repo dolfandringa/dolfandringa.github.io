@@ -745,9 +745,9 @@ ul.labeled-icons li h3 {
 
 /* line 681, ../sass/style.scss */
 nav ul {
-  position: relative;
-  top: -4em;
-  right: 0;
+  position: absolute;
+  top: 4em;
+  right: 4em;
   text-align: right;
 }
 
