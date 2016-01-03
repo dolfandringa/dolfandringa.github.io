@@ -1,0 +1,25 @@
+# Site settings
+
+title: BioNerd # Title of your site
+email: dolfandringa@gmail.com # Your contant email
+
+description: > # this means to ignore newlines until "baseurl:"
+  This site is my personal showcase and outlet about what keeps me off the streets.
+  It will mostly be about hacking, programming, GNU/Linux, but also about ecology, travel
+  and science. I am a weird combination of an ecologist, hacker and ideologist.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://dolfandringa.github.io" # the base hostname & protocol for your site
+
+# Social links.
+# Replace the word 'example' with your username if you want to include the icon in the left sidebar
+# Delete the word 'example' if you don't want to include the icon in the left sidebar
+
+twitter_username:       # Replace this with your Twitter username
+github_username:      dolfandringa  # Replace this with your GitHub username
+linkedin_username:    dolfandringa  # Replace this with your LinkedIn username
+google_plus_username: +dolfandringa  # Replace this with your Google+ username
+facebook_username:      # Replace this with your Facebook username
+dribbble_username:      # Replace this with your Dribbble username
+
+# Build settings
+markdown: kramdown
