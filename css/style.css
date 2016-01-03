@@ -1382,14 +1382,26 @@ body.is-touch .poptrox-popup .nav-previous,
 body.is-touch .poptrox-popup .closer {
   opacity: 1.0 !important;
 }
-/* line 1163, ../sass/style.scss */
-body.is-touch nav ul {
+/* line 1162, ../sass/style.scss */
+body.is-touch nav {
   position: absolute;
-  top: 4em;
-  right: 4em;
-  text-align: right;
+  right: -4em;
+  top: -4em;
+}
+/* line 1167, ../sass/style.scss */
+body.is-touch nav ul {
+  width: 100px;
 }
 /* line 1170, ../sass/style.scss */
+body.is-touch nav:hover ul {
+  background-color: #fff;
+}
+/* line 1173, ../sass/style.scss */
+body.is-touch nav:hover ul::before {
+  color: #787878;
+  border-color: #787878;
+}
+/* line 1177, ../sass/style.scss */
 body.is-touch nav ul::before {
   content: '\f0c9';
   font-size: 20px;
@@ -1399,6 +1411,7 @@ body.is-touch nav ul::before {
   line-height: 40px;
   text-align: center;
   width: 40px;
+  margin: 20px 20px 0px 0px;
   padding: 0px;
   display: inline-block;
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -1412,34 +1425,34 @@ body.is-touch nav ul::before:before {
   font-weight: normal;
   text-transform: none !important;
 }
-/* line 1184, ../sass/style.scss */
+/* line 1192, ../sass/style.scss */
 body.is-touch nav:hover ul li {
   background-color: #fff;
 }
-/* line 1187, ../sass/style.scss */
+/* line 1195, ../sass/style.scss */
 body.is-touch nav:hover ul li {
   display: block;
   padding: 5px 10px;
   border-left: 4px solid rgba(255, 255, 255, 0.5);
   border-right: 4px solid rgba(255, 255, 255, 0.5);
 }
-/* line 1193, ../sass/style.scss */
+/* line 1201, ../sass/style.scss */
 body.is-touch nav ul li:first-of-type {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 4px solid rgba(255, 255, 255, 0.5);
 }
-/* line 1198, ../sass/style.scss */
+/* line 1206, ../sass/style.scss */
 body.is-touch nav ul li:last-of-type {
   padding-bottom: 10px;
   border-bottom: 4px solid rgba(255, 255, 255, 0.5);
 }
-/* line 1202, ../sass/style.scss */
+/* line 1210, ../sass/style.scss */
 body.is-touch nav ul,
 body.is-touch nav ul li {
   list-style-type: none;
 }
-/* line 1206, ../sass/style.scss */
+/* line 1214, ../sass/style.scss */
 body.is-touch nav ul li {
   display: none;
 }

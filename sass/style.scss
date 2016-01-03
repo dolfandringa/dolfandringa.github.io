@@ -1159,13 +1159,20 @@ $size-header-pad:		4em;
 				opacity: 1.0 !important;
 			}
 		}
-
-    nav ul{
-      //display: none;
+    nav{
       position: absolute;
-      top: 4em;
-      right: 4em;
-      text-align: right;
+      right: -4em;
+      top: -4em;
+    }
+    nav ul{
+      width: 100px;
+    }
+    nav:hover ul{
+      background-color: $color-bg;
+    }
+    nav:hover ul::before{
+			color: $color-fg-bold;
+      border-color: $color-fg-bold;
     }
     nav ul::before{
 			content: '\f0c9';
@@ -1176,6 +1183,7 @@ $size-header-pad:		4em;
       line-height: 40px;
       text-align: center;
       width: 40px;
+      margin: 20px 20px 0px 0px;
       padding: 0px;
       display: inline-block;
       border: 1px solid $color-accent2-fg;
