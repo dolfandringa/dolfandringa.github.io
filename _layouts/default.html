@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   	<head>
-  		<title>bionerd - Personal ramblings of Dolf Andringa</title>
+      <title>{{ page.title }}</title>
   		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
   		<meta name="description" content="" />
   		<meta name="keywords" content="" />
@@ -28,9 +28,8 @@
       <!-- Main -->
         <nav>
           <ul>
-            {% for page in site.pages %}
-              <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-            {% endfor %}
+              <li><a href="/">Home</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
           </ul>
         </nav>
       <div id="main">
