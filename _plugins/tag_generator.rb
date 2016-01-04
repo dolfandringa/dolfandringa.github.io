@@ -25,7 +25,7 @@ module Jekyll
     end
 
     def layout_page
-      'tag_page.html'
+      'blog_tag_page.html'
     end
   end
 
@@ -34,7 +34,7 @@ module Jekyll
     safe true
 
     def generate(site)
-      if site.layouts.has_key? 'tag_page'
+      if site.layouts.has_key? 'blog_tag_page'
         dir = site.config['tag_page_dir'] || 'tag'
         site.tags.keys.each do |tag|
           write_tag_page(site, File.join(dir, tag), tag)

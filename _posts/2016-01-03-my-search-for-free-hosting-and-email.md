@@ -1,7 +1,7 @@
 ---
 layout: post
 title: My search for free website and email hosting
-category: tech
+category: blog
 tags: 
     - hosting
     - email

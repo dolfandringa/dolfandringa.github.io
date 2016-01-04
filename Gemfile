@@ -7,4 +7,4 @@ versions = '{"jekyll":"2.4.0","jekyll-coffeescript":"1.0.1","jekyll-sass-convert
 versions = JSON.parse(versions)
 
 gem 'github-pages', versions['github-pages']
-
+gem 'jekyll-last-modified-at'

@@ -8,7 +8,9 @@ layout: default
                   {{ page.date | date: "%b %-d, %Y" }}
                   {% if page.author %} • {{ page.author }}{% endif %}
                   {% if page.meta %} • {{ page.meta }}{% endif %}
-                  {% if page.tags %} • In: {% for tag in page.tags %} <a href="/tag/{{ tag }}">{{ tag }}</a> {% endfor %}{% endif %}
+                  <span class="tags">
+                    {% if page.tags %}Tags: {% for tag in page.tags %} <a href="/tag/{{ tag }}">{{ tag }}</a> {% endfor %}{% endif %}
+                  </span>
                 </p>
         </header>
 

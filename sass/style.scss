@@ -1,5 +1,6 @@
 @import 'vars';
 @import 'mixins';
+@import 'nav';
 @import 'font-awesome.min.css';
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic');
 
@@ -182,6 +183,12 @@ $size-header-pad:		4em;
 			position: relative;
 			margin: 0 0 ($size-element-margin * 0.75) 0;
 		}
+    p.post-meta{
+      .tags{
+        font-size: 0.7em;
+        float: right;
+      }
+    }
 		
 		h2 + p {
 			font-size: 1.25em;
@@ -678,25 +685,6 @@ $size-header-pad:		4em;
 			}
 		}
 	}
-  nav ul{
-    position: absolute;
-    top: 4em;
-    right: 4em;
-    text-align: right;
-  }
-  nav ul,
-  nav ul li{
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-  }
-  nav ul li{
-    display: inline-block;
-    padding-left: 10px;
-  }
-  nav ul li:first-of-type{
-    padding-left: 0px;
-  }
 	
 	dl {
 		margin: 0 0 $size-element-margin 0;
@@ -1167,60 +1155,5 @@ $size-header-pad:		4em;
 				opacity: 1.0 !important;
 			}
 		}
-    nav{
-      position: absolute;
-      right: -4em;
-      top: -4em;
-    }
-    nav ul{
-      width: 100px;
-    }
-    nav:hover ul{
-      background-color: $color-bg;
-    }
-    nav:hover ul::before{
-			color: $color-fg-bold;
-      border-color: $color-fg-bold;
-    }
-    nav ul::before{
-			content: '\f0c9';
-      font-size: 20px;
-		  @include icon;
-      border-radius: 100%;
-      color: $color-accent2-fg;
-      line-height: 40px;
-      text-align: center;
-      width: 40px;
-      margin: 20px 20px 0px 0px;
-      padding: 0px;
-      display: inline-block;
-      border: 1px solid $color-accent2-fg;
-    }
-    
-    nav:hover ul li{
-      background-color: $color-bg;
-    }
-    nav:hover ul li{
-      display: block;
-      padding: 5px 10px;
-      border-left: 4px solid $color-accent-border2;
-      border-right: 4px solid $color-accent-border2;
-    }
-    nav ul li:first-of-type{
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 4px solid $color-accent-border2;
-    }
-    nav ul li:last-of-type{
-      padding-bottom: 10px;
-      border-bottom: 4px solid $color-accent-border2;
-    }
-    nav ul,
-    nav ul li{
-      list-style-type: none;
-    }
-    nav ul li{
-      display: none;
-    }
 
 	}
