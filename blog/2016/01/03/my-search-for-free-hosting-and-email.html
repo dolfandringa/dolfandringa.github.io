@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+      <title>My search for free website and email hosting</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  		<meta name="description" content="" />
+  		<meta name="keywords" content="" />
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+
+      <header id="header">
+          <a href="#" class="image avatar"><img src="/images/avatar.jpg" alt="" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, <a href="http://www.nurdspace.nl">n(e/u)rd</a>, and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Blog Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">My search for free website and email hosting</h2>
+                <p class="post-meta">
+                  Jan 3, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/hosting">hosting</a>  <a href="/tag/email">email</a>  <a href="/tag/website">website</a>  <a href="/tag/blog">blog</a>  <a href="/tag/jekyll">jekyll</a>  <a href="/tag/zoho">zoho</a>  <a href="/tag/github">github</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>Over the years I have (happily) setup and used many different ways of hosting personal and company email and websites from <a href="https://www.zimbra.com/">Zimbra</a>, commercially hosted virtual servers, in-house servers, cheap webhosting companies, servers at home and blogs and websites in <a href="http://www.blogger.com">blogger</a>, <a href="http://www.drupal.com">Drupal</a>, <a href="http://www.wordpress.com">Wordpress</a>, etc. All of them have their merits and drawbacks. But since I moved to the Philippines and started working for <a href="http://www.marineconservationphilippines.org">Marine Conservation Philippines</a> I was looking for something cheap (free?) and low-maintenance to host the email from my old domain name, and host a weblog for personal ramblings. This is what I ended up with.</p>
+
+<h2 id="email-hosting">Email hosting</h2>
+
+<p>Email hosting for your own domain name is hard to find for free. And if you do manage to find it, chances are you’re ending up on so many advertisement lists that it’s worth paying some money to stay off them. There are various cheap options that are worth considering, of which <a href="http://apps.google.com">Google Apps</a> is a very obious option. But I still preferred something free if I could find it. And along came <a href="https://www.zoho.com/">Zoho</a>. They are a competitor of the suite of Google Apps, and seem to offer much more than the basic mail/calendar/documents applications. Their primary focus is on businesses, and it shows with CRM, HRM, financial, support, and sales applications in their suite. But as a teaser to get you in, they offer free email hosting for businesses. The free version includes up to 10 users, 5GB storate per user and one hosted domain name (costs of registration of the actual domainname not included). Their hosting comes with webmail and offline apps, but they also offer POP3/IMAP access to their mail servers. All you need to do is setup an account and <a href="https://www.zoho.com/mail/help/adminconsole/configure-email-delivery.html">Setup DNS records for mail delivery to their servers</a> and you’re set. I choose to not use their webmail app, but instead <a href="https://support.google.com/mail/answer/21289?hl=en">pull the mail into my personal gmail address</a> from the Zoho mail servers through POP3. That way I only need to check one email address, and with the automatic labelling of gmail I can still separate business from personal email. This setup seems to work quite nicely for me, and best of all, it’s free!</p>
+
+<h2 id="webhosting">Webhosting</h2>
+
+<p>The second thing I was looking for was a free webhosting solution. I wanted it both as a blog and as a website to show my resumé. You’re looking at the result. For a while I was considering just using my github and linkedin accounts and leave it at that. Aside from that my wife and me also have a travel blog on <a href="http://anneliesendolf.blogspot.com">blogspot</a>, I am a big fan of <a href="http://www.drupal.org">Drupal</a> which will run with any cheap webhoster, and there is of course <a href="http://www.wordpress.com">wordpress.com</a>. So plenty of options. I wanted something that allowed me enough flexibility, but kept hings nice and simple for me to get started. And of course free was a big advantage. In the end I decided to discard blogger and wordpress as they are mainly focussed on blogging and don’t allow the amount of control that I prefer. And if I decide to move away, I’m not sure how easy it is to migrate my posts away from there. Lastly, not being able to write while I am offline is also a drawback, especially in tropical countries with spotty internet connections.</p>
+
+<p>A self-built website in <a href="http://www.drupal.org">Drupal</a> had my preference for a long time as I can use it for blogging, but comes with the enormous power that Drupal offers. But as that required setting up a hosting contract somewhere, and managing a drupal installation and database, just for a personal resumé and blog, I though it wasn’t worth the effort. And then <a href="https://pages.github.com/">github pages</a> popped back up into my mind.</p>
+
+<p>Github has become the standard for hosting the source code of and collaborating on software development projects. Together with <a href="https://travis-ci.org/">travis</a> and <a href="http://www.heroku.com">heroku</a> they even offer the full workflow from development to testing, building and deployment in the cloud. Github pages adds the ability to host the documentation and project and personal webpages on the servers of github as well. Per github account you can host one personal website for free with them.</p>
+
+<p>The drawback of github pages is that they offer very little on the backend side of things. No php or other server side langauage support, and no databases. Just file storage for static websites. And this is where <a href="https://jekyllrb.com/">Jekyll</a> comes in. Jekyll is a client-side application that allows you to write weblog posts en website pages in simple <a href="https://help.github.com/articles/github-flavored-markdown/">markdown syntax</a>, and render it with templates/themes into static html websites that can be hosted anywhere. And there is one more perk, it integrates with github pages, so you can just push your jekyll code to github and they’ll turn it into a running website for you on their servers. It allows you to create your own templates, or extend upon the free templates of <a href="http://jekyllthemes.org/">jekyllthemes</a>. Modifying an existing template is just a matter of writing/modifying a few html files. If you’re familiar with CSS/HTML there’s not much to it. No complicated templating systems as seen so often in CMS’es. It only uses the simple <a href="https://github.com/Shopify/liquid/wiki">liquid templating</a> engine to glue everything together. To set it up, just follow the steps as <a href="https://help.github.com/articles/using-jekyll-with-pages/">described by github</a>.</p>
+
+        </section>
+        
+        <footer>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+        </footer>
+
+	</body>
+</html>

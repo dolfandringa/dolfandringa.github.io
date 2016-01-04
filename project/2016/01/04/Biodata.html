@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+      <title>Biodata: a flexible research data entry application</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  		<meta name="description" content="" />
+  		<meta name="keywords" content="" />
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+
+      <header id="header">
+          <a href="#" class="image avatar"><img src="/images/avatar.jpg" alt="" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, <a href="http://www.nurdspace.nl">n(e/u)rd</a>, and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Blog Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">Biodata: a flexible research data entry application</h2>
+                <p class="post-meta">
+                  Jan 4, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/python">python</a>  <a href="/tag/flask">flask</a>  <a href="/tag/webapplication">webapplication</a>  <a href="/tag/database">database</a>  <a href="/tag/research">research</a>  <a href="/tag/postgresql">postgresql</a>  <a href="/tag/data-entry">data-entry</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>Over the years I have wondered why researchers still rely on spreadsheet applications to record their research data. Although most people know how to use them, spreadsheets have very serious drawbacks, especially if multiple people contribute data to the same dataset/project. With spreadsheets it is usually not possible to have multiple people enter data concurrently. It is also hard to check the sanity of entered data unless you start working with complex formulas and macros, which quickly become very complex, error prone and hard to maintain. And lastly, transforming data in a spreadsheet where you combine data from different tabs/tables, transpose data, filter/sort data, group/split data, etc becomes hard and error prone. For these (and more) reasons, (relational) databases with a decent data entry application in front of it are much better suited for research data.</p>
+
+<p>Although a lot of applications exist for specific research projects or fields, there is very little available for generic research data entry applications which allow a researcher to define their own datasets and let multiple people enter the data using a simple interface that validates the user input. So when I started working at <a href="http://www.marineconservationphilippines.org">Marine Conservation Philippines</a> as science officer, I decided to build Biodata to solve this problem.</p>
+
+<h2 id="functional">Functional</h2>
+<p>Biodata is a webapplication, centered around the concept of a dataset. Each dataset is a set of objects and variables, that together make up the dataset for a specific (research) project. Multiple datasets can be created by a researcher for different projects. In the webapplication users who enter data, just get a choice of different datasets that they want to enter (and view/edit) data for. The forms/overviews for these different datasets are automatically generated based on the dataset definition.</p>
+
+<p>Datasets have four basic objects, namely Sample, Site, Observer and Observation. These link together in the basic dataset, where each sample has a site (location), one or multiple participants (observers) and one or multiple Observations (basically rows in a spreadsheet). Each observation in turn has an observer that recorded that specific observation.</p>
+
+<p>On each of these extra objects fields can be added, like numeric fields, text fields, date fields, etc. Extra objects can also be added, like a Species object that is linked to an Observation, so a user can choose a species as part of the fields for the observation. Extra objects can be called anything the researcher wishes. They are just a bundle of fields with a name that makes sense in the scope of the research project. All the researcher has to do is define these objects and their respective fields and relationships, and everything from database management, form creation, etc is handled by the application.</p>
+
+<h2 id="technical-gibberish">Technical gibberish</h2>
+<p>Biodata is written in <a href="http://www.python.org">Python</a> and uses the <a href="http://flask.pocoo.org">Flask</a> webapplication framework. It uses <a href="http://www.sqlalchemy.org">SQLAlchemy</a> to define datasets and act as a wrapper around the actual database. As such it should work with many different databases, but at Marine Conservation Philippines, we run it with a <a href="http://www.postgresql.org">PostgreSQL</a> backend. It contains a command-line tool for database migrations, created using <a href="https://flask-migrate.readthedocs.org/">Flask-migrate</a>, which in turn uses <a href="https://alembic.readthedocs.org/">Alembic</a>.</p>
+
+<p>It is written using a test driven development approach, and the <a href="http://github.com/dolfandringa/biodata">code is hosted on GitHub</a>.</p>
+
+<p>Because of the test-driven approach, and because Flask is a framework that puts very few restrictions on the development of the application with very little “magic” going on behind the scenes, this combination of technologies allows for very quick development of the application. In practice it has often proved to be quicker to just develop a new feature than write it down in a project management application and get back to it later.</p>
+
+        </section>
+        
+        <footer>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+        </footer>
+
+	</body>
+</html>
