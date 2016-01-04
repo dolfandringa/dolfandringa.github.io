@@ -4,7 +4,12 @@ layout: default
     <article>
         <header class="major">
             <h2 class="post-title">{{ page.title }}</h2>
-                <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+                <p class="post-meta">
+                  {{ page.date | date: "%b %-d, %Y" }}
+                  {% if page.author %} • {{ page.author }}{% endif %}
+                  {% if page.meta %} • {{ page.meta }}{% endif %}
+                  {% if page.tags %} • In: {% for tag in page.tags %} <a href="/tag/{{ tag }}">{{ tag }}</a> {% endfor %}{% endif %}
+                </p>
         </header>
 
         <section>

@@ -980,12 +980,20 @@ $size-header-pad:		4em;
 			margin: $size-header-pad 0 0 0;
 			padding: $size-header-pad 0 0 0;
 			
-			&:first-child {
+			&:first-of-type {
 				border-top: 0;
 				margin-top: 0;
 				padding-top: 0;
 			}
 		}
+    > section#tags {
+      float: right;
+    }
+    > section#posts {
+				border-top: 0;
+				margin-top: 0;
+				padding-top: 0;
+    }
 	}
 	
 /* Poptrox */

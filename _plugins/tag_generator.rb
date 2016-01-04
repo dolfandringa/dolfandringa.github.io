@@ -64,7 +64,7 @@ module Jekyll
     safe true
 
     def generate(site)
-      if site.layouts.has_key? 'tag_index'
+      if site.layouts.has_key? 'archive_page'
         dir = site.config['tag_index_dir'] || 'tags'
         write_tag_index(site, dir)
       end
