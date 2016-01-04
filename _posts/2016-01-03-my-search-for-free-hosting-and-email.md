@@ -1,6 +1,15 @@
 ---
 layout: post
 title: My search for free website and email hosting
+category: tech
+tags:
+    - hosting
+    - email
+    - website
+    - blog
+    - jekyll
+    - zoho
+    - github
 ---
 Over the years I have (happily) setup and used many different ways of hosting personal and company email and websites from [Zimbra](https://www.zimbra.com/), commercially hosted virtual servers, in-house servers, cheap webhosting companies, servers at home and blogs and websites in [blogger](http://www.blogger.com), [Drupal](http://www.drupal.com), [Wordpress](http://www.wordpress.com), etc. All of them have their merits and drawbacks. But since I moved to the Philippines and started working for [Marine Conservation Philippines](http://www.marineconservationphilippines.org) I was looking for something cheap (free?) and low-maintenance to host the email from my old domain name, and host a weblog for personal ramblings. This is what I ended up with.
 
