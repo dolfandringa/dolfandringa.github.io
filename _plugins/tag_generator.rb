@@ -55,7 +55,7 @@ module Jekyll
   # Represents a page with all the tags
   class TagIndexPage < BaseTagPage
     def layout_page
-      'tag_index.html'
+      'archive_page.html'
     end
   end
 
