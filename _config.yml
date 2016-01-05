@@ -3,7 +3,7 @@
 title: BioNerd # Title of your site
 email: dolfandringa@gmail.com # Your contant email
 destination: ../master/
-keep_files: ['CNAME','.nojekyll']
+keep_files: ['CNAME','.nojekyll','.git']
 
 description: > # this means to ignore newlines until "baseurl:"
   This site is my personal showcase and outlet about what keeps me off the streets.

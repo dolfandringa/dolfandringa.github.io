@@ -5,7 +5,8 @@ title: Ramblings of a BioNerd
 
 
     <section class="first">
-        {% for post in site.posts limit:1 %}
+        {% assign posts = site.categories.blog | sort:last_modified_at | reverse %}
+        {% for post in posts limit:1 %}
             <header class="major">
                 <h2>{{ post.title }}</h2>
                 <p class="post-meta">
@@ -31,7 +32,7 @@ title: Ramblings of a BioNerd
     </section>
     <section>
         <div class="row">
-            {% for post in site.posts offset:1 %}
+            {% for post in posts offset:1 %}
 
                 <article class="{% cycle '6u', '6u$' %} 12u(small)">
                     <header>
