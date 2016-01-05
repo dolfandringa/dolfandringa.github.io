@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   	<head>
-      <title>{{ page.title }}</title>
+      <title></title>
   		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
   		<meta name="description" content="" />
   		<meta name="keywords" content="" />
@@ -31,74 +31,64 @@
               <li><a href="/">Home</a></li>
               <li><a href="/projects.html">Projects</a></li>
               <li><a href="/aboutme.html">About Me</a></li>
-              <li><a href="/archive/">Blog Archive</a></li>
+              <li><a href="/archive/">Archive</a></li>
           </ul>
         </nav>
       <div id="main">
 
 
-        {{ content }}
+        <ul>
+  <li>
+    <time datetime='2016-01-03'>03/01/2016</time>
+    <a href='/blog/2016/01/03/my-search-for-free-hosting-and-email.html'>My search for free website and email hosting</a>
+  </li>
+</ul>
+
+<p><a href="/archive/">view all posts</a></p>
+
       </div>
 
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
 
-              {% if site.github_username %}
+              
               <li>
-                <a href="https://github.com/{{ site.github_username }}" class="icon fa-github">
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
                   <span class="label">GitHub</span>
                 </a>
               </li>
-              {% endif %}
+              
 
-              {% if site.twitter_username %}
-              <li>
-                <a href="https://twitter.com/{{ site.twitter_username }}" class="icon fa-twitter">
-                  <span class="label">Twitter</span>
-                </a>
-              </li>
-              {% endif %}
+              
 
-              {% if site.linkedin_username %}
+              
               <li>
-                <a href="https://linkedin.com/in/{{ site.linkedin_username }}" class="icon fa-linkedin">
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
                   <span class="label">LinkedIn</span>
                 </a>
               </li>
-              {% endif %}
+              
 
-              {% if site.google_plus_username %}
+              
               <li>
-                <a href="https://plus.google.com/{{ site.google_plus_username }}" class="icon fa-google-plus">
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
                   <span class="label">Google+</span>
                 </a>
               </li>
-              {% endif %}
+              
 
-              {% if site.facebook_username %}
-              <li>
-                <a href="https://www.facebook.com/{{ site.facebook_username }}" class="icon fa-facebook">
-                  <span class="label">Facebook</span>
-                </a>
-              </li>
-              {% endif %}
+              
 
-              {% if site.dribbble_username %}
-              <li>
-                <a href="#" class="icon fa-dribbble">
-                  <span class="label">Dribbble</span>
-                </a>
-              </li>
-              {% endif %}
+              
 
-              {% if site.email %}
+              
               <li>
-                <a href="mailto:{{ site.email }}" class="icon fa-envelope-o">
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
                   <span class="label">Email</span>
                 </a>
               </li>
-              {% endif %}
+              
             </ul>
             <ul class="copyright">
                 <li>&copy; Dolf Andringa 2005</li>
