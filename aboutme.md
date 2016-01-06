@@ -8,7 +8,71 @@ For anyone interested below you can find my resumé. Although I can't imagine an
 
 ## Resumé ##
 
-asd
+### Employment history ###
+<table class="resume">
+<tr><td>2013 - 2014</td><td><p><strong>Lecciones Amazonicas project coordinator at Amazon Fund, Bolivia</strong></p>
+<p>Coordination of an environmental education project in two consecutive secondary school years, in the Bolivian Amazon. Responsibilities included design of educational material for a field practical and ecology course for secondary schools, and the coordination of the project with schools, teachers, directors, the municipality and local indigenous guides, to take school children out to the rainforest and teach them why and how to conserve their rainforest. Part of the project consisted of the development of a web-portal of educational material for the local schools. This project was funded by Amazon Fund, a Dutch NGO which aims to facilitate local projects aimed at protecting the Bolivian Amazon.</p></td></tr>
+<tr><td>2010 - 2013</td><td><p><strong>Chief Technical Officer at Proigia (http://www.proigia.nl)</strong></p>
+<p>Previous years of work as independent contractor resulted in the foundation of Proigia, which grew from a 2 man company into a company of 4-5 FTE (7 employees). Proigia develops a webbased platform which provides primary healthcare providers with management information based on their own medical information. This platform, together with consultancy helps them provide better care, both medically and financially.
+A second product is a webbased GIS visualisation platform for various organisations and companies in primary healthcare. This is often coupled with GIS consultancy. Key values are privacy, bottom up, empowerment of the practice.</p>
+<p>My tasks included (technical) strategy development, software development, coordination of projects and employees, cooperation with many larger and smaller (inter)national companies and organisations, IT infrastructure management and structuring the day to day work into well organized processes.</p></td></tr>
+<tr><td>2004 - 2013</td><td><p><strong>Independent contractor in Elcyon.</strong></p>
+<p>Starting out as a system administrator for various companies, work evolved into website and webapplication development, and then on to software developper. The software development became the majority of work and culminated in the founding of Proigia. The last three years all work went into Proigia, with Elcyon taking a background position.</p>
+<p>Sample projects: Development of various websites, webapplication development at the laboratory of Nematology of Wageningen UR, web GIS development for a primary healthcare organisation, training of healthcare employees in the use of Microsoft Access, writing training material for the use of Google Earth for a consultancy firm, tutoring a course at Wageningen university.</p></td></tr>
+<tr><td>2001 - 2004</td><td><p><strong>Various jobs at Wageningen University</strong>, including a system administrator at the head office, tutoring a course, development of a website for the Biology study, and development of information material for the health and safety department.</p></td></tr>
+</table>
+
+### Other work experience ###
+<table>
+<tr><td>2013 - 2014</td><td><p><strong>Volunteer at Marince Conservation Cambodia.</strong>As a volunteer I executed marine research, including seahorse belt transects and reef check surveys on the island of Koh Rong Samloem, Cambodia. Additionally, I did a Dive Control Specialist internship, and I helped out with the coordination of the project, and scuba equipment maintenance. Additionally I trained volunteers to enable them to take part in the research.</p></td></tr>
+</table>
+
+### Education ###
+<table>
+<tr>
+    <td>2014</td>
+    <td>
+        <p><strong>SSI Dive Control Specialist</strong> at Island Divers, Cambodia. A Dive Control Specialist is an assistant dive instructor for Scuba Schools International which qualifies me to lead groups of qualified divers, and teach part of the open water course for new divers.</p>
+    </td>
+</tr>
+<tr>
+    <td>1999 - 2008</td>
+    <td>
+        <p><strong>MSc in Biology</strong> at Wageningen University, specialisation Tropical ecology</p>
+        <p><strong>Major MSc thesis</strong>: Mangroves: feeding ground or shelter? The thesis involved field experiments in Sofala Bay, Mozambique to prove whether mangrove forests are important for marine life as a shelter for predators or as a feeding ground due to either higher marine or terrestrial food availability. This research was done completely independent of local organisations and only the help of my wife, and several fisherman that I employed.</p>
+        <p><strong>Internship</strong>: Research on and the conservation of the endemic Utila Spinytailed Iguana (Ctenosaura bakeri) at the “Iguana Reasearch and Breeding Center” on the mangrove island of Utila, Honduras, Central America.</p>
+        <p><strong>Minor MSc thesis</strong>: Using open standards in 3D visualisation of geo-data: Using GML, X3D and XML in GIS. This thesis concerned the development of a proof of concept for a 3D environment which could be used on the internet to visualise geo-information.</p>
+        <p>Various committees and board membership of study association “BVW Biologica”<br />Twice the organisation of mini cultural festival “Droeffeest” for several hundred to 1000 visitors.</p>
+    </td>
+</tr>
+<tr>
+    <td>1993 - 1999</td><td>Secondary school “Stedelijk Gymnasium Apeldoorn”</td>
+</tr>
+</table>
+
+### Other skills and qualifications ###
+
+| Computers general: | MS Office, Open Office, Linux, Windows, Apple |
+| Research: | R, SPSS, Stella, Canoco |
+| GIS | PostGIS, GRASS, QGIS, ArcGIS, GDAL, OpenLayers, GeoExt, Geoserver, Geonetwork Open Source |
+| Programming and related languages | Python, PHP, Java, C, Bash, JQuery, EXTJS, HTML |
+| Databases | Postgresql, Mysql, SQLite, Redis |
+| Fieldwork | Various direct and indirect population size estimation methods (mark-recapture, transect counts, dung count), fieldwork setup, execution and supervision, reef check surveys. |
+| Other | Soldering, Drivers licence, SSI Dive Control Specialist (Assistant Instructor) (500+ dives) |
+
+### Languages ###
+ - Dutch: Mother tongue
+ - English: Fluent
+ - Spanish: Profrssional working knowledge
+ - French: Good working knowledge
+ - German: Good conversation abilities
+ - Portuguese: Basic conversation
+
+### Hobbies ###
+ - (Micro) Electronics and hacking, former member of the Nurdspace.nl hackerspace.
+ - Scuba diving, Cycle racing
+ - Traveling, including many tropical countries in Asia, Latin America and Africa, some of which for longer periods doing research or (volunteer) work.
+ - Hill walking, birding and hiking
 
 ## Bio ##
 
