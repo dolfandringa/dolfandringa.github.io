@@ -14,22 +14,17 @@ For anyone interested below you can find my resumé. Although I can't imagine an
 <tr><td>2013 - 2014</td><td><p><strong>Lecciones Amazonicas project coordinator at Amazon Fund, Bolivia</strong></p>
 <p>Coordination of an environmental education project in two consecutive secondary school years, in the Bolivian Amazon. Responsibilities included design of educational material for a field practical and ecology course for secondary schools, and the coordination of the project with schools, teachers, directors, the municipality and local indigenous guides, to take school children out to the rainforest and teach them why and how to conserve their rainforest. Part of the project consisted of the development of a web-portal of educational material for the local schools. This project was funded by Amazon Fund, a Dutch NGO which aims to facilitate local projects aimed at protecting the Bolivian Amazon.</p></td></tr>
 <tr><td>2010 - 2013</td><td><p><strong>Chief Technical Officer at Proigia (http://www.proigia.nl)</strong></p>
-<p>Previous years of work as independent contractor resulted in the foundation of Proigia, which grew from a 2 man company into a company of 4-5 FTE (7 employees). Proigia develops a webbased platform which provides primary healthcare providers with management information based on their own medical information. This platform, together with consultancy helps them provide better care, both medically and financially.
-A second product is a webbased GIS visualisation platform for various organisations and companies in primary healthcare. This is often coupled with GIS consultancy. Key values are privacy, bottom up, empowerment of the practice.</p>
-<p>My tasks included (technical) strategy development, software development, coordination of projects and employees, cooperation with many larger and smaller (inter)national companies and organisations, IT infrastructure management and structuring the day to day work into well organized processes.</p></td></tr>
+<p>Previous years of work as independent contractor resulted in founding Proigia together with a partner. It grew into a 4-5 FTE (7 employees) company. Proigia develops a webbased business intelegence platform and services for primary healthcare providers based on their own medical information.
+Reporting is done in a webbased application written in python and PostGIS and a web GIS application based on Openlayers, GeoExt, Geoserver and PostGIS. Key values are privacy, bottom up, empowerment of the practice.</p>
+<p>My tasks included (technical) strategy development, software development and architecture, management of projects and employees often in cooperation with other (inter)national organisations and companies, translating clients questions into technical requirements, and IT infrastructure management.</p></td></tr>
 <tr><td>2004 - 2013</td><td><p><strong>Independent contractor in Elcyon.</strong></p>
 <p>Starting out as a system administrator for various companies, work evolved into website and webapplication development, and then on to software developper. The software development became the majority of work and culminated in the founding of Proigia. The last three years all work went into Proigia, with Elcyon taking a background position.</p>
 <p>Sample projects: Development of various websites, webapplication development at the laboratory of Nematology of Wageningen UR, web GIS development for a primary healthcare organisation, training of healthcare employees in the use of Microsoft Access, writing training material for the use of Google Earth for a consultancy firm, tutoring a course at Wageningen university.</p></td></tr>
 <tr><td>2001 - 2004</td><td><p><strong>Various jobs at Wageningen University</strong>, including a system administrator at the head office, tutoring a course, development of a website for the Biology study, and development of information material for the health and safety department.</p></td></tr>
 </table>
 
-### Other work experience ###
-<table>
-<tr><td>2013 - 2014</td><td><p><strong>Volunteer at Marince Conservation Cambodia.</strong>As a volunteer I executed marine research, including seahorse belt transects and reef check surveys on the island of Koh Rong Samloem, Cambodia. Additionally, I did a Dive Control Specialist internship, and I helped out with the coordination of the project, and scuba equipment maintenance. Additionally I trained volunteers to enable them to take part in the research.</p></td></tr>
-</table>
-
 ### Education ###
-<table>
+<table class="resume">
 <tr>
     <td>2014</td>
     <td>
@@ -53,21 +48,26 @@ A second product is a webbased GIS visualisation platform for various organisati
 
 ### Other skills and qualifications ###
 
-| Computers general: | MS Office, Open Office, Linux, Windows, Apple |
-| Research: | R, SPSS, Stella, Canoco |
-| GIS | PostGIS, GRASS, QGIS, ArcGIS, GDAL, OpenLayers, GeoExt, Geoserver, Geonetwork Open Source |
-| Programming and related languages | Python, PHP, Java, C, Bash, JQuery, EXTJS, HTML |
-| Databases | Postgresql, Mysql, SQLite, Redis |
-| Fieldwork | Various direct and indirect population size estimation methods (mark-recapture, transect counts, dung count), fieldwork setup, execution and supervision, reef check surveys. |
-| Other | Soldering, Drivers licence, SSI Dive Control Specialist (Assistant Instructor) (500+ dives) |
+Only a selection is listed, starting with the skills/techniques I am most comfortable with.
+<table class="resume skills">
+<tr><td>Computers general:</td><td>Linux, Windows, Open Office, Microsoft Office, Apple</td></tr>
+<tr><td>Data analysis and scientific writing</td><td>R, SPSS, Scipy, Bibtex, Latex, Stella, Canoco</td></tr>
+<tr><td>GIS:</td><td>PostGIS, QGIS, Grass GIS, OpenLayers, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS</td></tr>
+<tr><td>Programming and related languages:</td><td>Python, PHP, Java, C, Bash, HTML</td></tr>
+<tr><td>Web development tools/libraries:</td><td>Flask, SQLAlchemy, WebPy, Drupal, Wordpress, Pylons, JQuery, ExtJS</td></tr>
+<tr><td>Databases:</td><td>Postgresql, PostGIS, Mysql, SQLite, Redis</td></tr>
+<tr><td>Ecological fieldwork:</td><td>Mark-recapture, belt transects, roving diver, dung count, fieldwork setup, execution and supervision, reef check surveys.</td></tr>
+<tr><td>Other:</td><td>Soldering, Drivers licence, SSI Dive Control Specialist (Assistant Instructor) (500+ dives)</td></tr>
+</table>
 
 ### Languages ###
- - Dutch: Mother tongue
- - English: Fluent
- - Spanish: Profrssional working knowledge
- - French: Good working knowledge
- - German: Good conversation abilities
- - Portuguese: Basic conversation
+
+- Dutch: Mother tongue
+- English: Fluent
+- Spanish: Professional working knowledge
+- French: Good working knowledge
+- German: Good conversation abilities
+- Portuguese: Basic conversation
 
 ### Hobbies ###
  - (Micro) Electronics and hacking, former member of the Nurdspace.nl hackerspace.
@@ -81,7 +81,7 @@ I hold an MSc in biology from [Wageningen University](http://www.wur.nl), The Ne
 
 But well before uni I already started messing with computers, with one of my earlier accomplishments being screwing up my fathers 386XT computer by installing Windows 95 (it was running windows 3.11) and thus screwing up the harddrive drivers. Although a friend of mine fixed it, my father never trusted me with computers again.
 
-During uni I started to teach myself webdesign, system administration, Linux and later on programming. It resulted in different jobs as system administrator, and in me working as an independent contractor setting up and managing servers and networks for a few companies and later also doing programming and database work. It culminated in starting a company together with a friend that offerd a business intellegence SAAS platform for GP's and other healthcare practitioners. I was the techincal brains of the company. The majority of the work concerned extracting datasets from other applications and translating big unwieldy datasets, into real-life questions and answers for healthcar practitioners. On the presentation side we had a reporting webapplication and a GIS webapplication showing geographical representations of data. As a hobby I got interested in electronics and hacking, and became a member of the hackerspace [NURDspace](http://www.nurdspace.nl). After a few years my company grew to about 7 employees, by which time it was time for me to change my life and I left.
+During uni I started to teach myself webdesign, system administration, Linux and later on programming. It resulted in different jobs as system administrator, and in me working as an independent contractor setting up and managing servers and networks for a few companies and later also doing programming and database work. It culminated in starting a company together with a friend that offerd a business intellegence SAAS platform and consultancy for GP's and other healthcare practitioners. I was the techincal brains of the company. The majority of the work concerned extracting datasets from other applications and translating big unwieldy datasets, into real-life questions and answers for healthcare providers. On the presentation side we had a reporting webapplication and a GIS webapplication showing geographical representations of data. As a hobby I got interested in electronics and hacking, and became a member of the hackerspace [NURDspace](http://www.nurdspace.nl). After a few years my company grew to about 7 employees, by which time it was time for me to change my life and I left.
 
 During my university years I did a fair share of travelling in the tropics and me and my wife were itching to get back into nature conservation again. So we packed our bags and left the Netherlands to go travel, volunteer and live abroad. We ran an environmental education project in Bolivia for half a year and volunteered for a marine conservation project in Cambodia. Being divers and ecologists, we wanted to work in marine conservation and found a job as science officer with [Marine Conservation Philippines](http://www.marinecosnervationphilippines.org) where we are working still. Aside from being (together with my wife) in charge of the conservation and scientific side of the organisation, I also manage IT, develop and maintain our data entry application, do the data analysis in R and do GIS work for coastal management planning.
 
