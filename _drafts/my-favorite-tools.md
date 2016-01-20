@@ -1,0 +1,34 @@
+---
+layout: post
+title: "My favorite web development tools."
+category: blog
+tags: 
+    - python
+    - flask
+    - web-application
+    - database
+    - drupal
+    - sqlalchemy
+    - php
+---
+For this post I want to share some of my favorite web-application development tools. When I started thinking about this though, I realized there were so many, and which I use depends so much on what it is that I am trying to do, that I decided to take a maybe somewhat strange approach to this. I am going to approach it as a comparison on two sets of tools: python web development tools vs php CMS-es.
+
+Over the years I have used plenty of tools, mainly in python, php and java to create web and desktop applications. All tools, frameworks and languages have their uses and pros and cons. None of them solve all problems. So you need to choose the tools that fit the problem, and you are good at using as well. Many other considerations come into play as well, like the size of the development team, history of the organization, other tools, etc. For this article I am assuming readers are in my own situation: that is small teams of developers or sometimes even single developers creating applications for people and organizations that need software that "just works", users that don't really know their requirements too well (so need flexibility) and don't have too complicated and standardized work-flows that result in very complicated requirements. So I am not talking about the (multi) million dollar enterprise level development projects.
+
+For me recently the choice when getting a problem that needed to be solved was: do I develop something myself from scratch, using my favorite python web-application frameworks and tools or do I implement something in an existing CMS, which is normally Drupal. So those are the tools this article will be about and when to use either of them. I don't think these tools are often discussed together.
+
+## Drupal ##
+I have been using [Drupal](http://www.drupal.org) (and other PHP CMS-es like [Wordpress](http://www.wordpress.com), [Joomla](http://www.joomla.org), [Typo3](http://www.typo3.org) and others that I can't remember the names of anymore) for many years. I was even stupid enough at one point to write my own CMS in PHP. In the end Drupal floated to the surface as my favorite (although Wordpress has it's uses too, that are just different from Drupal's). As a developer I don't like PHP at all. When I started with PHP it made it easier for you to make a mess of things than to write good code. Later with the newer incarnations the lack of structure has become less of a problem with a decent implementation of Object Oriented Programming, but as such it is moving more and more in the direction that Java is already occupying. Still, PHP and MySQL run on almost every webserver in the world, and as such are used by millions of people. So naturally, there are some awesome developers out there that made really cool tools, also in PHP. Drupal is one of them. 
+As a CMS it is often badly understood though. Many webdesigners are frustrated with Drupal, and talk about the steep learning curve, resulting in hilarious images like these: ![Drupal Learning Curve]({{ site.url }}/images/drupal-learning-curve.jpg). 
+
+If you are a graphical designer or webdesigner that just wants to create a website for a company, find and change an existing theme, including all it's added functionality, do the SEO and get it over with, you might be better off looking at Wordpress. Although, maybe Drupal 8 might have changed that quite a bit. Drupal on the other hand is great for situations where you want to create different content types with custom fields and forms, and represent those in different ways on different locations on your website without writing a single line of code or duplicating content. Drupal accomplishes this with it's fields, entities, views, blocks, etc. It is incredibly flexible and allows you to create content heavy sites with strict separation of form (design) and function. If you know Drupal, it is great for any website. If you don't know it yet, but need to create content heavy sites with content that is more than just a blog post or page, it pays to go through the learning curve. With it's enormous list of modules, you can create so many different types of websites it often is the only hammer you need. Personally I have used it to create intranet sites, simple project management tools, an internal evernote alternative, a scientific literature library, wiki, webshop and of course simple websites. To me Drupal is great for those situations when the functionality you need is already created by someone else. In that case you benefit from the huge set of pre-existing modules, allowing you to improve your site in ways you hadn't even though of. You don't need to develop a whole user interface, social media integration, CRUD interface, etc. Most of the drupal "sites" I have created have been done without ever writing a single line of (PHP) code. 
+
+If on the other hand, the web-application or site you need to develop mostly contains custom logic that isn't directly covered by a Drupal module, and very little functionality is needed that is a standard part of most CMS-es, and/or your application/site is a purely internal one that is used by few people, you might be better off developing something from scratch. The reason is that any flexible CMS, development framework or other software tool that is meant to be used in many different situations and tries to take as much work from you as possible, tends to require a lot of boilerplate code to get started. Writing even a simple Drupal module requires a lot of lines. And then to create the separation between form and function that makes Drupal great, you need to work your way through a lot of API documentation and hooks to find out where your functionality should tie in to Drupals. All in all, it tends to get in your way of quickly writing code for some new functionality. This is not just the case for Drupal. Other CMS-es get in your way even more, so much so that their limited scope might prevent you from doing what you want. This is where for me Python and it's web development frameworks come in.
+
+## Python and Flask ##
+* Flask vs web.py, turbogears/pylons/pyramid, cherrypy, django (not getting in your way, boilerplate, support, development activity, freedom to choose)
+* SQLAlchemy
+* JQuery
+* REST
+* Interface development (form and function separation but a lot of time spent on the interface)
+

@@ -1,0 +1,22 @@
+table.resume{
+  font-size: 0.9em;
+  p{
+    margin: 5px 0px;
+    line-height: 1em;
+  }
+  tr{
+    td{
+      padding: 0.2em 0.75em;
+    }
+    td:first-of-type{
+      width: 110px;
+    }
+  }
+}
+table.skills{
+  tr{
+    td:first-of-type{
+      width: 160px;
+    }
+  }
+}
