@@ -9,12 +9,21 @@ For anyone interested below you can find my resumé. Although I can't imagine an
 ## Resumé ##
 
 ### Employment history ###
+
 <table class="resume">
-<tr><td>2014 - present</td><td><p><strong>Science Officer at Marine Conservation Philippines</strong></p>
-<p>MCP is a self-funded non-profit nature conservation organisation. The organisation is funded by its volunteer program and supports the local government and conservation organisations with technical knowledge and trained manpower in monitoring projects, educational projects and in a supporting role for Coastal Resource Management.</p>
-<p>My role as science officer is very diverse, from tutoring and managing (university) interns and volunteers to research design and execution, project design, data analysis and reporting. As part of my job I am also in charge of the conservation projects supporting local policy makers, people's organisations and NGO's interested in protecting coastal resources by providing maps, reports, data and advise.</p><p>On the techincal side I manage IT infrastructure, developed our own data entry application</td></tr>
-<tr><td>2013 - 2014</td><td><p><strong>Lecciones Amazonicas project coordinator at Amazon Fund, Bolivia</strong></p>
-<p>Coordination of an environmental education project in two consecutive secondary school years, in the Bolivian Amazon. Responsibilities included design of educational material for a field practical and ecology course for secondary schools, and the coordination of the project with schools, teachers, directors, the municipality and local indigenous guides, to take school children out to the rainforest and teach them why and how to conserve their rainforest. Part of the project consisted of the development of a web-portal of educational material for the local schools. This project was funded by Amazon Fund, a Dutch NGO which aims to facilitate local projects aimed at protecting the Bolivian Amazon.</p></td></tr>
+<tr>
+    <td>2014 - present</td>
+    <td><p><strong>Science Officer at Marine Conservation Philippines</strong></p>
+        <p>MCP is a self-funded non-profit nature conservation organisation. The organisation is funded by its volunteer program and supports the local government and conservation organisations with technical knowledge and trained manpower in monitoring projects, educational projects and in a supporting role for Coastal Resource Management.</p>
+        <p>My role as science officer is very diverse, from tutoring and managing (university) interns and volunteers to research design and execution, project design, data analysis and reporting. As part of my job I am also in charge of the conservation projects supporting local policy makers, people's organisations and NGO's interested in protecting coastal resources by providing maps, reports, data and advise.</p><p>On the techincal side I manage IT infrastructure, developed our own data entry application</p>
+    </td>
+</tr>
+<tr>
+    <td>2013 - 2014</td>
+    <td><p><strong>Lecciones Amazonicas project coordinator at Amazon Fund, Bolivia</strong></p>
+<p>Coordination of an environmental education project in two consecutive secondary school years, in the Bolivian Amazon. Responsibilities included design of educational material for a field practical and ecology course for secondary schools, and the coordination of the project with schools, teachers, directors, the municipality and local indigenous guides, to take school children out to the rainforest and teach them why and how to conserve their rainforest. Part of the project consisted of the development of a web-portal of educational material for the local schools. This project was funded by Amazon Fund, a Dutch NGO which aims to facilitate local projects aimed at protecting the Bolivian Amazon.</p>
+    </td>
+</tr>
 <tr><td>2010 - 2013</td><td><p><strong>Chief Technical Officer at Proigia (http://www.proigia.nl)</strong></p>
 <p>Previous years of work as independent contractor resulted in founding Proigia together with a partner. It grew into a 4-5 FTE (7 employees) company. Proigia develops a webbased business intelegence platform and services for primary healthcare providers based on their own medical information.
 Reporting is done in a webbased application written in python and PostGIS and a web GIS application based on Openlayers, GeoExt, Geoserver and PostGIS. Key values are privacy, bottom up, empowerment of the practice.</p>
@@ -26,6 +35,7 @@ Reporting is done in a webbased application written in python and PostGIS and a 
 </table>
 
 ### Education ###
+
 <table class="resume">
 <tr>
     <td>2014</td>
@@ -72,6 +82,7 @@ Only a selection is listed, starting with the skills/techniques I am most comfor
 - Portuguese: Basic conversation
 
 ### Hobbies ###
+
  - (Micro) Electronics and hacking, former member of the Nurdspace.nl hackerspace.
  - Scuba diving, Cycle racing
  - Traveling, including many tropical countries in Asia, Latin America and Africa, some of which for longer periods doing research or (volunteer) work.
