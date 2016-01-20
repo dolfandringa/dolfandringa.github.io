@@ -31,4 +31,3 @@ If on the other hand, the web-application or site you need to develop mostly con
 * JQuery
 * REST
 * Interface development (form and function separation but a lot of time spent on the interface)
-
