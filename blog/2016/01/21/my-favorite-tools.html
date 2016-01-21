@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+      <title>My favorite web development tools.</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  		<meta name="description" content="" />
+  		<meta name="keywords" content="" />
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, <a href="http://www.nurdspace.nl">n(e/u)rd</a>, and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">My favorite web development tools.</h2>
+                <p class="post-meta">
+                  Jan 21, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/python">python</a>  <a href="/tag/flask">flask</a>  <a href="/tag/web-application">web-application</a>  <a href="/tag/database">database</a>  <a href="/tag/drupal">drupal</a>  <a href="/tag/sqlalchemy">sqlalchemy</a>  <a href="/tag/php">php</a>  <a href="/tag/pylons">pylons</a>  <a href="/tag/turbogears">turbogears</a>  <a href="/tag/wordpress">wordpress</a>  <a href="/tag/pyramid">pyramid</a>  <a href="/tag/web.py">web.py</a>  <a href="/tag/django">django</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>For this post I want to share some of my favorite web-application development tools. When I started thinking about this though, I realized there were so many, and which I use depends so much on what it is that I am trying to do, that I decided to take maybe a somewhat strange approach to this. I am going to approach it as a comparison on two sets of tools: python web development tools vs php CMS-es.</p>
+
+<p>Over the years I have used plenty of tools, mainly in python, php and java to create web and desktop applications. All tools, frameworks and languages have their uses and pros and cons. None of them solve all problems. So you need to choose the tools that fit the problem, and you are good at using as well. Many other considerations come into play as well, like the size of the development team, history of the organization, other tools, etc. For this article I am assuming readers are in my own situation: that is small teams of developers or sometimes even single developers creating applications for people and organizations that need software that “just works”, users that don’t really know their requirements too well (so need flexibility) and don’t have too complicated and standardized work-flows that result in very complicated requirements. So I am not talking about the (multi) million dollar enterprise level development projects.</p>
+
+<p>For me recently the choice when getting a problem that needed to be solved was: do I develop something myself from scratch, using my favorite python web-application frameworks and tools or do I implement something in an existing CMS, which is normally <a href="http://www.drupal.org">Drupal</a>. So those are the tools this article will be about and when to use either of them. I don’t think these tools are often discussed together.</p>
+
+<h2 id="drupal">Drupal</h2>
+<p>I have been using <a href="http://www.drupal.org">Drupal</a> (and other PHP CMS-es like <a href="http://www.wordpress.com">Wordpress</a>, <a href="http://www.joomla.org">Joomla</a>, <a href="http://www.typo3.org">Typo3</a> and others that I can’t remember the names of anymore) for many years. I was even stupid enough at one point to write my own CMS in PHP. In the end Drupal floated to the surface as my favorite (although Wordpress has it’s uses too, that are just different from Drupal’s). As a developer I don’t like PHP at all. When I started with PHP it made it easier for you to make a mess of things than to write good code. Later with the newer incarnations the lack of structure has become less of a problem with a decent implementation of Object Oriented Programming, but as such it is moving more and more in the direction that Java is already occupying. Still, PHP and MySQL run on almost every webserver in the world, and as such are used by millions of people. So naturally, there are some awesome developers out there that made really cool tools, also in PHP. Drupal is one of them. 
+As a CMS it is often badly understood though. Many webdesigners are frustrated with Drupal, and talk about the steep learning curve, resulting in hilarious images like these: <img src="http://allican.be/images/drupal-learning-curve.jpg" alt="Drupal Learning Curve" />.</p>
+
+<p>If you are a graphical designer or webdesigner that just wants to create a website for a company, find and change an existing theme, including all it’s added functionality, do the SEO and get it over with, you might be better off looking at Wordpress. Although, maybe Drupal 8 might have changed that quite a bit. Drupal on the other hand is great for situations where you want to create different content types with custom fields and forms, and represent those in different ways on different locations on your website without writing a single line of code or duplicating content. Drupal accomplishes this with it’s fields, entities, views, blocks, etc. It is incredibly flexible and allows you to create content heavy sites with strict separation of form (design) and function. If you know Drupal, it is great for any website. If you don’t know it yet, but need to create content heavy sites with content that is more than just a blog post or page, it pays to go through the learning curve. With it’s enormous list of modules, you can create so many different types of websites it often is the only hammer you need. Personally I have used it to create intranet sites, simple project management tools, an internal evernote alternative, a scientific literature library, wiki, webshop and of course simple websites. To me Drupal is great for those situations when the functionality you need is already created by someone else. In that case you benefit from the huge set of pre-existing modules, allowing you to improve your site in ways you hadn’t even though of. You don’t need to develop a whole user interface, social media integration, CRUD interface, etc. Most of the drupal “sites” I have created have been done without ever writing a single line of (PHP) code.</p>
+
+<p>If on the other hand, the web-application or site you need to develop mostly contains custom logic that isn’t directly covered by a Drupal module, and very little functionality is needed that is a standard part of most CMS-es, and/or your application/site is a purely internal one that is used by few people, you might be better off developing something from scratch. The reason is that any flexible CMS, development framework or other software tool that is meant to be used in many different situations and tries to take as much work from you as possible, tends to require a lot of boilerplate code to get started. Writing even a simple Drupal module requires a lot of lines. And then to create the separation between form and function that makes Drupal great, you need to work your way through a lot of API documentation and hooks to find out where your functionality should tie in to Drupals. All in all, it tends to get in your way of quickly writing code for some new functionality. This is not just the case for Drupal. Other CMS-es get in your way even more, so much so that their limited scope might prevent you from doing what you want. This is where for me Python and it’s web development frameworks come in.</p>
+
+<h2 id="python-and-flask">Python and Flask</h2>
+
+<p>I have actively developed applications in about 5 different <a href="http://www.python.org">Python</a> frameworks over the years and had a good look at quite a few more. Right now <a href="http://flask.pocoo.org">Flask</a> is my favorite. There are multiple reasons for that choice. I will go over the most important considerations briefly, but if you want to know more, googling will turn up quite a lot of good articles on all of them.</p>
+
+<p>For me the reason to choose a python web-development framework is that with very few lines of code you can accomplish a lot. You don’t need to read large amounts of documentation to get started. <a href="http://webpy.org/">Web.py</a> is a great example of this that really allows you to create an application with just one file and a few lines of code.</p>
+
+<p>The downside of this is that it doesn’t offer much in the way of structure for your code, so as a developer you need to know how you want to structure your code and be disciplined about it. Furthermore web.py doesn’t seem to be very actively developed anymore. This made me move away from it recently.</p>
+
+<p>On the other side of the spectrum are <a href="http://turbogears.org/">Turbogears</a>, <a href="http://www.pylonsproject.org/">Pylons</a> and <a href="http://www.pylonsproject.org/">Pyramid</a>. I used Turbogears and pylons a lot in the past for large amounts of customers. They do offer structure to the developer out-of-the-box which means they require quite a lot of boilerplate code to get started and have a lot of “magic” going on behind the scenes. This does mean they take work away from the developer which is great but if you need to deviate from “their” way of doing things, the framework might get in your way. Furthermore the developers seem to keep turning corners which means that Turbogears was merged with Pylons and later abandoned and Pylons is superceded by Pyramid. If your framework includes a lot of boilerplate code and framework specific magic this is quite annoying because you are left with the choice to either spend a lot of time on migrating or continue developing based on an abandonned framework. This problem didn’t exist with my recent move from web.py to Flask which both introduce relatively little “magic”, so most of my code could be moved without many problems.</p>
+
+<p>From the beginning I have chosen not to use <a href="https://www.djangoproject.com/">Django</a> for a very specific reason and that is that Django takes an “our way or the highway” approach. They kind of force you to use everything as developed by Django. This means that you either use their templating system, their object-relational-mapper, etc. If you prefer another one for whatever reason, you can’t really use it. The other frameworks usually give you more freedom of choice. I especially like <a href="http://www.sqlalchemy.org/">SQLAlchemy</a> as an object-relational-mapper and Django uses its own. The second problem with Django’s approach is that if you ever have to move away from Django, you have to rewrite a lot of code. Don’t get me wrong though, I don’t think Django is a bad framework at all. “The Django way” is quite a good way actually and it works well for many people. I just like to be able to keep my options open.</p>
+
+<p>So that left me with Flask as my first choice now (I can’t remember the reason for not choosing <a href="http://bottlepy.org/">Bottle</a>). It has very little magic going on (and is clear on where it does), doesn’t enforce a rigid structure but does suggest a proper way of doing things in the docs, which is easy to follow. When moving an application from web.py to Flask it took very little time as I could still use most of my code unmodified. Development has been a lot quicker since and it makes <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a> easy.</p>
+
+<p>There are disadvantages though of using any of the python web development frameworks though. For me the biggest one is spending a lot of time on the interface side. If you use a CMS like Drupal you just need to do some HTML/CSS theming to make your site/app look the way you want. The actual interface is already there and works great. When you develop things from scratch based on any development framework, you need to develop you interface from scratch as well. For me this means spending quite a lot of time on JQuery. I try to make the applications intuitive, which often means a lot of javascript and Ajax (well, usually using JSON instead of XML). Flask does make RESTful application development easy, which allows me to separate the interface development from the backend as much as possible. Still, it is not my favorite job.</p>
+
+<p>So there you have it. This my two cents on choosing the right tool for the job.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" data-href="http://www.allican.be" data-width="600" data-numposts="10"></div>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+        </footer>
+
+	</body>
+</html>
