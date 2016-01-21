@@ -15,7 +15,7 @@ For anyone interested below you can find my resumé. Although I can't imagine an
     <td>2014 - present</td>
     <td><p><strong>Science Officer at Marine Conservation Philippines</strong></p>
         <p>MCP is a self-funded non-profit nature conservation organisation. The organisation is funded by its volunteer program and supports the local government and conservation organisations with technical knowledge and trained manpower in monitoring projects, educational projects and in a supporting role for Coastal Resource Management.</p>
-        <p>My role as science officer is very diverse, from tutoring and managing (university) interns and volunteers to research design and execution, project design, data analysis and reporting. As part of my job I am also in charge of the conservation projects supporting local policy makers, people's organisations and NGO's interested in protecting coastal resources by providing maps, reports, data and advise.</p><p>On the techincal side I manage IT infrastructure, developed our own data entry application</p>
+        <p>My role as science officer is very diverse, from tutoring and managing (university) interns and volunteers to design and setup of our monitoring program, research design and execution, project design, data analysis and reporting. As part of my job I am also in charge of the conservation projects supporting local policy makers, people's organisations and NGO's interested in protecting coastal resources by providing maps, reports, data and advise.</p><p>On the techincal side I manage IT infrastructure, developed our own data entry application.</p>
     </td>
 </tr>
 <tr>
