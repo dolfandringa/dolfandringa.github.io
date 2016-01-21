@@ -8,3 +8,4 @@ versions = JSON.parse(versions)
 
 gem 'github-pages', versions['github-pages']
 gem 'jekyll-last-modified-at'
+gem 'link-checker'
