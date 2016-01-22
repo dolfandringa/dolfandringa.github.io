@@ -1,0 +1,17 @@
+---
+layout: default
+title: Project ideas
+---
+The following are some project ideas that I have. It is mostly meant as a remineder top myself what has been going on in my mind and a place to store links relevant to them if I ever get around to do something with them.
+
+## Weather Station ##
+
+I would like to create my own weather station. Based on an Atmega328 chip with a wind sensor made out of a low drag CDROM motor, [temperature and humidity](http://www.adafru.it/1899), [light](http://adafru.it/439) and [barometer](http://www.adafru.it/1603) sensors. It could record data on a micro-sd card, and/or send it through a wireless connection to a computer. As I have a byunch of [CYWM6935](http://www.cypress.com/documentation/datasheets/cywm6935-wirelessusb-lr-radio-module) breakout boards lying around, those would be well suited for the wireless connection, but with the multitude of IoT devices it might be worth it to just connect a simple wifi device to the atmega328 for data logging to the base station. For power I would like to have it run on a lipo battery and a small solar panel using [Adafruits Solar LiPo charger](https://www.adafruit.com/products/390) that I have lying around.
+
+## Home security system ##
+
+We are living in quite a remote place. It is a great place to live, but since a big part of our life is outdoors and our house is made from natural materials for the most part, it is quite vulnerable to theives when we're not around. One way is to turb things into a bunker, hire a guard and get the meanest of dogs we could think of, but I don't really like that solution. I'd rater do something smart with electronics to protect us. Especially since any thieve who might be interested in us is probably quite poor and uneducated and just out for a quick buck to spend on gambling or booze, it doesn't have to be too tamper proof. What I am thinking now is a few contact sensors on sensitive cabinets/boxes, maybe a ultrasonic distance sensor to detect people coming in the door and a motion sensor to warn people early to sod off, and a camera somewhere to record a face. I have a [beaglebone black](http://beagleboard.org/BLACK) lying around, which could work very well as the central nervous system for it all. With something like the [Amazon IoT web services](https://aws.amazon.com/iot/how-it-works/) or [RabbitMQ Cloud](https://www.cloudamqp.com/), in combination with a Wifi and/or 3G dongle (failover?) I could connect it to the internet and get notifications on my cellphone or elsewhere. Maybe the camera data could be stored in the cloud as well, prossibly trigered by the motion sensor. A local alarm could warn anyone up to no good.
+
+## Information Overload Filter ##
+
+I have been experimenting with bayesian filters in combination with the [natural language toolkit](http://www.nltk.org/) and [automatic text tagging](http://www.opencalais.com/) to make sense of the information overload I am getting. With these tools I would like to automatically assign tags to texts (from news feeds, facebook, blogs, etc). I can then train a bayesian filter to only show those articles with interesting combinations of tags, and filter out the rest. If it works well, it would greatly reduce the time spent on feedly and other services skipping over articles that I really am not interested in.
