@@ -2,6 +2,7 @@
 
 title: All I can be - A weblog by Dolf Andringa # Title of your site
 email: dolfandringa@gmail.com # Your contant email
+highlighter: rouge
 destination: ../master/
 keep_files: ['CNAME','.nojekyll','.git']
 
