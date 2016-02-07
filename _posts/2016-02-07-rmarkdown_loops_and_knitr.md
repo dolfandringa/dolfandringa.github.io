@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Outputting test results and graphs with R, RMarkdown and Knitr
+title: Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr
 category: blog
 tags: 
     - R
