@@ -71,16 +71,16 @@
 
 <p>Up to there it was quite easy. The first problem I encountered was creating the ISO. Don’t use the genisoimage command in the docs. It won’t work for UEFI systems. The documentation below it on xorriso is better, if you combine it with the eltorito stuff lower down. In the end, this is the xorriso command I used to create the iso:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">iso_label</span><span class="o">=</span><span class="s2">"ARCH_201601"</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">iso_label</span><span class="o">=</span><span class="s2">&quot;ARCH_201601&quot;</span>
 xorriso <span class="se">\</span>
     -as mkisofs <span class="se">\</span>
-    -iso-level 3 <span class="se">\</span>
+    -iso-level <span class="m">3</span> <span class="se">\</span>
     -full-iso9660-filenames <span class="se">\</span>
-    -volid <span class="s2">"</span><span class="k">${</span><span class="nv">iso_label</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
-    -appid <span class="s2">"Arch Linux Live/Rescue CD"</span> <span class="se">\</span>
+    -volid <span class="s2">&quot;${iso_label}&quot;</span> <span class="se">\</span>
+    -appid <span class="s2">&quot;Arch Linux Live/Rescue CD&quot;</span> <span class="se">\</span>
     -eltorito-boot isolinux/isolinux.bin <span class="se">\</span>
     -eltorito-catalog isolinux/boot.cat <span class="se">\</span>
-    -no-emul-boot -boot-load-size 4 -boot-info-table <span class="se">\</span>
+    -no-emul-boot -boot-load-size <span class="m">4</span> -boot-info-table <span class="se">\</span>
     -isohybrid-mbr ~/customiso/isolinux/isohdpfx.bin <span class="se">\</span>
     -eltorito-alt-boot <span class="se">\</span>
     -e EFI/archiso/efiboot.img <span class="se">\</span>
@@ -106,45 +106,45 @@ xorriso <span class="se">\</span>
 <p>First calculate how much space the persistent partiton should have do this by with REMAINING=(usb_drive_size_in_Gb-iso_image_size_in_Gb)*1024*1024*2. This will calculate the amount of blocks (each 512 bytes in size) to add to the iso. Make sure you leave some wriggle room for rounding errors and <a href="https://en.wikipedia.org/wiki/Gibibyte">difference between GiB and GB</a>. Instead of using the complete 7.1Gb of my usb drive, I made the image 7.0Gb. 
 If you need to find out the actual size of your usb drive, use</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>lsblk /dev/sdb</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>lsblk /dev/sdb</code></pre></div>
 
 <p>Once you know the size, grow the iso image by that size. Replace $REMAINING below by the calculated number of blocks above.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>dd <span class="nv">status</span><span class="o">=</span>progress <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">bs</span><span class="o">=</span>512 <span class="nv">count</span><span class="o">=</span><span class="nv">$REMAINING</span> &gt;&gt; arch-custom-hybrid.iso</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>dd <span class="nv">status</span><span class="o">=</span>progress <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="nv">$REMAINING</span> &gt;&gt; arch-custom-hybrid.iso</code></pre></div>
 
 <p>After that you need to create a partition in the file. You do this with</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>fdisk arch-custom.iso
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>fdisk arch-custom.iso
 Welcome to fdisk <span class="o">(</span>util-linux 2.27.1<span class="o">)</span>.
-Changes will remain <span class="k">in </span>memory only, <span class="k">until </span>you decide to write them.
+Changes will remain in memory only, <span class="k">until</span> you decide to write them.
 Be careful before using the write command.
 
 
-Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: n
-Partition <span class="nb">type
-   </span>p   primary <span class="o">(</span>1 primary, 0 extended, 3 free<span class="o">)</span>
-   e   extended <span class="o">(</span>container <span class="k">for </span>logical partitions<span class="o">)</span>
+Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: n
+Partition <span class="nb">type</span>
+<span class="nb">   </span>p   primary <span class="o">(</span><span class="m">1</span> primary, <span class="m">0</span> extended, <span class="m">3</span> free<span class="o">)</span>
+   e   extended <span class="o">(</span>container <span class="k">for</span> logical partitions<span class="o">)</span>
 Select <span class="o">(</span>default p<span class="o">)</span>: p
 Partition number <span class="o">(</span>3,4, default 3<span class="o">)</span>: 
 First sector <span class="o">(</span>14608384-26142719, default 14608384<span class="o">)</span>: 
 Last sector, +sectors or +size<span class="o">{</span>K,M,G,T,P<span class="o">}</span> <span class="o">(</span>14608384-26142719, default 26142719<span class="o">)</span>: 
 
-Created a new partition 3 of <span class="nb">type</span> <span class="s1">'Linux'</span> and of size 5.5 GiB.
+Created a new partition <span class="m">3</span> of <span class="nb">type</span> <span class="s1">&#39;Linux&#39;</span> and of size 5.5 GiB.
 
-Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: p
-Disk arch-custom.iso: 12.5 GiB, 13385072640 bytes, 26142720 sectors
-Units: sectors of 1 <span class="k">*</span> 512 <span class="o">=</span> 512 bytes
-Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: 512 bytes / 512 bytes
-I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: 512 bytes / 512 bytes
+Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: p
+Disk arch-custom.iso: 12.5 GiB, <span class="m">13385072640</span> bytes, <span class="m">26142720</span> sectors
+Units: sectors of <span class="m">1</span> * <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> bytes
+Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
+I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
 Disklabel <span class="nb">type</span>: dos
 Disk identifier: 0x78abe923
 
 Device                  Boot    Start      End  Sectors  Size Id Type
-arch-custom.iso1 <span class="k">*</span>           0 14608383 14608384    7G  0 Empty
-arch-custom.iso2           172      172        0    0B ef EFI <span class="o">(</span>FAT-12/16/
-arch-custom.iso3      14608384 26142719 11534336  5.5G 83 Linux
+arch-custom.iso1 *           <span class="m">0</span> <span class="m">14608383</span> <span class="m">14608384</span>    7G  <span class="m">0</span> Empty
+arch-custom.iso2           <span class="m">172</span>      <span class="m">172</span>        <span class="m">0</span>    0B ef EFI <span class="o">(</span>FAT-12/16/
+arch-custom.iso3      <span class="m">14608384</span> <span class="m">26142719</span> <span class="m">11534336</span>  5.5G <span class="m">83</span> Linux
 
-Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: w
+Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: w
 The partition table has been altered.
 Syncing disks.</code></pre></div>
 
@@ -152,26 +152,26 @@ Syncing disks.</code></pre></div>
 
 <p>At this point you’re ready to create an ext3 (or other) filesystem in there. This is tricky as the file isn’t an actual block device. The blogpost tells you how to do it. You create a loopback device that points to the partition inside the iso image. That loopback device is available as any harddrive and you can create a filesystem in it like you would do with a normal partition. But to create the loopback device, you need to tell it exactly where in the image file the partition starts and ends. THIS IS VERY IMPORTANT. If you do this wrong, you’ll screw up the image file. So first you need to show exactly where the partition starts and ends. You can do this with</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>fdisk -l arch-custom.iso
-Disk arch-custom.iso: 12.5 GiB, 13385072640 bytes, 26142720 sectors
-Units: sectors of 1 <span class="k">*</span> 512 <span class="o">=</span> 512 bytes
-Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: 512 bytes / 512 bytes
-I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: 512 bytes / 512 bytes
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>fdisk -l arch-custom.iso
+Disk arch-custom.iso: 12.5 GiB, <span class="m">13385072640</span> bytes, <span class="m">26142720</span> sectors
+Units: sectors of <span class="m">1</span> * <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> bytes
+Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
+I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
 Disklabel <span class="nb">type</span>: dos
 Disk identifier: 0x78abe923
 
 Device                  Boot    Start      End  Sectors  Size Id Type
-arch-custom.iso1 <span class="k">*</span>           0 14608383 14608384    7G  0 Empty
-arch-custom.iso2           172      172        0    0B ef EFI <span class="o">(</span>FAT-12/16/
-arch-custom.iso3      14608384 26142719 11534336  5.5G 83 Linux</code></pre></div>
+arch-custom.iso1 *           <span class="m">0</span> <span class="m">14608383</span> <span class="m">14608384</span>    7G  <span class="m">0</span> Empty
+arch-custom.iso2           <span class="m">172</span>      <span class="m">172</span>        <span class="m">0</span>    0B ef EFI <span class="o">(</span>FAT-12/16/
+arch-custom.iso3      <span class="m">14608384</span> <span class="m">26142719</span> <span class="m">11534336</span>  5.5G <span class="m">83</span> Linux</code></pre></div>
 
 <p>This tells you the Start and End of the arch-custom.iso3 partition.
 By multiplying both these numbers with 512, you get resp the $OFFSET and $SIZELIMIT for the loopback device.
 Setup the loopback device and format it with ext3 with</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>losetup -o <span class="nv">$OFFSET</span> --sizelimit <span class="nv">$SIZELIMIT</span> /dev/loop1 archiso-custom.iso
-<span class="gp">$ </span>mkfs -t ext3 -L cow /dev/loop1
-<span class="gp">$ </span>losetup -d /dev/loop1</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>losetup -o <span class="nv">$OFFSET</span> --sizelimit <span class="nv">$SIZELIMIT</span> /dev/loop1 archiso-custom.iso
+<span class="nv">$ </span>mkfs -t ext3 -L cow /dev/loop1
+<span class="nv">$ </span>losetup -d /dev/loop1</code></pre></div>
 
 <p>At this point your image is ready (finally). You can now write it to the usb drive with (<em>WARNING!!!!! Make sure /dev/sdb is actually your usb drive. If it is any other drive YOU WILL ERASE IT COMPLETELY!!!</em>)</p>
 
