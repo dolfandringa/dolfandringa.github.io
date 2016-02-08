@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+      <title>Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="R,research,statistics,reporting,RMarkdown,Knitr" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr</h2>
+                <p class="post-meta">
+                  Feb 7, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/R">R</a>  <a href="/tag/research">research</a>  <a href="/tag/statistics">statistics</a>  <a href="/tag/reporting">reporting</a>  <a href="/tag/RMarkdown">RMarkdown</a>  <a href="/tag/Knitr">Knitr</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>Recently I have been analyzing a large amount of data with <a href="https://www.r-project.org/">R</a>. A great tool to do this is <a href="https://www.rstudio.com">Rstudio</a>. It is an IDE for R that makes it easy to write your R code, explore the data and show the graphs. But if you want to communicate your results with others, sitting behind an IDE isn’t the best way. Fortunately Rstudio integrates with Knitr, RMarkdown and Pandoc. With those tools you can create PDF, HTML or word files from your R code.</p>
+
+<p>I was playing with this and ran into some problems. I eventually solved all of them and wanted to show my problems and solutions here, both for myself and other coming across the same problems. I am not going to give a complete how-to though. I suggest looking at the <a href="http://rmarkdown.rstudio.com/">RMarkdown documentation of Rstudio</a> and the <a href="http://kbroman.org/knitr_knutshell/pages/Rmarkdown.html">Knitr RMarkdown documentation</a> to get you started. This post will go over the following topics:</p>
+
+<ul>
+  <li>How can I combine R loops with Markdown syntax to repeatedly show the test/plot results formatted with RMarkdown?</li>
+  <li>How can I display a table nicely in the resulting HTML/PDF?</li>
+</ul>
+
+<h2 id="table-output-in-rmarkdown">Table output in RMarkdown</h2>
+
+<p>To start with the quickest question first, you have to look at the second code block at the bottom. At the end it says <code>knitr::kable(coefs)</code>. This is a function from Knitr that outputs a nice table in markdown syntax. If you pass it a table or data frame in R, the result is a nice looking table. Quite a nice function to have.</p>
+
+<h2 id="loops-with-rmarkdown-to-repeat-results-with-different-data">Loops with RMarkdown to repeat results with different data</h2>
+
+<p>With RMarkdown you can write Markdown syntax in an (Rmd) file, interspersed with code blocks with R code. Knitr reads the R-code, executes it in R and pastes the results back into the markdown output. That is then converted into HTML or PDF. 
+The trick to looping over a set of data and running the same tests/plots for all parts of the data is splitting your file up into multiple files.
+You have one “parent” file which loops over your data, and for each loop iteration, it calls a child file to do the actual analysis.</p>
+
+<p>Let’s use an example. I have data for about 300 species. For each one I would like to run the same analysis. Furthermore my species are grouped into species_groups. I would like to group the analyses in these species_groups.
+I have a data frame called <code>samples</code> with the actual data, and a list called <code>species_groups</code> and a list called <code>species</code>. All are saved in samples.RDa. By loading that the objects become available.</p>
+
+<p>In my parent file (see below) I loop over all species groups in <code>for(sg in species_groups)</code> and with <code>for(sp in sort(species[species$species_group==sg,]$species_colname)){</code> I loop over a sorted list of all species in the species group. Inside the inner loop the Knitr magic happens. The call to knit_child causes Knitr at that point to load the file ‘individual_species_blog.Rmd’ specified as an argument. This file is another Rmd file (see second code block) that contains Markdown with R code blocks interspersed.</p>
+
+<p>The child file does the actual analysis per species and outputs the results. The parent file only calls it.
+What about the <code>out&lt;-NULL</code> <code>out&lt;-c(out,knit_child(...))</code> and <code>paste(out...)</code> lines in the parent file, I hear you ask? Well, the result of knit_child is already Markdown syntax. But anything inside the triple-back-quoted blocks in RMarkdown is printed in a code block, which would make a mess of the Markdown syntax that is the result of knit_child. So we instead make a vector called ‘out’ and append all the results of knit_child onto it. So in the end, after the last loop, out is a vector of a whole lot of strings. The inline code <code>paste(out, collapse='\n')</code> prints the actual results and puts newline characters between the different strings.</p>
+
+<p>Talking about output, there are different ways to modify how the R code is being output into Markdown syntax. These are all specified in the <code>{r ...}</code> blocks for each block of R code. One that is important in this respect is the include=FALSE parameter that is in the R-block where knit_child is called. If you don’t include it, Knitr will print all kinds of other output in the Markdown file that has to do with the knit_child call. As it is stuff we don’t want in our final output, I say eval=TRUE so the code does get evaluated normally, but include=FALSE makes sure no output is actually included in the resulting Markdown file. As you can see, the subsequent paste(output…) call is outside this block, so the output of that statement ís included in the markdown file.</p>
+
+<p>The last thing tying it all together is making variables from the parent file available in the child file. This is where the environment comes in. Inside our species loop, we make a new environment for each species with <code>env.new()</code>. This environment inherits from the parent environment. So anything that was available in our parent environment (like the variables <code>sg</code> <code>sp</code>  and <code>specnum</code>) is also available in the new environment. But variables inside the child environment don’t accidentally carry over to other child environments. That way we can safely refer to <code>sp</code> <code>specnum</code> and <code>sg</code> in our child Rmd file. The only problem is that the child Rmd file can’t be run individually anymore because these variables aren’t available anymore if the child Rmd file isn’t called from the parent Rmd file. The solution to this is to put something like <code>if(!exists('sp'))</code> in your child Rmd file to specify a species if it isn’t specified already.</p>
+
+<p>The parent Rmd file:</p>
+
+<pre><code>
+---
+title: "test"
+author: 'Dolf Andringa'
+date: "February 7, 2016"
+output:
+  html_document:
+    fig_caption: yes
+    keep_md: yes
+    number_sections: no
+    theme: journal
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: true
+---
+```{r getdata, results=FALSE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+load("samples.RDa")
+library(knitr)
+```
+# Methods
+
+.... some explanation
+
+# Results
+```{r echo=FALSE, eval=TRUE, include=FALSE}
+out &lt;- NULL
+for(sg in species_groups){
+  print(sg)
+  specnum&lt;-0
+  for(sp in sort(species[species$species_group==sg,]$species_colname)){
+    sp&lt;-sp #update the sp variable in the environment
+    sp.common&lt;-species[species$species_colname==sp,c("common_name")] #update the sp.common variable in the environment
+    env=new.env() #create a new empty environment, it inherits objects from the current environment.
+    out &lt;- c(out, knit_child('individual_species_blog.Rmd', envir=env))
+    specnum&lt;-specnum+1
+  } 
+}
+```
+`r paste(out, collapse='\n')`
+</code>
+
+This is the child Rmd file (called individual_species_blog.Rmd):
+
+<pre><code>
+---
+title: "Individual Species"
+author: 'Dolf Andringa'
+date: "February 7, 2016"
+output: html_document
+---
+```{r echo=FALSE, eval=TRUE, include=FALSE}
+library(knitr)
+library(lmtest)
+load("samples.RDa")
+data &lt;-subset(samples, species_group==sg)
+data$y &lt;- data[,c(sp)]
+```
+
+```{r eval='TRUE', echo=FALSE, results='asis'}
+if(specnum==0) cat('\n##',sg,'\n');
+```
+
+### `r sp` {.tabset}
+`r sp.common`
+
+```{r eval=TRUE, echo=FALSE}
+
+m&lt;-glm(data$y~data$site_name, family=poisson)
+
+coefs&lt;-NULL
+coefs$coefficient&lt;-NULL
+coefs$value&lt;-NULL
+coefs$pvalue&lt;-NULL
+coeft&lt;-coeftest(m)
+for(name in names(m$coefficients)){
+    p&lt;-round(coeft[name,c("Pr(&gt;|z|)")],3)
+    coefs$coefficient&lt;-c(coefs$coefficient,name)
+    coefs$value&lt;-c(coefs$value,m$coefficients[[name]])
+    coefs$pvalue&lt;-c(coefs$pvalue,p)
+}
+coefs&lt;-as.data.frame(coefs)
+coefs&lt;-coefs[with(coefs,order(coefs$pvalue)),]
+knitr::kable(coefs)
+```
+</code>
+</pre></pre>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" data-href="http://www.allican.be" data-width="600" data-numposts="10"></div>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>
