@@ -2,6 +2,7 @@
 layout: post
 title: "My favorite web development tools."
 category: blog
+date: "2016-01-21"
 tags: 
     - python
     - flask

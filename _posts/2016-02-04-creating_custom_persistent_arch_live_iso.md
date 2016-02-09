@@ -2,6 +2,7 @@
 layout: post
 title: Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems
 category: blog
+date: "2016-02-04"
 tags: 
     - ArchLinux
     - UEFI

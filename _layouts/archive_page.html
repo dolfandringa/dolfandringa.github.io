@@ -19,7 +19,7 @@ layout: default
 </section>
 <section id="posts">
   <ul>
-    {% assign posts = site.posts | sort:date %}
+    {% assign posts = site.posts | sort:date | reverse %}
     {% for post in posts %}
         <li><time datetime='{{post.date | date: "%Y-%m-%d"}}'>{{post.date | date: "%d/%m/%Y"}}</time> - <a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}

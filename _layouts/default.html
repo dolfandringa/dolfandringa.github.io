@@ -53,6 +53,14 @@
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
+              
+              {% if site.stackoverflow_userid %}
+              <li>
+                <a href="https://stackoverflow.com/users/{{ site.stackoverflow_userid }}" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              {% endif %}
 
               {% if site.github_username %}
               <li>

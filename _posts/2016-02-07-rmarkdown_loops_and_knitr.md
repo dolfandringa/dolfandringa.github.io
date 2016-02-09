@@ -2,6 +2,7 @@
 layout: post
 title: Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr
 category: blog
+date: "2016-02-07"
 tags: 
     - R
     - research
@@ -44,7 +45,7 @@ The last thing tying it all together is making variables from the parent file av
 
 The parent Rmd file:
 
-<pre><code>
+{% highlight md linenos=table %}
 ---
 title: "test"
 author: 'Dolf Andringa'
@@ -84,11 +85,11 @@ for(sg in species_groups){
 }
 ```
 `r paste(out, collapse='\n')`
-</pre></code>
+{% endhighlight %}
 
 This is the child Rmd file (called individual_species_blog.Rmd):
 
-<pre><code>
+{% highlight md linenos=table %}
 ---
 title: "Individual Species"
 author: 'Dolf Andringa'
@@ -129,4 +130,4 @@ coefs<-as.data.frame(coefs)
 coefs<-coefs[with(coefs,order(coefs$pvalue)),]
 knitr::kable(coefs)
 ```
-</pre></code>
+{% endhighlight %}

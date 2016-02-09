@@ -2,7 +2,7 @@
 
 title: All I can be - A weblog by Dolf Andringa # Title of your site
 email: dolfandringa@gmail.com # Your contant email
-highlighter: pygments
+highlighter: rouge
 destination: ../master/
 keep_files: ['CNAME','.nojekyll','.git']
 
@@ -19,6 +19,7 @@ url: "http://allican.be" # the base hostname & protocol for your site
 
 twitter_username:       # Replace this with your Twitter username
 github_username:      dolfandringa  # Replace this with your GitHub username
+stackoverflow_userid: 867162
 linkedin_username:    dolfandringa  # Replace this with your LinkedIn username
 google_plus_username: +dolfandringa  # Replace this with your Google+ username
 facebook_username:      # Replace this with your Facebook username
