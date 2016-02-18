@@ -1,6 +1,11 @@
 ---
 layout: default
 title: About Me
+tags:
+    - Dolf-Andringa
+    - About-me
+    - CV
+    - Resume
 ---
 # {{ page.title }} #
 
