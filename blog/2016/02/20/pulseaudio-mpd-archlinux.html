@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
   	<head>
-      <title></title>
+      <title>Problems getting MPD, PulseAudio and Arch Linux to work together</title>
   		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
       
+      
+        <meta name="keywords" content="ArchLinux,MPD,PulseAudio" />
       
   		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
   		<script src="/js/jquery.min.js"></script>
@@ -45,18 +47,45 @@
       <div id="main">
 
 
-        <ul>
-  <li>
-    <time datetime='2016-02-20'>20/02/2016</time>
-    <a href='/blog/2016/02/20/pulseaudio-mpd-archlinux.html'>Problems getting MPD, PulseAudio and Arch Linux to work together</a>
-  </li>
-  <li>
-    <time datetime='2016-02-04'>04/02/2016</time>
-    <a href='/blog/2016/02/04/creating_custom_persistent_arch_live_iso.html'>Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems</a>
-  </li>
-</ul>
+            <article>
+        <header class="major">
+            <h2 class="post-title">Problems getting MPD, PulseAudio and Arch Linux to work together</h2>
+                <p class="post-meta">
+                  Feb 20, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/ArchLinux">ArchLinux</a>  <a href="/tag/MPD">MPD</a>  <a href="/tag/PulseAudio">PulseAudio</a> 
+                  </span>
+                </p>
+        </header>
 
-<p><a href="/archive/">view all posts</a></p>
+        <section>
+            <p>I love Gnome Music Player Client (gmpc) as an audio player, with MPD (Music Player Daemon) as a backend. Both because of the remote control possibilities but GMPC is also just a great client. But when installing MPD, combined with PulseAudio on my Arch Linux laptop, I ran into trouble. MPD runs as a different user, and as that user wasn’t able to connect to PulseAudio that runs under my regular desktop user.</p>
+
+<p>It turns out that you can run PulseAudio in a few different ways, but on my Mate desktop in Arch Linux, PulseAudio is started with my desktop session when I login. The audio programs I run on my desktop connect to this PulseAudio session and work fine. The MPD daemon runs as a different user and can’t connect to the PulseAudio session running as my desktop user. The trick is to spawn a PulseAudio session for each user individually. <a href="http://mpd.wikia.com/wiki/PulseAudio">According to the MPD wiki</a> most distributions have pulse audio setup to auto-spawn a PulseAudio session for each user. On my Arch Linux box that wasn’t the case though. This resulted in the following error messages:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">pulse_output: Failed to <span class="nb">enable</span> <span class="s2">"PulseAudio Analog Out"</span> <span class="o">[</span>pulse]: pa_context_connect<span class="o">()</span> has failed: Connection refused
+output: Failed to open audio output
+pulse_output: Failed to open <span class="s2">"PulseAudio Analog Out"</span> <span class="o">[</span>pulse]: failed to connect: Access denied</code></pre></figure>
+
+<p>The solution is to edit /etc/pulse/client.conf and set <code class="highlighter-rouge">autospawn = yes</code> and make sure the line is not commented with a <code class="highlighter-rouge">;</code> at the beginning.
+After this, restart mpd and pulseaudio should work. To check you can run <code class="highlighter-rouge">ps auwx|grep pulse</code>. It should show output similar to the following:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">&lt;myuser&gt; </span>11378  0.0  0.1 497404 11512 ?        S&lt;sl 08:06   0:00 /usr/bin/pulseaudio --daemonize<span class="o">=</span>no
+mpd      11513  0.3  0.1 563304 12604 ?        Sl   08:14   0:04 /usr/bin/pulseaudio --start --log-target<span class="o">=</span>syslog</code></pre></figure>
+
+<p>You see a pulseaudio session for your own user and one for the mpd user. If this is the case, you should be able to play music with MPD to pulseaudio.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>');
+        </footer>
+
+    </article>
+
 
       </div>
 
