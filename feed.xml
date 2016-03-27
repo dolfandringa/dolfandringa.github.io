@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.0.3">Jekyll</generator><link href="http://allican.be/feed.xml" rel="self" type="application/atom+xml" /><link href="http://allican.be/" rel="alternate" type="text/html" /><updated>2016-03-27T14:42:12+08:00</updated><id>http://allican.be/</id><title>All I can be - A weblog by Dolf Andringa</title><subtitle>This site is my personal showcase and outlet about what keeps me off the streets. It will mostly be about hacking, programming, GNU/Linux, but also about ecology, travel and science. I am a weird combination of an ecologist, hacker and ideologist.
+</subtitle><entry><title>Remote PulseAudio volume change script for a guest-session user</title><link href="http://allican.be/blog/2016/03/27/remote-guest-session-commandline-volume-change.html" rel="alternate" type="text/html" title="Remote PulseAudio volume change script for a guest-session user" /><published>2016-03-27T00:00:00+08:00</published><updated>2016-03-27T10:08:37+08:00</updated><id>http://allican.be/blog/2016/03/27/remote-guest-session-commandline-volume-change</id><content type="html" xml:base="http://allican.be/blog/2016/03/27/remote-guest-session-commandline-volume-change.html">&lt;p&gt;I live and have setup the IT infrastructure for an NGO where I share my living space with volunteers. Generally the volunteers are hard workers and well behaved, but once every while on a Saturday night they are having a good time, which often involves turning the music up just a little too high. As I am usually already in my own little house a few 10’s of meters away, I don’t always share their enjoyment. But I don’t want to nag them and am also way too lazy to go out and turn the music down. As the computer they use to play the music on runs Linux Mint and I can access it from my home through the wifi, I thought I’d create a script that allows me to change the volume on the computer remotely.&lt;/p&gt;
+
+&lt;p&gt;The problem is that they login using a guest-session, so every time they login, they get a different username and ID. And PulseAudio runs as that user, so if I change the volume as my own user I get a permission denied error. The following script first determines the username and uid of the user that they login as (line 1-3). Next (line 4-8) it determines the volume change direction from a command-line argument (if up is specified the volume goes up by 10% else down by 10%).
+Then (line 11) it actually runs the command as the guest user. One thing you seem to need to do is set the XDG_RUNTIME_DIR environment variable for the user, which PulseAudio seems to use for something.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;who|grep &lt;span class=&quot;s2&quot;&gt;&quot;^guest[a-zA-Z0-9&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; -o&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;uid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;id -u &lt;span class=&quot;nv&quot;&gt;$username&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;up&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;;&lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;10%+&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;10%-&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi
+&lt;/span&gt;su - &lt;span class=&quot;nv&quot;&gt;$username&lt;/span&gt; -c &lt;span class=&quot;s2&quot;&gt;&quot;XDG_RUNTIME_DIR=/run/user/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$uid&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; amixer -D pulse sset Master &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$dir&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><category term="blog" /><category term="LinuxMint" /><category term="guest-session" /><category term="PulseAudio" /><category term="ssh" /><category term="command-line" /><category term="script" /><summary>I live and have setup the IT infrastructure for an NGO where I share my living space with volunteers. Generally the volunteers are hard workers and well behaved, but once every while on a Saturday night they are having a good time, which often involves turning the music up just a little too high. As I am usually already in my own little house a few 10’s of meters away, I don’t always share their enjoyment. But I don’t want to nag them and am also way too lazy to go out and turn the music down. As the computer they use to play the music on runs Linux Mint and I can access it from my home through the wifi, I thought I’d create a script that allows me to change the volume on the computer remotely.</summary></entry><entry><title>Problems getting MPD, PulseAudio and Arch Linux to work together</title><link href="http://allican.be/blog/2016/02/20/pulseaudio-mpd-archlinux.html" rel="alternate" type="text/html" title="Problems getting MPD, PulseAudio and Arch Linux to work together" /><published>2016-02-20T00:00:00+08:00</published><updated>2016-02-20T11:29:35+08:00</updated><id>http://allican.be/blog/2016/02/20/pulseaudio-mpd-archlinux</id><content type="html" xml:base="http://allican.be/blog/2016/02/20/pulseaudio-mpd-archlinux.html">&lt;p&gt;I love Gnome Music Player Client (gmpc) as an audio player, with MPD (Music Player Daemon) as a backend. Both because of the remote control possibilities but GMPC is also just a great client. But when installing MPD, combined with PulseAudio on my Arch Linux laptop, I ran into trouble. MPD runs as a different user, and as that user wasn’t able to connect to PulseAudio that runs under my regular desktop user.&lt;/p&gt;
+
+&lt;p&gt;It turns out that you can run PulseAudio in a few different ways, but on my Mate desktop in Arch Linux, PulseAudio is started with my desktop session when I login. The audio programs I run on my desktop connect to this PulseAudio session and work fine. The MPD daemon runs as a different user and can’t connect to the PulseAudio session running as my desktop user. The trick is to spawn a PulseAudio session for each user individually. &lt;a href=&quot;http://mpd.wikia.com/wiki/PulseAudio&quot;&gt;According to the MPD wiki&lt;/a&gt; most distributions have pulse audio setup to auto-spawn a PulseAudio session for each user. On my Arch Linux box that wasn’t the case though. This resulted in the following error messages:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;pulse_output: Failed to &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;PulseAudio Analog Out&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pulse]: pa_context_connect&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; has failed: Connection refused
+output: Failed to open audio output
+pulse_output: Failed to open &lt;span class=&quot;s2&quot;&gt;&quot;PulseAudio Analog Out&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pulse]: failed to connect: Access denied&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The solution is to edit /etc/pulse/client.conf and set &lt;code class=&quot;highlighter-rouge&quot;&gt;autospawn = yes&lt;/code&gt; and make sure the line is not commented with a &lt;code class=&quot;highlighter-rouge&quot;&gt;;&lt;/code&gt; at the beginning.
+After this, restart mpd and pulseaudio should work. To check you can run &lt;code class=&quot;highlighter-rouge&quot;&gt;ps auwx|grep pulse&lt;/code&gt;. It should show output similar to the following:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;&amp;lt;myuser&amp;gt; &lt;/span&gt;11378  0.0  0.1 497404 11512 ?        S&amp;lt;sl 08:06   0:00 /usr/bin/pulseaudio --daemonize&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;no
+mpd      11513  0.3  0.1 563304 12604 ?        Sl   08:14   0:04 /usr/bin/pulseaudio --start --log-target&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;syslog&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;You see a pulseaudio session for your own user and one for the mpd user. If this is the case, you should be able to play music with MPD to pulseaudio.&lt;/p&gt;</content><category term="blog" /><category term="ArchLinux" /><category term="MPD" /><category term="PulseAudio" /><summary>I love Gnome Music Player Client (gmpc) as an audio player, with MPD (Music Player Daemon) as a backend. Both because of the remote control possibilities but GMPC is also just a great client. But when installing MPD, combined with PulseAudio on my Arch Linux laptop, I ran into trouble. MPD runs as a different user, and as that user wasn’t able to connect to PulseAudio that runs under my regular desktop user.</summary></entry><entry><title>Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr</title><link href="http://allican.be/blog/2016/02/07/rmarkdown_loops_and_knitr.html" rel="alternate" type="text/html" title="Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr" /><published>2016-02-07T00:00:00+08:00</published><updated>2016-02-09T13:48:27+08:00</updated><id>http://allican.be/blog/2016/02/07/rmarkdown_loops_and_knitr</id><content type="html" xml:base="http://allican.be/blog/2016/02/07/rmarkdown_loops_and_knitr.html">&lt;p&gt;Recently I have been analyzing a large amount of data with &lt;a href=&quot;https://www.r-project.org/&quot;&gt;R&lt;/a&gt;. A great tool to do this is &lt;a href=&quot;https://www.rstudio.com&quot;&gt;Rstudio&lt;/a&gt;. It is an IDE for R that makes it easy to write your R code, explore the data and show the graphs. But if you want to communicate your results with others, sitting behind an IDE isn’t the best way. Fortunately Rstudio integrates with Knitr, RMarkdown and Pandoc. With those tools you can create PDF, HTML or word files from your R code.&lt;/p&gt;
+
+&lt;p&gt;I was playing with this and ran into some problems. I eventually solved all of them and wanted to show my problems and solutions here, both for myself and other coming across the same problems. I am not going to give a complete how-to though. I suggest looking at the &lt;a href=&quot;http://rmarkdown.rstudio.com/&quot;&gt;RMarkdown documentation of Rstudio&lt;/a&gt; and the &lt;a href=&quot;http://kbroman.org/knitr_knutshell/pages/Rmarkdown.html&quot;&gt;Knitr RMarkdown documentation&lt;/a&gt; to get you started. This post will go over the following topics:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How can I combine R loops with Markdown syntax to repeatedly show the test/plot results formatted with RMarkdown?&lt;/li&gt;
+  &lt;li&gt;How can I display a table nicely in the resulting HTML/PDF?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;table-output-in-rmarkdown&quot;&gt;Table output in RMarkdown&lt;/h2&gt;
+
+&lt;p&gt;To start with the quickest question first, you have to look at the second code block at the bottom. At the end it says &lt;code class=&quot;highlighter-rouge&quot;&gt;knitr::kable(coefs)&lt;/code&gt;. This is a function from Knitr that outputs a nice table in markdown syntax. If you pass it a table or data frame in R, the result is a nice looking table. Quite a nice function to have.&lt;/p&gt;
+
+&lt;h2 id=&quot;loops-with-rmarkdown-to-repeat-results-with-different-data&quot;&gt;Loops with RMarkdown to repeat results with different data&lt;/h2&gt;
+
+&lt;p&gt;With RMarkdown you can write Markdown syntax in an (Rmd) file, interspersed with code blocks with R code. Knitr reads the R-code, executes it in R and pastes the results back into the markdown output. That is then converted into HTML or PDF. 
+The trick to looping over a set of data and running the same tests/plots for all parts of the data is splitting your file up into multiple files.
+You have one “parent” file which loops over your data, and for each loop iteration, it calls a child file to do the actual analysis.&lt;/p&gt;
+
+&lt;p&gt;Let’s use an example. I have data for about 300 species. For each one I would like to run the same analysis. Furthermore my species are grouped into species_groups. I would like to group the analyses in these species_groups.
+I have a data frame called &lt;code class=&quot;highlighter-rouge&quot;&gt;samples&lt;/code&gt; with the actual data, and a list called &lt;code class=&quot;highlighter-rouge&quot;&gt;species_groups&lt;/code&gt; and a list called &lt;code class=&quot;highlighter-rouge&quot;&gt;species&lt;/code&gt;. All are saved in samples.RDa. By loading that the objects become available.&lt;/p&gt;
+
+&lt;p&gt;In my parent file (see below) I loop over all species groups in &lt;code class=&quot;highlighter-rouge&quot;&gt;for(sg in species_groups)&lt;/code&gt; and with &lt;code class=&quot;highlighter-rouge&quot;&gt;for(sp in sort(species[species$species_group==sg,]$species_colname)){&lt;/code&gt; I loop over a sorted list of all species in the species group. Inside the inner loop the Knitr magic happens. The call to knit_child causes Knitr at that point to load the file ‘individual_species_blog.Rmd’ specified as an argument. This file is another Rmd file (see second code block) that contains Markdown with R code blocks interspersed.&lt;/p&gt;
+
+&lt;p&gt;The child file does the actual analysis per species and outputs the results. The parent file only calls it.
+What about the &lt;code class=&quot;highlighter-rouge&quot;&gt;out&amp;lt;-NULL&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;out&amp;lt;-c(out,knit_child(...))&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;paste(out...)&lt;/code&gt; lines in the parent file, I hear you ask? Well, the result of knit_child is already Markdown syntax. But anything inside the triple-back-quoted blocks in RMarkdown is printed in a code block, which would make a mess of the Markdown syntax that is the result of knit_child. So we instead make a vector called ‘out’ and append all the results of knit_child onto it. So in the end, after the last loop, out is a vector of a whole lot of strings. The inline code &lt;code class=&quot;highlighter-rouge&quot;&gt;paste(out, collapse=&#39;\n&#39;)&lt;/code&gt; prints the actual results and puts newline characters between the different strings.&lt;/p&gt;
+
+&lt;p&gt;Talking about output, there are different ways to modify how the R code is being output into Markdown syntax. These are all specified in the &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; blocks for each block of R code. One that is important in this respect is the include=FALSE parameter that is in the R-block where knit_child is called. If you don’t include it, Knitr will print all kinds of other output in the Markdown file that has to do with the knit_child call. As it is stuff we don’t want in our final output, I say eval=TRUE so the code does get evaluated normally, but include=FALSE makes sure no output is actually included in the resulting Markdown file. As you can see, the subsequent paste(output…) call is outside this block, so the output of that statement ís included in the markdown file.&lt;/p&gt;
+
+&lt;p&gt;The last thing tying it all together is making variables from the parent file available in the child file. This is where the environment comes in. Inside our species loop, we make a new environment for each species with &lt;code class=&quot;highlighter-rouge&quot;&gt;env.new()&lt;/code&gt;. This environment inherits from the parent environment. So anything that was available in our parent environment (like the variables &lt;code class=&quot;highlighter-rouge&quot;&gt;sg&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;sp&lt;/code&gt;  and &lt;code class=&quot;highlighter-rouge&quot;&gt;specnum&lt;/code&gt;) is also available in the new environment. But variables inside the child environment don’t accidentally carry over to other child environments. That way we can safely refer to &lt;code class=&quot;highlighter-rouge&quot;&gt;sp&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;specnum&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;sg&lt;/code&gt; in our child Rmd file. The only problem is that the child Rmd file can’t be run individually anymore because these variables aren’t available anymore if the child Rmd file isn’t called from the parent Rmd file. The solution to this is to put something like &lt;code class=&quot;highlighter-rouge&quot;&gt;if(!exists(&#39;sp&#39;))&lt;/code&gt; in your child Rmd file to specify a species if it isn’t specified already.&lt;/p&gt;
+
+&lt;p&gt;The parent Rmd file:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-md&quot; data-lang=&quot;md&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;test&quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Dolf&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Andringa&#39;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;February&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;7,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2016&quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;html_document&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;fig_caption&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;keep_md&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;number_sections&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;no&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;journal&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;toc&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;toc_depth&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;toc_float&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;collapsed&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;{r getdata, results=FALSE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+load(&quot;samples.RDa&quot;)
+library(knitr)
+&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;
+# Methods
+
+.... some explanation
+
+# Results
+&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;{r echo=FALSE, eval=TRUE, include=FALSE}
+out &amp;lt;- NULL
+for(sg in species_groups){
+  print(sg)
+  specnum&amp;lt;-0
+  for(sp in sort(species&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;species$species_group==sg,&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;$species_colname)){
+    sp&amp;lt;-sp #update the sp variable in the environment
+    sp.common&amp;lt;-species&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;species$species_colname==sp,c(&quot;common_name&quot;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; #update the sp.common variable in the environment
+    env=new.env() #create a new empty environment, it inherits objects from the current environment.
+    out &amp;lt;- c(out, knit_child(&#39;individual_species_blog.Rmd&#39;, envir=env))
+    specnum&amp;lt;-specnum+1
+  } 
+}
+&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;
+&lt;span class=&quot;sb&quot;&gt;`r paste(out, collapse=&#39;\n&#39;)`&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is the child Rmd file (called individual_species_blog.Rmd):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-md&quot; data-lang=&quot;md&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Individual&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Species&quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Dolf&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Andringa&#39;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;February&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;7,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2016&quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;html_document&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;{r echo=FALSE, eval=TRUE, include=FALSE}
+library(knitr)
+library(lmtest)
+load(&quot;samples.RDa&quot;)
+data &amp;lt;-subset(samples, species_group==sg)
+data$y &amp;lt;- data&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;,c(sp)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;{r eval=&#39;TRUE&#39;, echo=FALSE, results=&#39;asis&#39;}
+if(specnum==0) cat(&#39;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;##&#39;,sg,&#39;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&#39;);
+&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;
+
+### `r sp` {.tabset}
+`r sp.common`
+
+&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;{r eval=TRUE, echo=FALSE}
+
+m&amp;lt;-glm(data$y~data$site_name, family=poisson)
+
+coefs&amp;lt;-NULL
+coefs$coefficient&amp;lt;-NULL
+coefs$value&amp;lt;-NULL
+coefs$pvalue&amp;lt;-NULL
+coeft&amp;lt;-coeftest(m)
+for(name in names(m$coefficients)){
+    p&lt;span class=&quot;nt&quot;&gt;&amp;lt;-round&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;coeft&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&quot;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Pr&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;|z|)&quot;)],3)
+    coefs$coefficient&amp;lt;-c(coefs$coefficient,name)
+    coefs$value&amp;lt;-c(coefs$value,m$coefficients&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;[name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;])
+    coefs$pvalue&amp;lt;-c(coefs$pvalue,p)
+}
+coefs&amp;lt;-as.data.frame(coefs)
+coefs&amp;lt;-coefs&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;with(coefs,order(coefs$pvalue)),&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+knitr::kable(coefs)
+&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><category term="blog" /><category term="R" /><category term="research" /><category term="statistics" /><category term="reporting" /><category term="RMarkdown" /><category term="Knitr" /><summary>Recently I have been analyzing a large amount of data with R. A great tool to do this is Rstudio. It is an IDE for R that makes it easy to write your R code, explore the data and show the graphs. But if you want to communicate your results with others, sitting behind an IDE isn’t the best way. Fortunately Rstudio integrates with Knitr, RMarkdown and Pandoc. With those tools you can create PDF, HTML or word files from your R code.</summary></entry><entry><title>Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems</title><link href="http://allican.be/blog/2016/02/04/creating_custom_persistent_arch_live_iso.html" rel="alternate" type="text/html" title="Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems" /><published>2016-02-04T00:00:00+08:00</published><updated>2016-02-09T13:48:27+08:00</updated><id>http://allican.be/blog/2016/02/04/creating_custom_persistent_arch_live_iso</id><content type="html" xml:base="http://allican.be/blog/2016/02/04/creating_custom_persistent_arch_live_iso.html">&lt;p&gt;I am running Arch Linux for a while now and am quite happy with it. Even though it is not the easiest n00b distro, in the end the documentation is so good that if you’re new to Linux, you can probably find out how to do most stuff if you’re inquisitive. One thing I had trouble with though, is getting a custom Live CD that could boot from my USB drive, has a persistence layer so changes are saved when booting, and booted both from UEFI only systems (my laptop) and preferably also BIOS only systems. It took me a while to figure this out, but I got it in the end. So I’ll document it for posterity.&lt;/p&gt;
+
+&lt;p&gt;The three main sources of documentation that helped me setting this up is the &lt;a href=&quot;https://wiki.archlinux.org/index.php/Remastering_the_Install_ISO&quot;&gt;Arch Linux documentation on Remastering the Install ISO&lt;/a&gt;, the &lt;a href=&quot;https://github.com/djgera/archiso/blob/master/docs/README.bootparams&quot;&gt;Boot Parameter documentation of ArchISO&lt;/a&gt; and &lt;a href=&quot;https://adayinthelifeof.nl/2011/10/11/creating-partitioned-virtual-disk-images/&quot;&gt;a blog post by Joshua Thijssen on creating partitioned disk images&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The Arch documentation on remastering the iso tells you most you should know. Download the dual installation iso from the Arch Linux website and read through the docs on how to extract the airootfs.sfs, mount it, chroot to it and modify it. You can install packages after the step that says&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;mkinitcpio -p linux&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;in there and do other stuff to the Live OS. Then you exit the chroot again, recreate the airootfs.sfs image and copy the new kernel and initrd image to the right places. I didn’t delete the squashfs-root folder though. I copied it to my homedir (outside the ~/customiso tree) so I can copy it back later if I need to instead of having to unsquashfs the airootfs.sfs file all the time. Also do the part with “modifying the EFI boot image”.&lt;/p&gt;
+
+&lt;p&gt;Up to there it was quite easy. The first problem I encountered was creating the ISO. Don’t use the genisoimage command in the docs. It won’t work for UEFI systems. The documentation below it on xorriso is better, if you combine it with the eltorito stuff lower down. In the end, this is the xorriso command I used to create the iso:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;iso_label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ARCH_201601&quot;&lt;/span&gt;
+xorriso &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -as mkisofs &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -iso-level 3 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -full-iso9660-filenames &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -volid &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;iso_label&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -appid &lt;span class=&quot;s2&quot;&gt;&quot;Arch Linux Live/Rescue CD&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -eltorito-boot isolinux/isolinux.bin &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -eltorito-catalog isolinux/boot.cat &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -no-emul-boot -boot-load-size 4 -boot-info-table &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -isohybrid-mbr ~/customiso/isolinux/isohdpfx.bin &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -eltorito-alt-boot &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -e EFI/archiso/efiboot.img &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -no-emul-boot &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -isohybrid-gpt-basdat &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    -output ~/arch-custom.iso &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    ~/customiso&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Make sure the iso_label is correct. It needs to stay the same as the original iso file. If you run&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;file &amp;lt;original_iso&amp;gt;.iso&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;it will tell you the label in the output.&lt;/p&gt;
+
+&lt;p&gt;If you run isohybrid –uefi on the resulting iso file, you have a working, remastered disk image for both BIOS and UEFI systems.&lt;/p&gt;
+
+&lt;p&gt;Now for the persistent bit. It turns out that &lt;a href=&quot;https://github.com/djgera/archiso/blob/master/docs/README.bootparams&quot;&gt;archiso has boot parameters&lt;/a&gt; that allow you to modify the behavior of the live os. It took me a while to figure out how this works with mkinitcpio and stuff. But in essence there are initcpio hooks that get run on startup of the live cd if you specify them in the HOOKS part of /etc/mkinitcpio.conf. One of those hooks is archiso. That one sets-up the filesystem and accepts parameters for a persistence layer with a cow (copy-on-write) filesystem. Normally that cow filesystem is a tmpfs and gets deleted after shutdown. But if you specify other options, all starting with cow_, then you can change this behaviour and put the cow filesystem on a persistent medium.&lt;/p&gt;
+
+&lt;p&gt;What took me a while to figure out is that these options need to be passed from te bootloader at startup to the kernel for the initrd image. THat is all that is needed. So what I do at startup, when you get to the bootmenu of the livecd/usb, is specify cow_device=/dev/sdb3 at the end of the kernel line. You can edit the line by pressing “e” in the bootmenu. The archiso hook of initrd will check that device for a folder called “persistent_${iso_label}” and if it doesn’t exist, create it. All changes you make to the cd will be stored there.&lt;/p&gt;
+
+&lt;p&gt;The last bit that I needed to figure out is how to make space on my USB drive for this persistent partition. My iso image is 1.2Gb and my USB drive is 8GB, so there is plenty of space for the persistent data. But if you just write the image to the usb drive with dd, the extra 6.8Gb isn’t used. If I run gparted on the usb drive afterwards, it makes a mess of things. So I needed to modify the iso image before writing it to USB. That is where the &lt;a href=&quot;https://adayinthelifeof.nl/2011/10/11/creating-partitioned-virtual-disk-images/&quot;&gt;blogpost by Joshua&lt;/a&gt; came in. Basically I treated the iso file as a harddrive with some tricks. I first made it as big as my usb key, then created an extra partition in it, and formatted that partition with ext3. After that I wrote the iso file to the usb drive with dd the regular way, and lo-and-behold, there was a third partition on the usb drive with an ext3 filesystem (called /dev/sdb3 in my computer) that I could specify as cow_device in the boot menu at startup. This is how I managed it.&lt;/p&gt;
+
+&lt;p&gt;First calculate how much space the persistent partiton should have do this by with REMAINING=(usb_drive_size_in_Gb-iso_image_size_in_Gb)*1024*1024*2. This will calculate the amount of blocks (each 512 bytes in size) to add to the iso. Make sure you leave some wriggle room for rounding errors and &lt;a href=&quot;https://en.wikipedia.org/wiki/Gibibyte&quot;&gt;difference between GiB and GB&lt;/a&gt;. Instead of using the complete 7.1Gb of my usb drive, I made the image 7.0Gb. 
+If you need to find out the actual size of your usb drive, use&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;lsblk /dev/sdb&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Once you know the size, grow the iso image by that size. Replace $REMAINING below by the calculated number of blocks above.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;dd &lt;span class=&quot;nv&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;progress &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/zero &lt;span class=&quot;nv&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512 &lt;span class=&quot;nv&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$REMAINING&lt;/span&gt; &amp;gt;&amp;gt; arch-custom-hybrid.iso&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;After that you need to create a partition in the file. You do this with&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;fdisk arch-custom.iso
+Welcome to fdisk &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;util-linux 2.27.1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.
+Changes will remain &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;memory only, &lt;span class=&quot;k&quot;&gt;until &lt;/span&gt;you decide to write them.
+Be careful before using the write command.
+
+
+Command &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: n
+Partition &lt;span class=&quot;nb&quot;&gt;type
+   &lt;/span&gt;p   primary &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1 primary, 0 extended, 3 free&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   e   extended &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;container &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;logical partitions&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Select &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default p&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: p
+Partition number &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;3,4, default 3&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
+First sector &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;14608384-26142719, default 14608384&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
+Last sector, +sectors or +size&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;K,M,G,T,P&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;14608384-26142719, default 26142719&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
+
+Created a new partition 3 of &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Linux&#39;&lt;/span&gt; and of size 5.5 GiB.
+
+Command &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: p
+Disk arch-custom.iso: 12.5 GiB, 13385072640 bytes, 26142720 sectors
+Units: sectors of 1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 512 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 512 bytes
+Sector size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;logical/physical&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 512 bytes
+I/O size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;minimum/optimal&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 512 bytes
+Disklabel &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;: dos
+Disk identifier: 0x78abe923
+
+Device                  Boot    Start      End  Sectors  Size Id Type
+arch-custom.iso1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;           0 14608383 14608384    7G  0 Empty
+arch-custom.iso2           172      172        0    0B ef EFI &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;FAT-12/16/
+arch-custom.iso3      14608384 26142719 11534336  5.5G 83 Linux
+
+Command &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: w
+The partition table has been altered.
+Syncing disks.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;For most of those questions in fdisk (the ones ending with a : without input) I just hit enter, choosing the default option.&lt;/p&gt;
+
+&lt;p&gt;At this point you’re ready to create an ext3 (or other) filesystem in there. This is tricky as the file isn’t an actual block device. The blogpost tells you how to do it. You create a loopback device that points to the partition inside the iso image. That loopback device is available as any harddrive and you can create a filesystem in it like you would do with a normal partition. But to create the loopback device, you need to tell it exactly where in the image file the partition starts and ends. THIS IS VERY IMPORTANT. If you do this wrong, you’ll screw up the image file. So first you need to show exactly where the partition starts and ends. You can do this with&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;fdisk -l arch-custom.iso
+Disk arch-custom.iso: 12.5 GiB, 13385072640 bytes, 26142720 sectors
+Units: sectors of 1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 512 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 512 bytes
+Sector size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;logical/physical&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 512 bytes
+I/O size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;minimum/optimal&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 512 bytes
+Disklabel &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;: dos
+Disk identifier: 0x78abe923
+
+Device                  Boot    Start      End  Sectors  Size Id Type
+arch-custom.iso1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;           0 14608383 14608384    7G  0 Empty
+arch-custom.iso2           172      172        0    0B ef EFI &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;FAT-12/16/
+arch-custom.iso3      14608384 26142719 11534336  5.5G 83 Linux&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This tells you the Start and End of the arch-custom.iso3 partition.
+By multiplying both these numbers with 512, you get resp the $OFFSET and $SIZELIMIT for the loopback device.
+Setup the loopback device and format it with ext3 with&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;losetup -o &lt;span class=&quot;nv&quot;&gt;$OFFSET&lt;/span&gt; --sizelimit &lt;span class=&quot;nv&quot;&gt;$SIZELIMIT&lt;/span&gt; /dev/loop1 archiso-custom.iso
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mkfs -t ext3 -L cow /dev/loop1
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;losetup -d /dev/loop1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;At this point your image is ready (finally). You can now write it to the usb drive with (&lt;em&gt;WARNING!!!!! Make sure /dev/sdb is actually your usb drive. If it is any other drive YOU WILL ERASE IT COMPLETELY!!!&lt;/em&gt;)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;dd &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arch-custom.iso &lt;span class=&quot;nv&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/sdb&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;At this point you can reboot and start from the usb drive (you might need to do something to the UEFI/BIOS to make it start from USB). If you are in the archlinux live boot menu, pres “e” to edit the default menu, and add cow_device=/dev/sdb3 to make it use /dev/sdb3 as the persistent cow device.&lt;/p&gt;</content><category term="blog" /><category term="ArchLinux" /><category term="UEFI" /><category term="live" /><category term="remaster" /><category term="iso" /><category term="persistent" /><category term="cow" /><summary>I am running Arch Linux for a while now and am quite happy with it. Even though it is not the easiest n00b distro, in the end the documentation is so good that if you’re new to Linux, you can probably find out how to do most stuff if you’re inquisitive. One thing I had trouble with though, is getting a custom Live CD that could boot from my USB drive, has a persistence layer so changes are saved when booting, and booted both from UEFI only systems (my laptop) and preferably also BIOS only systems. It took me a while to figure this out, but I got it in the end. So I’ll document it for posterity.</summary></entry><entry><title>My favorite web development tools.</title><link href="http://allican.be/blog/2016/01/21/my-favorite-tools.html" rel="alternate" type="text/html" title="My favorite web development tools." /><published>2016-01-21T00:00:00+08:00</published><updated>2016-02-09T13:48:27+08:00</updated><id>http://allican.be/blog/2016/01/21/my-favorite-tools</id><content type="html" xml:base="http://allican.be/blog/2016/01/21/my-favorite-tools.html">&lt;p&gt;For this post I want to share some of my favorite web-application development tools. When I started thinking about this though, I realized there were so many, and which I use depends so much on what it is that I am trying to do, that I decided to take maybe a somewhat strange approach to this. I am going to approach it as a comparison on two sets of tools: python web development tools vs php CMS-es.&lt;/p&gt;
+
+&lt;p&gt;Over the years I have used plenty of tools, mainly in python, php and java to create web and desktop applications. All tools, frameworks and languages have their uses and pros and cons. None of them solve all problems. So you need to choose the tools that fit the problem, and you are good at using as well. Many other considerations come into play as well, like the size of the development team, history of the organization, other tools, etc. For this article I am assuming readers are in my own situation: that is small teams of developers or sometimes even single developers creating applications for people and organizations that need software that “just works”, users that don’t really know their requirements too well (so need flexibility) and don’t have too complicated and standardized work-flows that result in very complicated requirements. So I am not talking about the (multi) million dollar enterprise level development projects.&lt;/p&gt;
+
+&lt;p&gt;For me recently the choice when getting a problem that needed to be solved was: do I develop something myself from scratch, using my favorite python web-application frameworks and tools or do I implement something in an existing CMS, which is normally &lt;a href=&quot;http://www.drupal.org&quot;&gt;Drupal&lt;/a&gt;. So those are the tools this article will be about and when to use either of them. I don’t think these tools are often discussed together.&lt;/p&gt;
+
+&lt;h2 id=&quot;drupal&quot;&gt;Drupal&lt;/h2&gt;
+&lt;p&gt;I have been using &lt;a href=&quot;http://www.drupal.org&quot;&gt;Drupal&lt;/a&gt; (and other PHP CMS-es like &lt;a href=&quot;http://www.wordpress.com&quot;&gt;Wordpress&lt;/a&gt;, &lt;a href=&quot;http://www.joomla.org&quot;&gt;Joomla&lt;/a&gt;, &lt;a href=&quot;http://www.typo3.org&quot;&gt;Typo3&lt;/a&gt; and others that I can’t remember the names of anymore) for many years. I was even stupid enough at one point to write my own CMS in PHP. In the end Drupal floated to the surface as my favorite (although Wordpress has it’s uses too, that are just different from Drupal’s). As a developer I don’t like PHP at all. When I started with PHP it made it easier for you to make a mess of things than to write good code. Later with the newer incarnations the lack of structure has become less of a problem with a decent implementation of Object Oriented Programming, but as such it is moving more and more in the direction that Java is already occupying. Still, PHP and MySQL run on almost every web server in the world, and as such are used by millions of people. So naturally, there are some awesome developers out there that made really cool tools, also in PHP. Drupal is one of them. 
+As a CMS it is often badly understood though. Many web designers are frustrated with Drupal, and talk about the steep learning curve, resulting in hilarious images like these: &lt;img src=&quot;http://allican.be/images/drupal-learning-curve.jpg&quot; alt=&quot;Drupal Learning Curve&quot; /&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you are a graphical designer or web designer that just wants to create a website for a company, find and change an existing theme, including all it’s added functionality, do the SEO and get it over with, you might be better off looking at Wordpress. Although, maybe Drupal 8 might have changed that quite a bit. Drupal on the other hand is great for situations where you want to create different content types with custom fields and forms, and represent those in different ways on different locations on your website without writing a single line of code or duplicating content. Drupal accomplishes this with it’s fields, entities, views, blocks, etc. It is incredibly flexible and allows you to create content heavy sites with strict separation of form (design) and function. If you know Drupal, it is great for any website. If you don’t know it yet, but need to create content heavy sites with content that is more than just a blog post or page, it pays to go through the learning curve. With it’s enormous list of modules, you can create so many different types of websites it often is the only hammer you need. Personally I have used it to create intranet sites, simple project management tools, an internal Evernote alternative, a scientific literature library, wiki, web-shop and of course simple websites. To me Drupal is great for those situations when the functionality you need is already created by someone else. In that case you benefit from the huge set of pre-existing modules, allowing you to improve your site in ways you hadn’t even though of. You don’t need to develop a whole user interface, social media integration, CRUD interface, etc. Most of the drupal “sites” I have created have been done without ever writing a single line of (PHP) code.&lt;/p&gt;
+
+&lt;p&gt;If on the other hand, the web-application or site you need to develop mostly contains custom logic that isn’t directly covered by a Drupal module, and very little functionality is needed that is a standard part of most CMS-es, and/or your application/site is a purely internal one that is used by few people, you might be better off developing something from scratch. The reason is that any flexible CMS, development framework or other software tool that is meant to be used in many different situations and tries to take as much work from you as possible, tends to require a lot of boilerplate code to get started. Writing even a simple Drupal module requires a lot of lines. And then to create the separation between form and function that makes Drupal great, you need to work your way through a lot of API documentation and hooks to find out where your functionality should tie in to Drupals. All in all, it tends to get in your way of quickly writing code for some new functionality. This is not just the case for Drupal. Other CMS-es get in your way even more, so much so that their limited scope might prevent you from doing what you want. This is where for me Python and it’s web development frameworks come in.&lt;/p&gt;
+
+&lt;h2 id=&quot;python-and-flask&quot;&gt;Python and Flask&lt;/h2&gt;
+
+&lt;p&gt;I have actively developed applications in about 5 different &lt;a href=&quot;http://www.python.org&quot;&gt;Python&lt;/a&gt; frameworks over the years and had a good look at quite a few more. Right now &lt;a href=&quot;http://flask.pocoo.org&quot;&gt;Flask&lt;/a&gt; is my favorite. There are multiple reasons for that choice. I will go over the most important considerations briefly, but if you want to know more, googling will turn up quite a lot of good articles on all of them.&lt;/p&gt;
+
+&lt;p&gt;For me the reason to choose a python web-development framework is that with very few lines of code you can accomplish a lot. You don’t need to read large amounts of documentation to get started. &lt;a href=&quot;http://webpy.org/&quot;&gt;Web.py&lt;/a&gt; is a great example of this that really allows you to create an application with just one file and a few lines of code.&lt;/p&gt;
+
+&lt;p&gt;The downside of this is that it doesn’t offer much in the way of structure for your code, so as a developer you need to know how you want to structure your code and be disciplined about it. Furthermore web.py doesn’t seem to be very actively developed anymore. This made me move away from it recently.&lt;/p&gt;
+
+&lt;p&gt;On the other side of the spectrum are &lt;a href=&quot;http://turbogears.org/&quot;&gt;Turbogears&lt;/a&gt;, &lt;a href=&quot;http://www.pylonsproject.org/&quot;&gt;Pylons&lt;/a&gt; and &lt;a href=&quot;http://www.pylonsproject.org/&quot;&gt;Pyramid&lt;/a&gt;. I used Turbogears and pylons a lot in the past for large amounts of customers. They do offer structure to the developer out-of-the-box which means they require quite a lot of boilerplate code to get started and have a lot of “magic” going on behind the scenes. This does mean they take work away from the developer which is great but if you need to deviate from “their” way of doing things, the framework might get in your way. Furthermore the developers seem to keep turning corners which means that Turbogears was merged with Pylons and later abandoned and Pylons is superseded by Pyramid. If your framework includes a lot of boilerplate code and framework specific magic this is quite annoying because you are left with the choice to either spend a lot of time on migrating or continue developing based on an abandoned framework. This problem didn’t exist with my recent move from web.py to Flask which both introduce relatively little “magic”, so most of my code could be moved without many problems.&lt;/p&gt;
+
+&lt;p&gt;From the beginning I have chosen not to use &lt;a href=&quot;https://www.djangoproject.com/&quot;&gt;Django&lt;/a&gt; for a very specific reason and that is that Django takes an “our way or the highway” approach. They kind of force you to use everything as developed by Django. This means that you either use their templating system, their object-relational-mapper, etc. If you prefer another one for whatever reason, you can’t really use it. The other frameworks usually give you more freedom of choice. I especially like &lt;a href=&quot;http://www.sqlalchemy.org/&quot;&gt;SQLAlchemy&lt;/a&gt; as an object-relational-mapper and Django uses its own. The second problem with Django’s approach is that if you ever have to move away from Django, you have to rewrite a lot of code. Don’t get me wrong though, I don’t think Django is a bad framework at all. “The Django way” is quite a good way actually and it works well for many people. I just like to be able to keep my options open.&lt;/p&gt;
+
+&lt;p&gt;So that left me with Flask as my first choice now (I can’t remember the reason for not choosing &lt;a href=&quot;http://bottlepy.org/&quot;&gt;Bottle&lt;/a&gt;). It has very little magic going on (and is clear on where it does), doesn’t enforce a rigid structure but does suggest a proper way of doing things in the docs, which is easy to follow. When moving an application from web.py to Flask it took very little time as I could still use most of my code unmodified. Development has been a lot quicker since and it makes &lt;a href=&quot;https://en.wikipedia.org/wiki/Test-driven_development&quot;&gt;Test Driven Development&lt;/a&gt; easy.&lt;/p&gt;
+
+&lt;p&gt;There are disadvantages though of using any of the python web development frameworks though. For me the biggest one is spending a lot of time on the interface side. If you use a CMS like Drupal you just need to do some HTML/CSS theming to make your site/app look the way you want. The actual interface is already there and works great. When you develop things from scratch based on any development framework, you need to develop you interface from scratch as well. For me this means spending quite a lot of time on JQuery. I try to make the applications intuitive, which often means a lot of JavaScript and Ajax (well, usually using JSON instead of XML). Flask does make RESTful application development easy, which allows me to separate the interface development from the backend as much as possible. Still, it is not my favorite job.&lt;/p&gt;
+
+&lt;p&gt;So there you have it. This my two cents on choosing the right tool for the job.&lt;/p&gt;</content><category term="blog" /><category term="python" /><category term="flask" /><category term="web-application" /><category term="database" /><category term="drupal" /><category term="sqlalchemy" /><category term="php" /><category term="pylons" /><category term="turbogears" /><category term="wordpress" /><category term="pyramid" /><category term="web.py" /><category term="django" /><summary>For this post I want to share some of my favorite web-application development tools. When I started thinking about this though, I realized there were so many, and which I use depends so much on what it is that I am trying to do, that I decided to take maybe a somewhat strange approach to this. I am going to approach it as a comparison on two sets of tools: python web development tools vs php CMS-es.</summary></entry><entry><title>Biodata: a flexible research data entry application</title><link href="http://allican.be/project/2016/01/04/Biodata.html" rel="alternate" type="text/html" title="Biodata: a flexible research data entry application" /><published>2016-01-04T00:00:00+08:00</published><updated>2016-02-09T13:48:27+08:00</updated><id>http://allican.be/project/2016/01/04/Biodata</id><content type="html" xml:base="http://allican.be/project/2016/01/04/Biodata.html">&lt;p&gt;Over the years I have wondered why researchers still rely on spreadsheet applications to record their research data. Although most people know how to use them, spreadsheets have very serious drawbacks, especially if multiple people contribute data to the same dataset/project. With spreadsheets it is usually not possible to have multiple people enter data concurrently. It is also hard to check the sanity of entered data unless you start working with complex formulas and macros, which quickly become very complex, error prone and hard to maintain. And lastly, transforming data in a spreadsheet where you combine data from different tabs/tables, transpose data, filter/sort data, group/split data, etc becomes hard and error prone. For these (and more) reasons, (relational) databases with a decent data entry application in front of it are much better suited for research data.&lt;/p&gt;
+
+&lt;p&gt;Although a lot of applications exist for specific research projects or fields, there is very little available for generic research data entry applications which allow a researcher to define their own datasets and let multiple people enter the data using a simple interface that validates the user input. So when I started working at &lt;a href=&quot;http://www.marineconservationphilippines.org&quot;&gt;Marine Conservation Philippines&lt;/a&gt; as science officer, I decided to build Biodata to solve this problem.&lt;/p&gt;
+
+&lt;h2 id=&quot;functional&quot;&gt;Functional&lt;/h2&gt;
+&lt;p&gt;Biodata is a webapplication, centered around the concept of a dataset. Each dataset is a set of objects and variables, that together make up the dataset for a specific (research) project. Multiple datasets can be created by a researcher for different projects. In the webapplication users who enter data, just get a choice of different datasets that they want to enter (and view/edit) data for. The forms/overviews for these different datasets are automatically generated based on the dataset definition.&lt;/p&gt;
+
+&lt;p&gt;Datasets have four basic objects, namely Sample, Site, Observer and Observation. These link together in the basic dataset, where each sample has a site (location), one or multiple participants (observers) and one or multiple Observations (basically rows in a spreadsheet). Each observation in turn has an observer that recorded that specific observation.&lt;/p&gt;
+
+&lt;p&gt;On each of these extra objects fields can be added, like numeric fields, text fields, date fields, etc. Extra objects can also be added, like a Species object that is linked to an Observation, so a user can choose a species as part of the fields for the observation. Extra objects can be called anything the researcher wishes. They are just a bundle of fields with a name that makes sense in the scope of the research project. All the researcher has to do is define these objects and their respective fields and relationships, and everything from database management, form creation, etc is handled by the application.&lt;/p&gt;
+
+&lt;h2 id=&quot;technical-gibberish&quot;&gt;Technical gibberish&lt;/h2&gt;
+&lt;p&gt;Biodata is written in &lt;a href=&quot;http://www.python.org&quot;&gt;Python&lt;/a&gt; and uses the &lt;a href=&quot;http://flask.pocoo.org&quot;&gt;Flask&lt;/a&gt; webapplication framework. It uses &lt;a href=&quot;http://www.sqlalchemy.org&quot;&gt;SQLAlchemy&lt;/a&gt; to define datasets and act as a wrapper around the actual database. As such it should work with many different databases, but at Marine Conservation Philippines, we run it with a &lt;a href=&quot;http://www.postgresql.org&quot;&gt;PostgreSQL&lt;/a&gt; backend. It contains a command-line tool for database migrations, created using &lt;a href=&quot;https://flask-migrate.readthedocs.org/&quot;&gt;Flask-migrate&lt;/a&gt;, which in turn uses &lt;a href=&quot;https://alembic.readthedocs.org/&quot;&gt;Alembic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It is written using a test driven development approach, and the &lt;a href=&quot;http://github.com/dolfandringa/biodata&quot;&gt;code is hosted on GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Because of the test-driven approach, and because Flask is a framework that puts very few restrictions on the development of the application with very little “magic” going on behind the scenes, this combination of technologies allows for very quick development of the application. In practice it has often proved to be quicker to just develop a new feature than write it down in a project management application and get back to it later.&lt;/p&gt;</content><category term="project" /><category term="python" /><category term="flask" /><category term="web-application" /><category term="database" /><category term="research" /><category term="postgresql" /><category term="data-entry" /><summary>Over the years I have wondered why researchers still rely on spreadsheet applications to record their research data. Although most people know how to use them, spreadsheets have very serious drawbacks, especially if multiple people contribute data to the same dataset/project. With spreadsheets it is usually not possible to have multiple people enter data concurrently. It is also hard to check the sanity of entered data unless you start working with complex formulas and macros, which quickly become very complex, error prone and hard to maintain. And lastly, transforming data in a spreadsheet where you combine data from different tabs/tables, transpose data, filter/sort data, group/split data, etc becomes hard and error prone. For these (and more) reasons, (relational) databases with a decent data entry application in front of it are much better suited for research data.</summary></entry><entry><title>My search for free website and email hosting</title><link href="http://allican.be/blog/2016/01/03/my-search-for-free-hosting-and-email.html" rel="alternate" type="text/html" title="My search for free website and email hosting" /><published>2016-01-03T00:00:00+08:00</published><updated>2016-02-09T13:48:27+08:00</updated><id>http://allican.be/blog/2016/01/03/my-search-for-free-hosting-and-email</id><content type="html" xml:base="http://allican.be/blog/2016/01/03/my-search-for-free-hosting-and-email.html">&lt;p&gt;Over the years I have (happily) setup and used many different ways of hosting personal and company email and websites from &lt;a href=&quot;https://www.zimbra.com/&quot;&gt;Zimbra&lt;/a&gt;, commercially hosted virtual servers, in-house servers, cheap webhosting companies, servers at home and blogs and websites in &lt;a href=&quot;http://www.blogger.com&quot;&gt;blogger&lt;/a&gt;, &lt;a href=&quot;http://www.drupal.com&quot;&gt;Drupal&lt;/a&gt;, &lt;a href=&quot;http://www.wordpress.com&quot;&gt;Wordpress&lt;/a&gt;, etc. All of them have their merits and drawbacks. But since I moved to the Philippines and started working for &lt;a href=&quot;http://www.marineconservationphilippines.org&quot;&gt;Marine Conservation Philippines&lt;/a&gt; I was looking for something cheap (free?) and low-maintenance to host the email from my old domain name, and host a weblog for personal ramblings. This is what I ended up with.&lt;/p&gt;
+
+&lt;h2 id=&quot;email-hosting&quot;&gt;Email hosting&lt;/h2&gt;
+
+&lt;p&gt;Email hosting for your own domain name is hard to find for free. And if you do manage to find it, chances are you’re ending up on so many advertisement lists that it’s worth paying some money to stay off them. There are various cheap options that are worth considering, of which &lt;a href=&quot;http://apps.google.com&quot;&gt;Google Apps&lt;/a&gt; is a very obious option. But I still preferred something free if I could find it. And along came &lt;a href=&quot;https://www.zoho.com/&quot;&gt;Zoho&lt;/a&gt;. They are a competitor of the suite of Google Apps, and seem to offer much more than the basic mail/calendar/documents applications. Their primary focus is on businesses, and it shows with CRM, HRM, financial, support, and sales applications in their suite. But as a teaser to get you in, they offer free email hosting for businesses. The free version includes up to 10 users, 5GB storate per user and one hosted domain name (costs of registration of the actual domainname not included). Their hosting comes with webmail and offline apps, but they also offer POP3/IMAP access to their mail servers. All you need to do is setup an account and &lt;a href=&quot;https://www.zoho.com/mail/help/adminconsole/configure-email-delivery.html&quot;&gt;Setup DNS records for mail delivery to their servers&lt;/a&gt; and you’re set. I choose to not use their webmail app, but instead &lt;a href=&quot;https://support.google.com/mail/answer/21289?hl=en&quot;&gt;pull the mail into my personal gmail address&lt;/a&gt; from the Zoho mail servers through POP3. That way I only need to check one email address, and with the automatic labelling of gmail I can still separate business from personal email. This setup seems to work quite nicely for me, and best of all, it’s free!&lt;/p&gt;
+
+&lt;h2 id=&quot;webhosting&quot;&gt;Webhosting&lt;/h2&gt;
+
+&lt;p&gt;The second thing I was looking for was a free webhosting solution. I wanted it both as a blog and as a website to show my resumé. You’re looking at the result. For a while I was considering just using my github and linkedin accounts and leave it at that. Aside from that my wife and me also have a travel blog on &lt;a href=&quot;http://anneliesendolf.blogspot.com&quot;&gt;blogspot&lt;/a&gt;, I am a big fan of &lt;a href=&quot;http://www.drupal.org&quot;&gt;Drupal&lt;/a&gt; which will run with any cheap webhoster, and there is of course &lt;a href=&quot;http://www.wordpress.com&quot;&gt;wordpress.com&lt;/a&gt;. So plenty of options. I wanted something that allowed me enough flexibility, but kept hings nice and simple for me to get started. And of course free was a big advantage. In the end I decided to discard blogger and wordpress as they are mainly focussed on blogging and don’t allow the amount of control that I prefer. And if I decide to move away, I’m not sure how easy it is to migrate my posts away from there. Lastly, not being able to write while I am offline is also a drawback, especially in tropical countries with spotty internet connections.&lt;/p&gt;
+
+&lt;p&gt;A self-built website in &lt;a href=&quot;http://www.drupal.org&quot;&gt;Drupal&lt;/a&gt; had my preference for a long time as I can use it for blogging, but comes with the enormous power that Drupal offers. But as that required setting up a hosting contract somewhere, and managing a drupal installation and database, just for a personal resumé and blog, I though it wasn’t worth the effort. And then &lt;a href=&quot;https://pages.github.com/&quot;&gt;github pages&lt;/a&gt; popped back up into my mind.&lt;/p&gt;
+
+&lt;p&gt;Github has become the standard for hosting the source code of and collaborating on software development projects. Together with &lt;a href=&quot;https://travis-ci.org/&quot;&gt;travis&lt;/a&gt; and &lt;a href=&quot;http://www.heroku.com&quot;&gt;heroku&lt;/a&gt; they even offer the full workflow from development to testing, building and deployment in the cloud. Github pages adds the ability to host the documentation and project and personal webpages on the servers of github as well. Per github account you can host one personal website for free with them.&lt;/p&gt;
+
+&lt;p&gt;The drawback of github pages is that they offer very little on the backend side of things. No php or other server side langauage support, and no databases. Just file storage for static websites. And this is where &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; comes in. Jekyll is a client-side application that allows you to write weblog posts en website pages in simple &lt;a href=&quot;https://help.github.com/articles/github-flavored-markdown/&quot;&gt;markdown syntax&lt;/a&gt;, and render it with templates/themes into static html websites that can be hosted anywhere. And there is one more perk, it integrates with github pages, so you can just push your jekyll code to github and they’ll turn it into a running website for you on their servers. It allows you to create your own templates, or extend upon the free templates of &lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;jekyllthemes&lt;/a&gt;. Modifying an existing template is just a matter of writing/modifying a few html files. If you’re familiar with CSS/HTML there’s not much to it. No complicated templating systems as seen so often in CMS’es. It only uses the simple &lt;a href=&quot;https://github.com/Shopify/liquid/wiki&quot;&gt;liquid templating&lt;/a&gt; engine to glue everything together. To set it up, just follow the steps as &lt;a href=&quot;https://help.github.com/articles/using-jekyll-with-pages/&quot;&gt;described by github&lt;/a&gt;.&lt;/p&gt;</content><category term="blog" /><category term="hosting" /><category term="email" /><category term="website" /><category term="blog" /><category term="jekyll" /><category term="zoho" /><category term="github" /><summary>Over the years I have (happily) setup and used many different ways of hosting personal and company email and websites from Zimbra, commercially hosted virtual servers, in-house servers, cheap webhosting companies, servers at home and blogs and websites in blogger, Drupal, Wordpress, etc. All of them have their merits and drawbacks. But since I moved to the Philippines and started working for Marine Conservation Philippines I was looking for something cheap (free?) and low-maintenance to host the email from my old domain name, and host a weblog for personal ramblings. This is what I ended up with.</summary></entry></feed>
