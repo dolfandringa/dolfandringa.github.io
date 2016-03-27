@@ -31,3 +31,4 @@ markdown: kramdown
 tag_index_dir: "/archive/"
 gems:
       - jekyll-last-modified-at
+      - jekyll-feed
