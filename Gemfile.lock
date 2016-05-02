@@ -123,6 +123,7 @@ GEM
       ffi (>= 0.5.0)
     rdiscount (2.1.8)
     redcarpet (3.3.3)
+    rmagick (2.15.4)
     robotex (1.0.0)
     rouge (1.10.1)
     safe_yaml (1.0.4)
@@ -148,7 +149,9 @@ DEPENDENCIES
   jekyll-sitemap
   json
   link-checker
+  nokogiri
   pygments.rb
+  rmagick
 
 BUNDLED WITH
    1.11.2
