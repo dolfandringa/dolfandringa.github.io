@@ -12,6 +12,8 @@
   		<script src="/js/jquery.poptrox.min.js"></script>
   		<script src="/js/skel.min.js"></script>
   		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
   		<noscript>
   			<link rel="stylesheet" href="/css/skel.css" />
   			<link rel="stylesheet" href="/css/style.css" />
@@ -31,7 +33,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
       <header id="header">
-          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="" /></a>
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
           <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
             This site contains my personal ramblings.</h1>
       </header>
@@ -94,7 +96,8 @@ What about the <code class="highlighter-rouge">out&lt;-NULL</code> <code class="
 
 <p>The parent Rmd file:</p>
 
-<figure class="highlight"><pre><code class="language-md" data-lang="md"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-md" data-lang="md"><table style="border-spacing: 0"><tbody><tr>
+<td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -132,7 +135,8 @@ What about the <code class="highlighter-rouge">out&lt;-NULL</code> <code class="
 36
 37
 38
-39</pre></td><td class="code"><pre><span class="nn">---</span>
+39</pre></td>
+<td class="code"><pre><span class="nn">---</span>
 <span class="s">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">test"</span>
 <span class="s">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dolf</span><span class="nv"> </span><span class="s">Andringa'</span>
 <span class="s">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
@@ -171,11 +175,13 @@ for(sg in species_groups){
 }
 <span class="sb">```</span>
 <span class="sb">`r paste(out, collapse='\n')`</span><span class="w">
-</span></pre></td></tr></tbody></table></code></pre></figure>
+</span></pre></td>
+</tr></tbody></table></code></pre></figure>
 
 <p>This is the child Rmd file (called individual_species_blog.Rmd):</p>
 
-<figure class="highlight"><pre><code class="language-md" data-lang="md"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-md" data-lang="md"><table style="border-spacing: 0"><tbody><tr>
+<td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -214,7 +220,8 @@ for(sg in species_groups){
 37
 38
 39
-40</pre></td><td class="code"><pre><span class="nn">---</span>
+40</pre></td>
+<td class="code"><pre><span class="nn">---</span>
 <span class="s">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Individual</span><span class="nv"> </span><span class="s">Species"</span>
 <span class="s">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dolf</span><span class="nv"> </span><span class="s">Andringa'</span>
 <span class="s">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
@@ -254,7 +261,8 @@ coefs&lt;-as.data.frame(coefs)
 coefs&lt;-coefs<span class="p">[</span><span class="nv">with(coefs,order(coefs$pvalue)),</span><span class="p">]</span>
 knitr::kable(coefs)
 <span class="sb">```</span><span class="w">
-</span></pre></td></tr></tbody></table></code></pre></figure>
+</span></pre></td>
+</tr></tbody></table></code></pre></figure>
 
 
         </section>
