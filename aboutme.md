@@ -19,9 +19,15 @@ For anyone interested below you can find my resumé. Although I can't imagine an
 <tr>
     <td>2014 - present</td>
     <td><p><strong>Science Officer at Marine Conservation Philippines</strong></p>
-        <p>MCP is a self-funded non-profit nature conservation organisation. The organisation is funded by its volunteer program and supports the local government and conservation organisations with technical knowledge and trained manpower in monitoring projects, educational projects and in a supporting role for Coastal Resource Management.</p>
-        <p>My role as science officer is very diverse, from tutoring and managing (university) interns and volunteers to design and setup of our monitoring program, research design and execution, project design, data analysis and reporting. As part of my job I am also in charge of the conservation projects supporting local policy makers, people's organisations and NGO's interested in protecting coastal resources by providing maps, reports, data and advise.</p><p>On the techincal side I manage IT infrastructure, developed our own data entry application.</p>
-    </td>
+        <p>
+MCP is a self-funded non-profit nature conservation organisation. The organisation is funded by its volunteer program and supports the local government and conservation organisations with technical knowledge and trained manpower in monitoring projects, educational projects and in a supporting role for Coastal Resource Management.</p>
+<p>
+My role as science officer is very diverse, from tutoring and managing academic interns to design and setup of our ecological monitoring program, research design and execution, project design, data analysis and reporting. As part of my job I am also in charge of the conservation projects supporting local policy makers, people's organisations and NGO's interested in protecting coastal resources by providing maps, reports, data and advise.
+</p>
+<p>
+On the technical side I manage IT infrastructure and developed our own data entry (web-)application. A substantial part of my work involves GIS work, where I work on creating coastal ecosystem maps using remote sensing techniques, and setup a spatial data infrastructure including a web-mapping application, with which I can create and share maps with stakeholders.
+</p>
+</td>
 </tr>
 <tr>
     <td>2013 - 2014</td>
@@ -32,6 +38,7 @@ For anyone interested below you can find my resumé. Although I can't imagine an
 <tr><td>2010 - 2013</td><td><p><strong>Chief Technical Officer at Proigia (http://www.proigia.nl)</strong></p>
 <p>Previous years of work as independent contractor resulted in founding Proigia together with a partner. It grew into a 4-5 FTE (7 employees) company. Proigia develops a web-based business intelligence platform and services for primary healthcare providers based on their own medical information.
 Reporting is done in a web-based application written in python and PostgreSQL and a web GIS application based on Openlayers, GeoExt, Geoserver and PostGIS. Key values are privacy, bottom up, empowerment of the practice.</p>
+<p>A large part of the value added by Proigia consists of extracting large datasets from even larger primary datasources used by the customers, which are often very big, badly documented and unwieldy. Proigia makes sense of these data and translates them into answers to useful questions for it's clients.</p>
 <p>My tasks included (technical) strategy development, software development and architecture, management of projects and employees often in cooperation with other (inter)national organisations and companies, translating clients questions into technical requirements, and IT infrastructure management.</p></td></tr>
 <tr><td>2004 - 2013</td><td><p><strong>Independent contractor in Elcyon.</strong></p>
 <p>Starting out as a system administrator for various companies, work evolved into website and web-application development, and then on to software developer. The software development became the majority of work and culminated in the founding of Proigia. The last three years all work went into Proigia, with Elcyon taking a background position.</p>
