@@ -17,16 +17,16 @@ For anyone interested below you can find my resumé. Although I can't imagine an
 
 <table class="resume">
 <tr>
-    <td>2014 - present</td>
-    <td><p><strong>Science Officer at Marine Conservation Philippines</strong></p>
-        <p>
-MCP is a self-funded non-profit nature conservation organisation. The organisation is funded by its volunteer program and supports the local government and conservation organisations with technical knowledge and trained manpower in monitoring projects, educational projects and in a supporting role for Coastal Resource Management.</p>
-<p>
-My role as science officer is very diverse, from tutoring and managing academic interns to design and setup of our ecological monitoring program, research design and execution, project design, data analysis and reporting. As part of my job I am also in charge of the conservation projects supporting local policy makers, people's organisations and NGO's interested in protecting coastal resources by providing maps, reports, data and advise.
-</p>
-<p>
-On the technical side I manage IT infrastructure and developed our own data entry (web-)application. A substantial part of my work involves GIS work, where I work on creating coastal ecosystem maps using remote sensing techniques, and setup a spatial data infrastructure including a web-mapping application, with which I can create and share maps with stakeholders.
-</p>
+<td>2016 - present</td>
+<td><p><strong>Independent contractor</strong></p>
+<p>Still based in the Philippines, I now work as an independent contractor and consultant. I develop and design mostly web-based software and GIS applications. As my affinity with marine conservation and science and GIS is still strong, this is my primary focus area, but I like to apply my skills anywhere they are needed. Although my main specialty is developing in Python, I am versatile and have experience in Java, C, R and other languages. I furthermore have experience in GIS, remote sensing, scientific data analysis and web-mapping.</p></td>
+</tr>
+<tr>
+<td>2014 - 2016</td>
+<td><p><strong>Science Officer at Marine Conservation Philippines</strong></p>
+<p>MCP is a self-funded non-profit nature conservation organisation. The organisation is funded by its volunteer program and supports the local government and conservation organisations with technical knowledge and trained manpower in monitoring projects, educational projects and in a supporting role for Coastal Resource Management.</p>
+<p>My role as science officer is very diverse, from tutoring and managing academic interns to design and setup of our ecological monitoring program, research design and execution, project design, data analysis and reporting. As part of my job I am also in charge of the conservation projects supporting local policy makers, people's organisations and NGO's interested in protecting coastal resources by providing maps, reports, data and advise.</p>
+<p>On the technical side I manage IT infrastructure and developed our own data entry (web-)application. A substantial part of my work involves GIS work, where I work on creating coastal ecosystem maps using remote sensing techniques, and setup a spatial data infrastructure including a web-mapping application, with which I can create and share maps with stakeholders.</p>
 </td>
 </tr>
 <tr>
@@ -40,10 +40,17 @@ On the technical side I manage IT infrastructure and developed our own data entr
 Reporting is done in a web-based application written in python and PostgreSQL and a web GIS application based on Openlayers, GeoExt, Geoserver and PostGIS. Key values are privacy, bottom up, empowerment of the practice.</p>
 <p>A large part of the value added by Proigia consists of extracting large datasets from even larger primary datasources used by the customers, which are often very big, badly documented and unwieldy. Proigia makes sense of these data and translates them into answers to useful questions for it's clients.</p>
 <p>My tasks included (technical) strategy development, software development and architecture, management of projects and employees often in cooperation with other (inter)national organisations and companies, translating clients questions into technical requirements, and IT infrastructure management.</p></td></tr>
-<tr><td>2004 - 2013</td><td><p><strong>Independent contractor in Elcyon.</strong></p>
+<tr>
+    <td>2004 - 2013</td>
+    <td><p><strong>Independent contractor in Elcyon.</strong></p>
 <p>Starting out as a system administrator for various companies, work evolved into website and web-application development, and then on to software developer. The software development became the majority of work and culminated in the founding of Proigia. The last three years all work went into Proigia, with Elcyon taking a background position.</p>
-<p>Sample projects: Development of various websites, web-application development at the laboratory of Nematology of Wageningen UR, web GIS development for a primary healthcare organisation, training of healthcare employees in the use of Microsoft Access, writing training material for the use of Google Earth for a consultancy firm, tutoring a course at Wageningen university.</p></td></tr>
-<tr><td>2001 - 2004</td><td><p><strong>Various jobs at Wageningen University</strong>, including a system administrator at the head office, tutoring a course, development of a website for the Biology study, and development of information material for the health and safety department.</p></td></tr>
+<p>Sample projects: Development of various websites, web-application development at the laboratory of Nematology of Wageningen UR, web GIS development for a primary healthcare organisation, training of healthcare employees in the use of Microsoft Access, writing training material for the use of Google Earth for a consultancy firm, tutoring a course at Wageningen university.</p>
+</td></tr>
+<tr>
+    <td>2001 - 2004</td>
+    <td><p><strong>Various jobs at Wageningen University</strong>, including a system administrator at the head office, tutoring a course, development of a website for the Biology study, and development of information material for the health and safety department.</p>
+    </td>
+</tr>
 </table>
 
 ### Education ###
