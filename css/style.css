@@ -101,24 +101,39 @@ body.is-touch nav ul li {
 }
 
 /* line 1, ../sass/_tables.scss */
-table.resume {
+table.skills, table.resume, table.education {
   font-size: 0.9em;
 }
 /* line 3, ../sass/_tables.scss */
-table.resume p {
+table.skills p, table.resume p, table.education p {
   margin: 5px 0px;
   line-height: 1em;
 }
 /* line 8, ../sass/_tables.scss */
-table.resume tr td {
+table.skills tr td, table.resume tr td, table.education tr td {
   padding: 0.2em 0.75em;
 }
 /* line 11, ../sass/_tables.scss */
-table.resume tr td:first-of-type {
+table.skills tr td:first-of-type, table.resume tr td:first-of-type, table.education tr td:first-of-type {
   width: 110px;
 }
 
 /* line 18, ../sass/_tables.scss */
+table.resume tbody tr, table.resume tbody tr:nth-child(2n + 1), table.education tbody tr, table.education tbody tr:nth-child(2n + 1) {
+  background-color: transparent;
+  border-width: 0px;
+}
+/* line 22, ../sass/_tables.scss */
+table.resume tbody tr:first-child, table.education tbody tr:first-child {
+  background-color: #f7f7f7;
+}
+
+/* line 29, ../sass/_tables.scss */
+table.resume tbody tr:first-child td {
+  font-weight: bold;
+}
+
+/* line 36, ../sass/_tables.scss */
 table.skills tr td:first-of-type {
   width: 160px;
 }

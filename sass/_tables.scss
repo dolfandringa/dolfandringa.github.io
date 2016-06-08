@@ -1,4 +1,4 @@
-table.resume{
+table.skills, table.resume, table.education{
   font-size: 0.9em;
   p{
     margin: 5px 0px;
@@ -10,6 +10,24 @@ table.resume{
     }
     td:first-of-type{
       width: 110px;
+    }
+  }
+}
+table.resume, table.education{
+  tbody{
+    tr, tr:nth-child(2n + 1){
+      background-color: transparent;
+      border-width: 0px;
+    }
+    tr:first-child{
+      background-color: #f7f7f7;
+    }
+  }
+}
+table.resume{
+  tbody{
+    tr:first-child td{
+      font-weight: bold;
     }
   }
 }
