@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+      <title>Reinstalling the kernel on Arch Linux after a failed upgrade.</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="ArchLinux,live,kernel,upgrade,modules" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">Reinstalling the kernel on Arch Linux after a failed upgrade.</h2>
+                <p class="post-meta">
+                  Jun 9, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/ArchLinux">ArchLinux</a>  <a href="/tag/live">live</a>  <a href="/tag/kernel">kernel</a>  <a href="/tag/upgrade">upgrade</a>  <a href="/tag/modules">modules</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>Since a few weeks my laptop battery is dead. I am still trying to work with Asus to get a new one as it is still under warranty (but sending it in for repair will apparently take 2 months while I already know that a new battery will solve the problem). So I am working of the net power only. The power sockets in the Philippines aren’t great though, and Asus decided to integrate the plug into the transformer/regulator unit for my laptop charger, creating a big heavy plug that is really too heavy for vertical wall sockets. So as you can guess from the title of this blog post, yesterday I was working on my laptop and decided to install upgrades on my Arch Linux box. While I was doing this though, I accidentally touched the power cord of my laptop, which then fell out of the wall socket. This isn’t the first time this happened, but unfortunately my computer was in the middle of a kernel upgrade…. And of course the kernel modules weren’t fully installed, and the initramfs wasn’t fully updated either.</p>
+
+<p>So when I started my laptop again, it dropped me into the emergency mode. After looking at the logs with <code class="highlighter-rouge">journalctl -xe</code> and going almost all the way to the top of the logs, I found these error messages:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemd[1]: Starting Load Kernel Modules...
+systemd[1]: systemd-modules-load.service: Main process exited, <span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span>1
+systemd[1]: Failed to start Load Kernel Modules.
+systemd[1]: systemd-modules-load.service: Unit entered failed state.
+systemd[1]: systemd-modules-load.service: Failed with result <span class="s1">'exit-code'</span>.
+systemd-modules-load[173]: Failed to lookup <span class="nb">alias</span> <span class="s1">'loop'</span>: Function not implemented
+systemd-modules-load[173]: Failed to lookup <span class="nb">alias</span> <span class="s1">'vboxdrv'</span>: Function not implemented
+systemd-modules-load[173]: Failed to lookup <span class="nb">alias</span> <span class="s1">'vboxpci'</span>: Function not implemented
+systemd-modules-load[173]: Failed to lookup <span class="nb">alias</span> <span class="s1">'vboxnetadp'</span>: Function not implemented
+systemd-modules-load[173]: Failed to lookup <span class="nb">alias</span> <span class="s1">'vboxnetflt'</span>: Function not implemented</code></pre></figure>
+
+<p>And a little further down:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemd[1]: Mounting /boot/efi...
+mount[336]: mount: unknown filesystem <span class="nb">type</span> <span class="s1">'vfat'</span>
+systemd[1]: boot-efi.mount: Mount process exited, <span class="nv">code</span><span class="o">=</span>exited <span class="nv">status</span><span class="o">=</span>32
+systemd[1]: Failed to mount /boot/efi.
+systemd[1]: Dependency failed <span class="k">for </span>Local File Systems.
+systemd[1]: <span class="nb">local</span>-fs.target: Job <span class="nb">local</span>-fs.target/start failed with result <span class="s1">'dependency'</span>.
+systemd[1]: <span class="nb">local</span>-fs.target: Triggering <span class="nv">OnFailure</span><span class="o">=</span> dependencies.
+systemd[1]: boot-efi.mount: Unit entered failed state.</code></pre></figure>
+
+<p>So there was clearly something wrong with my kernel modules, causing them not to load. Fortunately I still had my <a href="/blog/2016/02/04/creating_custom_persistent_arch_live_iso.html">custom persistent arch iso live USB stick</a>. With this, the solution was quite easy:</p>
+
+<p>I booted my laptop from the usb stick. Once in the live cd, I <a href="https://wiki.archlinux.org/index.php/netctl#Wireless_.28WPA-PSK.29">setup the network with netctl</a>. Once I had network, I mounted my the partition with my OS’s root filesystem with <code class="highlighter-rouge">mount /dev/sda8 /mnt</code> and chrooted into it with <code class="highlighter-rouge">arch-chroot /mnt /bin/bash</code>. Now I was back in my normal OS. All I had to do now was reinstall the kernel and modules. I did <code class="highlighter-rouge">pacman -S --force linux linux-headers mkinitcpio kmod</code>. The <code class="highlighter-rouge">--force</code> in there makes sure everything gets reinstalled even if files from the package already exist in the filesystem. With me this was necessary since the same kernel and modules were already partially installed. It also re-built the initramfs and installed it. After this was done and a reboot, my os was up and running again. Phew! Thank heavens for the live USB stick.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+              
+              
+              <li>
+                <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>
