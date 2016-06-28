@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+      <title>My search for free website and email hosting</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="electronics,aquaponics,web-application,beaglebone,angularjs,d3,development" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">My search for free website and email hosting</h2>
+                <p class="post-meta">
+                  Jan 3, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/electronics">electronics</a>  <a href="/tag/aquaponics">aquaponics</a>  <a href="/tag/web-application">web-application</a>  <a href="/tag/beaglebone">beaglebone</a>  <a href="/tag/angularjs">angularjs</a>  <a href="/tag/d3">d3</a>  <a href="/tag/development">development</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>For my <a href="http://allican.be/tag/aquaponics/">aquaponics project</a> I need to create a timed switch that turns my pump on and off. I am doing this with a simple 555 timer in a-stable mode, a capacitor, a relais and two pot-meters. The timer in a-stable mode switches a pin between high and low state, for a fixed amount of time. Both the high and the low times can be adjusted with the potentiometers.</p>
+
+<p><img src="http://allican.be/assets/555timer_bbb.jpg" alt="My 555-timer connected to the Beaglebone Black"></p>
+
+<p>To test if my calculations were right though, I need to monitor the output pin state. I did this already with a small LED, but since the timing is quite long (my pump should be on for 2 minutes and off for 10), I was quite annoyed having to sit looking at an LED for a while and I missed the switching between high and low multiple times. Especially in the beginning it is annoying because the initial startup is twice the “on” state, so even 20 minutes. A lot of time to waste, that I’d rather waste by developing a nice web-application that monitors the pin state in a graph.</p>
+
+<p>And so my logic-level analyser was born. I have a <a href="://beagleboard.org/black">Beagle Bone Black</a> lying around which is perfect for this. It has many digital input/output pins, an Analog-Digital Converter (ADC) and PWM output among other things. I have a wifi card plugged into it as well, so as soon as I switch it on, it joins my wifi. It also contains a node.js server an runs the Cloud9 IDE which allows for easy programming of it, and with the bonescript library makes the many features available in javascript. So what better way to create a logic level analyser by just wiring the output pin of my 555 timer circuit (on a breadboard) to one of the GPIO pins of my beaglebone and plot the state of the pin in a graph in a web-interface.</p>
+
+<p>I wanted to do more with AngularJS anyway and creating dashboards with it, so searching for a nice plotting library wasn’t wasted time anyway. I really like <a href="://www.angularjs.org">AngularJS</a> the more I play with it, especially it’s way to separate the (interface) logic from the html and it’s ability to dynamically change the data for a “controller” and have it update the interface. Perfect for me where I want to continuously poll the pin state of my beaglebone and update the graph. It can even gracefully handle a lost connection for instance with a wifi hick-up.
+The <a href="://krispo.github.io/angular-nvd3/">angular-nvd3 libary</a> is the library that I chose for the graphs. The underlying graphing library is D3, which is quite powerful, but it includes a much easier/quicker to use JSON-based API, and integrates very well with AngularJS.
+You can find the code, which is quite self-explanatory <a href="://github.com/dolfandringa/bbb_logiclevel_analyser">on github</a>.</p>
+
+<p>Just to note some of the more interesting points:
+* The Beaglebone Black runs node-js which supports web-sockets. It also provides the bonescript Javascript library that can either be used by node-js or run in the browser. In the latter case it connects to the Beaglebone Black through a websocket using socket.io (which needs to be present on the beaglebone in /socket.io/socket.io.js). This is what the <code class="highlighter-rouge">$scope.setupBoneScript`` function takes care off. The call to</code>setTargetAddress<code class="highlighter-rouge">in there is from the bonescript library. As soon as the websocket connection is established, it calls</code>$scope.refresh<code class="highlighter-rouge">, which polls the pin and updates the graph and starts a timeout to repeat itself continuously.
+* The configuration of the graph is done with the</code>$scope.options<code class="highlighter-rouge">object which contains the configuration parameters for the graph.
+* The graph's y-axis contains only the values on and off. Bonescript returns 1 and 0 for the pin state though. But the NVD3 graph allows you to change the values displayed on the y-Axis with the</code>$scope.options.chart.yAxis.tickFormat<code class="highlighter-rouge">function. This just gets the y-axis value and should return the value that you want displayed on the y-axis.
+ - With</code>$scope.options.chart.yDomain: [0,1]<code class="highlighter-rouge">I forced the y-Axis to only contain values from 0 (off) to 1 (on). Else it would also include -1 on the y-axis.
+* with</code><code class="highlighter-rouge">$scope.options.chart.yAxis.tickValues: [0,1]</code>`` I made sure that there are only y-axis ticks for the values 0 (off) and 1 (on), and none in between.</p>
+
+<p>The whole application looks like this:
+<img src="http://allican.be/assets/bbb_logiclevel_analyser.png" alt="The Beaglebone Black logic-level analyser web-application">.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+              
+              
+              <li>
+                <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>
