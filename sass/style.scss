@@ -134,16 +134,7 @@ $size-header-pad:		4em;
 		padding: 0.5em 0 0.5em 1.5em;
 	}
 	
-	code {
-		background: $color-border-bg;
-		border-radius: $size-border-radius;
-		border: solid 2px $color-border;
-		font-family: $font-family-fixed;
-		font-size: 0.9em;
-		margin: 0 0.25em;
-		padding: 0.25em 0.65em;
-	}
-
+	
 	pre {
 		-webkit-overflow-scrolling: touch;
 		font-family: $font-family-fixed;
@@ -177,6 +168,11 @@ $size-header-pad:		4em;
 			text-align: center;
 		}
 	}
+  .row{
+    article{
+      overflow: hidden;
+    }
+  }
 
 	header {
 		p {

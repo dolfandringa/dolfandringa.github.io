@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!-- _includes/base.html -->
+
+
+
+
+<html>
+  	<head>
+      <title>Business intelligence and data manipulation with Knime</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="business_intelligence,knime,python,matplotlib,visualisation,ETL,data" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
+  	  <link rel="stylesheet" href="/css/syntax.css" />
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">Business intelligence and data manipulation with Knime</h2>
+                <p class="post-meta">
+                  Oct 26, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/business_intelligence">business_intelligence</a>  <a href="/tag/knime">knime</a>  <a href="/tag/python">python</a>  <a href="/tag/matplotlib">matplotlib</a>  <a href="/tag/visualisation">visualisation</a>  <a href="/tag/ETL">ETL</a>  <a href="/tag/data">data</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>It’s been a while since I did a proper post about something techy. But I did spend quite a bit of time with Knime, and I love it. So I think it warrants a post. <a href="https://www.knime.org/knime-analytics-platform">Knime</a> is a complete data mining, manipulation and analysis toolkit. It’s completely open-source and really flexible. I have experience with other <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load">ETL</a> and reporting tools, like <a href="https://www.talend.com/products/talend-open-studio">Talend Open Studio</a>, <a href="http://community.jaspersoft.com/project/jaspersoft-studio">JasperReports</a> and <a href="http://www.pentaho.com/product/data-integration">Pentaho Kettle</a> but for me (in my use-case) Knime rises above them. Talking about my use case, what is it?</p>
+
+<h2 id="use-case">Use Case</h2>
+<p>At <a href="http://www.east-corp-philippines.com">the solar power company</a> that I am a partner in (among other activities) we sell inverters from various different brands. As a consequence, our clients use a variety of (web-based) monitoring tools. Each with their own dashboard and output. But we need overviews comparing all our clients with each-other, and besides that, we can get extra data from those inverters internally, which allows us to do advanced debugging and monitoring. But visualising that data from those different sources is non-trivial. This is where Knime comes in. We can download exports of the webbased monitoring dashboards that our clients use. Some of them produce csv files, others excel files, and the format of all those files is wildly different. Knime allows me to read in the data from those different files, combine it into one common dataset and then analyse that data. I used it for instance to create an interactive graph that plots the average daily solar array output per week for each of our clients (as a % of their maximum output) so I could compare the performance of each solar array.
+Knime does it’s work this by creating a chain of “nodes” (operations) that are connected by arrows. Each node does somethings small, like calculate a number, filter rows, rename columns, etc. The data flows through the chain of operations from the start node to the end node.</p>
+
+<ul>
+  <li><img src="/images/knime_workflow-thumb.png" alt="My knime workflow combining data from multiple sources into one workflow for analysis and visualisation." data-fullimage="/images/knime_workflow.png"></li>
+</ul>
+
+<p>With the nodes you can do calculations, filtering, joining data, grouping, pivot tables, transposing, etc. It also has graphing tools, and an enormous amount of plugins that let you go into seriously complex modelling, genetics, bioinformatics, geo-information, etc. It allows you to read a whole directory of files, databases, allows you to download data/files automatically from the internet or webservices and interface with online API’s like google analytics and twitter. Most of this stuff I haven’t tried out though.</p>
+
+<p>In the left of the image above you see a bunch of nodes with no input. Those are meta nodes. These allow you to embed whole separate workflow into another workflow. For each client for instance I have a workflow that reads the respective export files, combines them and transforms the data into data that is uniform across all clients. This way you can break complex workflows up into several separate ones. And if I ever need to read the data from one of those clients in another workflow, I just copy the meta-node over to the new workflow without having to redo any work.</p>
+
+<h2 id="scripting">Scripting</h2>
+<p>For me the cool part is that it also has a lot of scripting plugins for different languages. It integrates javascript, Groovy, Java, Python and R scripting interfaces at least. So you can create a small node that does something in python, or leverage the serious statistical power of R.
+I for instance use the python scripting node to Date/Time manipulations and some other data corrections that I can quickly do in Python. But those nodes are really tiny and easy to maintain.</p>
+
+<p>A larger python node that I created is for visualisation. Knime has quite a few graphing tools, from <a href="http://marcoghislanzoni.com/blog/2016/04/29/knime-3-charting-with-plotly-js/">javascript based ones which can use some awesome graphing libraries for webapplications like Plotly.js</a>, to it’s own internal graphing tool. But none of those were good enough for me. The performance of the javascript based ones was bad with large amounts of data (one of my workflows has a few 100.000 rows) while the internal one wasn’t interactive enough. I decided to go with Python’s <a href="http://matplotlib.org/">matplotlib</a> which is used a lot in the scientific community as is really good. Especially the <a href="http://matplotlib.org/users/pyplot_tutorial.html">Pyplot graphs</a>, which have an interactive interface are nice to use, enabling you to zoom in and out, switch data series on and off and save the resulting final graph as a png file.</p>
+
+<ul>
+  <li><img src="/images/knime-matplotlib-graph-thumb.png" alt="The resulting graph of using matplotlib in a Knime Python View node" data-fullimage="/images/knime-matplotlib-graph.png"></li>
+</ul>
+
+<p>The below code does the matplotlib work. The code is commented and together with the <a href="http://matplotlib.org/users/pyplot_tutorial.html">pyplot docs</a> is quite understandable.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">as</span> <span class="nn">gridspec</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+
+<span class="c">#set the matplotlib style, based on ggplot but slightly adjusted</span>
+<span class="n">mystyle</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">library</span><span class="p">[</span><span class="s">'ggplot'</span><span class="p">]</span>
+<span class="n">mystyle</span><span class="p">[</span><span class="s">'lines.linewidth'</span><span class="p">]</span><span class="o">=</span> <span class="mf">1.6</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">mystyle</span><span class="p">)</span>
+
+<span class="c">#create a gridspec where the graph will take up 5/6 of the grid</span>
+<span class="c">#and the legend the last bit</span>
+
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'</span><span class="si">% </span><span class="s">of maximum output'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Time'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Average daily output (</span><span class="si">% </span><span class="s">of max) per week"</span><span class="p">);</span>
+
+<span class="n">x</span><span class="o">=</span><span class="n">input_table</span><span class="p">[</span><span class="s">'Date'</span><span class="p">]</span> <span class="c"># a-axis</span>
+
+<span class="c"># variables for the y-axes (data series)</span>
+<span class="n">line_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">input_table</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">'Date'</span><span class="p">,</span><span class="s">'Year'</span><span class="p">,</span><span class="s">'Week'</span><span class="p">)]</span>
+
+<span class="c"># use viridis for coloring the data series</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_color_cycle</span><span class="p">([</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cols</span><span class="p">))])</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">line_cols</span><span class="p">:</span>
+	<span class="c">#plot the data series</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">input_table</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+
+<span class="c">#setup the legendto the right of the plot</span>
+<span class="n">leg1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">'center left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c">#Now some magic to allow clicking in the legend to switch data series on and off</span>
+<span class="n">lined</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">legline</span><span class="p">,</span> <span class="n">origline</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">leg1</span><span class="o">.</span><span class="n">get_lines</span><span class="p">(),</span> <span class="n">ax1</span><span class="o">.</span><span class="n">lines</span><span class="p">):</span>
+    <span class="n">legline</span><span class="o">.</span><span class="n">set_picker</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">lined</span><span class="p">[</span><span class="n">legline</span><span class="p">]</span><span class="o">=</span><span class="n">origline</span>
+
+<span class="k">def</span> <span class="nf">onpick</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="c"># on the pick event, find the orig line corresponding to the</span>
+    <span class="c"># legend proxy line, and toggle the visibility</span>
+    <span class="n">legline</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">artist</span>
+    <span class="n">origline</span> <span class="o">=</span> <span class="n">lined</span><span class="p">[</span><span class="n">legline</span><span class="p">]</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">origline</span><span class="o">.</span><span class="n">get_visible</span><span class="p">()</span>
+    <span class="n">origline</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="n">vis</span><span class="p">)</span>
+    <span class="c"># Change the alpha on the line in the legend so we can see what lines</span>
+    <span class="c"># have been toggled</span>
+    <span class="k">if</span> <span class="n">vis</span><span class="p">:</span>
+        <span class="n">legline</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">legline</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span>
+
+    <span class="c">#rescale the y-axis according to the currently active data series</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">ax1</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">l</span><span class="o">.</span><span class="n">get_visible</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span><span class="nb">max</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+        
+    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s">'pick_event'</span><span class="p">,</span> <span class="n">onpick</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">output_image</span> <span class="o">=</span> <span class="s">""</span></code></pre></figure>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Knime is really an end-to-end tool for people who need to work with homogenous data and load, transform and correct them before visualising and analysing the data. Although there is a bit of a learning curve to use Knime, it’s quite user friendly and anyone (without programming experience) will be able to learn to use it. The additional Python and R scripting possibilities and host of plugins take it beyond a simple ETL tool to a proper business intelligence and data analysis suite.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+              
+              
+              <li>
+                <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>
