@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!-- _includes/base.html -->
+
+
+
+
+<html>
+  	<head>
+      <title>NRF24L01 and SPIDEV on the Beagle Bone Black</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="wireless,sensor_node,beaglebone,nrf24l01,linux,electronics" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
+  	  <link rel="stylesheet" href="/css/syntax.css" />
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">NRF24L01 and SPIDEV on the Beagle Bone Black</h2>
+                <p class="post-meta">
+                  Nov 1, 2016
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/wireless">wireless</a>  <a href="/tag/sensor_node">sensor_node</a>  <a href="/tag/beaglebone">beaglebone</a>  <a href="/tag/nrf24l01">nrf24l01</a>  <a href="/tag/linux">linux</a>  <a href="/tag/electronics">electronics</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>I am working on various electronics projects where I want to have a sensor node that collects data from a sensor and either logs it to a micro-SD-card directly or sens it wirelessly to another machine that uses/logs/etc the data. I opted for a set of <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">NRF24L01+</a> boards for the wireless communication between the nodes and data loggers. So to test it out I want to communicate between my <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">Beagle Bone Black</a> and an <a href="https://www.arduino.cc/">Arduino</a>. The <a href="https://www.arduino.cc/">NRF24 library by TMRh20</a> supplies a unified API for the NRF24L01 that should work on Arduino, linux (like Beagle Bone Black and Raspberry Pi) and other platforms. It also includes some examples that are identical across platforms so you can test between platforms with the same code. Really cool. I had trouble getting it to work on my Beagle Bone Black. This post hopefully will help other getting it to work on a Beagle Bone Black running Debian Jessy.</p>
+
+<p>I basically followed two howto’s, the one on HTTPS://tmrh20.github.io/RF24/Linux.html and the one on HTTPS://electron14.com/?p=404. The latter of the two uses another library, and I want to use the TMRh20 to keep things uniform across platforms if possible, but still it was of help. The wire connections on that page are correct. And the TMRh20 library also installed fine if I followed that how-to. But as soon as I started the “gettingstarted” example from there, I got the error</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">RF24/examples/GettingStarted/
+can<span class="s1">'t open device: No such file or directory
+Aborted</span></code></pre></figure>
+
+<p>It took me quite a while to figure out what was going wrong.</p>
+
+<p>The NRF24L01 uses the SPI bus for communication. The Beagle Bone Black uses SPIDEV for this and has two SPI buses. Those need to be enabled, and for them (or I believe actually only 1 of the 2) to work, the HDMI bus needs to be disabled. What I had to do was first edit <code class="highlighter-rouge">/bootuEnv.txt</code> and make sure the following two lines were in there:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">cape_disable</span><span class="o">=</span>bone_capemgr.disable_partno<span class="o">=</span>BB-BONELT-HDMI,BB-BONELT-HDMIN
+<span class="nv">cape_enable</span><span class="o">=</span>bone_capemgr.enable_partno<span class="o">=</span>BB-SPIDEV0,BB-SPIDEV1</code></pre></figure>
+
+<p>After that you need to restart your beaglebone. With</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ls /dev/spi<span class="k">*</span>
+/dev/spidev1.0  /dev/spidev1.1  /dev/spidev2.0  /dev/spidev2.1</code></pre></figure>
+
+<p>you can see the devices are there.
+You can also see they are available with</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># cat /sys/devices/platform/bone_capemgr/slots </span>
+0: PF----  -1 
+1: PF----  -1 
+2: PF----  -1 
+3: PF----  -1 
+4: P-O-L-   0 Override Board Name,00A0,Override Manuf,BB-SPIDEV0
+5: P-O-L-   1 Override Board Name,00A0,Override Manuf,BB-SPIDEV1</code></pre></figure>
+
+<p>Still the RF24 library doesn’t work though. This is because for some reason it uses the wrong device file.
+During install of the library (see howto above) the code for me was downloaded in ~/rf24libs. In that folder I needed to change the file <em>RF24/utility/SPIDEV/spi.cpp</em>. On line 21 you need to change</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">this</span><span class="o">-&gt;</span><span class="n">device</span> <span class="o">=</span> <span class="s">"/dev/spidev0.0"</span><span class="p">;</span></code></pre></figure>
+
+<p>to</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">this</span><span class="o">-&gt;</span><span class="n">device</span> <span class="o">=</span> <span class="s">"/dev/spidev1.0"</span><span class="p">;</span></code></pre></figure>
+
+<p>After that you need to run</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">./configure
+make
+make install</code></pre></figure>
+
+<p>in the <em>~/rf24libs/RF24</em> directory to re-compile and install the library. After that the gettingstarted examples should start.</p>
+
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+              
+              
+              <li>
+                <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>

@@ -1,5 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://allican.be/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="http://allican.be/feed.xml" rel="self" type="application/atom+xml" /><link href="http://allican.be/" rel="alternate" type="text/html" /><updated>2016-10-26T17:59:38+08:00</updated><id>http://allican.be/</id><title type="html">All I can be - A weblog by Dolf Andringa</title><subtitle>This site is my personal showcase and outlet about what keeps me off the streets. It will mostly be about hacking, programming, GNU/Linux, but also about ecology, travel and science. I am a weird combination of an ecologist, hacker and ideologist.
-</subtitle><entry><title type="html">Business intelligence and data manipulation with Knime</title><link href="http://allican.be/blog/2016/10/26/business-intelligence-with-knime.html" rel="alternate" type="text/html" title="Business intelligence and data manipulation with Knime" /><published>2016-10-26T00:00:00+08:00</published><updated>2016-10-26T17:58:19+08:00</updated><id>http://allican.be/blog/2016/10/26/business-intelligence-with-knime</id><content type="html" xml:base="http://allican.be/blog/2016/10/26/business-intelligence-with-knime.html">&lt;p&gt;It’s been a while since I did a proper post about something techy. But I did spend quite a bit of time with Knime, and I love it. So I think it warrants a post. &lt;a href=&quot;https://www.knime.org/knime-analytics-platform&quot;&gt;Knime&lt;/a&gt; is a complete data mining, manipulation and analysis toolkit. It’s completely open-source and really flexible. I have experience with other &lt;a href=&quot;https://en.wikipedia.org/wiki/Extract,_transform,_load&quot;&gt;ETL&lt;/a&gt; and reporting tools, like &lt;a href=&quot;https://www.talend.com/products/talend-open-studio&quot;&gt;Talend Open Studio&lt;/a&gt;, &lt;a href=&quot;http://community.jaspersoft.com/project/jaspersoft-studio&quot;&gt;JasperReports&lt;/a&gt; and &lt;a href=&quot;http://www.pentaho.com/product/data-integration&quot;&gt;Pentaho Kettle&lt;/a&gt; but for me (in my use-case) Knime rises above them. Talking about my use case, what is it?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://allican.be/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="http://allican.be/feed.xml" rel="self" type="application/atom+xml" /><link href="http://allican.be/" rel="alternate" type="text/html" /><updated>2016-11-01T15:50:53+08:00</updated><id>http://allican.be/</id><title type="html">All I can be - A weblog by Dolf Andringa</title><subtitle>This site is my personal showcase and outlet about what keeps me off the streets. It will mostly be about hacking, programming, GNU/Linux, but also about ecology, travel and science. I am a weird combination of an ecologist, hacker and ideologist.
+</subtitle><entry><title type="html">NRF24L01 and SPIDEV on the Beagle Bone Black</title><link href="http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black.html" rel="alternate" type="text/html" title="NRF24L01 and SPIDEV on the Beagle Bone Black" /><published>2016-11-01T00:00:00+08:00</published><updated>2016-11-01T15:50:26+08:00</updated><id>http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black</id><content type="html" xml:base="http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black.html">&lt;p&gt;I am working on various electronics projects where I want to have a sensor node that collects data from a sensor and either logs it to a micro-SD-card directly or sens it wirelessly to another machine that uses/logs/etc the data. I opted for a set of &lt;a href=&quot;http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01&quot;&gt;NRF24L01+&lt;/a&gt; boards for the wireless communication between the nodes and data loggers. So to test it out I want to communicate between my &lt;a href=&quot;http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01&quot;&gt;Beagle Bone Black&lt;/a&gt; and an &lt;a href=&quot;https://www.arduino.cc/&quot;&gt;Arduino&lt;/a&gt;. The &lt;a href=&quot;https://www.arduino.cc/&quot;&gt;NRF24 library by TMRh20&lt;/a&gt; supplies a unified API for the NRF24L01 that should work on Arduino, linux (like Beagle Bone Black and Raspberry Pi) and other platforms. It also includes some examples that are identical across platforms so you can test between platforms with the same code. Really cool. I had trouble getting it to work on my Beagle Bone Black. This post hopefully will help other getting it to work on a Beagle Bone Black running Debian Jessy.&lt;/p&gt;
+
+&lt;p&gt;I basically followed two howto’s, the one on HTTPS://tmrh20.github.io/RF24/Linux.html and the one on HTTPS://electron14.com/?p=404. The latter of the two uses another library, and I want to use the TMRh20 to keep things uniform across platforms if possible, but still it was of help. The wire connections on that page are correct. And the TMRh20 library also installed fine if I followed that how-to. But as soon as I started the “gettingstarted” example from there, I got the error&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;RF24/examples/GettingStarted/
+can&lt;span class=&quot;s1&quot;&gt;'t open device: No such file or directory
+Aborted&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It took me quite a while to figure out what was going wrong.&lt;/p&gt;
+
+&lt;p&gt;The NRF24L01 uses the SPI bus for communication. The Beagle Bone Black uses SPIDEV for this and has two SPI buses. Those need to be enabled, and for them (or I believe actually only 1 of the 2) to work, the HDMI bus needs to be disabled. What I had to do was first edit &lt;code class=&quot;highlighter-rouge&quot;&gt;/bootuEnv.txt&lt;/code&gt; and make sure the following two lines were in there:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;cape_disable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bone_capemgr.disable_partno&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;BB-BONELT-HDMI,BB-BONELT-HDMIN
+&lt;span class=&quot;nv&quot;&gt;cape_enable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bone_capemgr.enable_partno&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;BB-SPIDEV0,BB-SPIDEV1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;After that you need to restart your beaglebone. With&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ls /dev/spi&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+/dev/spidev1.0  /dev/spidev1.1  /dev/spidev2.0  /dev/spidev2.1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;you can see the devices are there.
+You can also see they are available with&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# cat /sys/devices/platform/bone_capemgr/slots &lt;/span&gt;
+0: PF----  -1 
+1: PF----  -1 
+2: PF----  -1 
+3: PF----  -1 
+4: P-O-L-   0 Override Board Name,00A0,Override Manuf,BB-SPIDEV0
+5: P-O-L-   1 Override Board Name,00A0,Override Manuf,BB-SPIDEV1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Still the RF24 library doesn’t work though. This is because for some reason it uses the wrong device file.
+During install of the library (see howto above) the code for me was downloaded in ~/rf24libs. In that folder I needed to change the file &lt;em&gt;RF24/utility/SPIDEV/spi.cpp&lt;/em&gt;. On line 21 you need to change&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/dev/spidev0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;to&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/dev/spidev1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;After that you need to run&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;./configure
+make
+make install&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;in the &lt;em&gt;~/rf24libs/RF24&lt;/em&gt; directory to re-compile and install the library. After that the gettingstarted examples should start.&lt;/p&gt;</content><category term="blog" /><category term="wireless" /><category term="sensor_node" /><category term="beaglebone" /><category term="nrf24l01" /><category term="linux" /><category term="electronics" /><summary type="html">I am working on various electronics projects where I want to have a sensor node that collects data from a sensor and either logs it to a micro-SD-card directly or sens it wirelessly to another machine that uses/logs/etc the data. I opted for a set of NRF24L01+ boards for the wireless communication between the nodes and data loggers. So to test it out I want to communicate between my Beagle Bone Black and an Arduino. The NRF24 library by TMRh20 supplies a unified API for the NRF24L01 that should work on Arduino, linux (like Beagle Bone Black and Raspberry Pi) and other platforms. It also includes some examples that are identical across platforms so you can test between platforms with the same code. Really cool. I had trouble getting it to work on my Beagle Bone Black. This post hopefully will help other getting it to work on a Beagle Bone Black running Debian Jessy.</summary></entry><entry><title type="html">Business intelligence and data manipulation with Knime</title><link href="http://allican.be/blog/2016/10/26/business-intelligence-with-knime.html" rel="alternate" type="text/html" title="Business intelligence and data manipulation with Knime" /><published>2016-10-26T00:00:00+08:00</published><updated>2016-10-26T17:58:19+08:00</updated><id>http://allican.be/blog/2016/10/26/business-intelligence-with-knime</id><content type="html" xml:base="http://allican.be/blog/2016/10/26/business-intelligence-with-knime.html">&lt;p&gt;It’s been a while since I did a proper post about something techy. But I did spend quite a bit of time with Knime, and I love it. So I think it warrants a post. &lt;a href=&quot;https://www.knime.org/knime-analytics-platform&quot;&gt;Knime&lt;/a&gt; is a complete data mining, manipulation and analysis toolkit. It’s completely open-source and really flexible. I have experience with other &lt;a href=&quot;https://en.wikipedia.org/wiki/Extract,_transform,_load&quot;&gt;ETL&lt;/a&gt; and reporting tools, like &lt;a href=&quot;https://www.talend.com/products/talend-open-studio&quot;&gt;Talend Open Studio&lt;/a&gt;, &lt;a href=&quot;http://community.jaspersoft.com/project/jaspersoft-studio&quot;&gt;JasperReports&lt;/a&gt; and &lt;a href=&quot;http://www.pentaho.com/product/data-integration&quot;&gt;Pentaho Kettle&lt;/a&gt; but for me (in my use-case) Knime rises above them. Talking about my use case, what is it?&lt;/p&gt;
 
 &lt;h2 id=&quot;use-case&quot;&gt;Use Case&lt;/h2&gt;
 &lt;p&gt;At &lt;a href=&quot;http://www.east-corp-philippines.com&quot;&gt;the solar power company&lt;/a&gt; that I am a partner in (among other activities) we sell inverters from various different brands. As a consequence, our clients use a variety of (web-based) monitoring tools. Each with their own dashboard and output. But we need overviews comparing all our clients with each-other, and besides that, we can get extra data from those inverters internally, which allows us to do advanced debugging and monitoring. But visualising that data from those different sources is non-trivial. This is where Knime comes in. We can download exports of the webbased monitoring dashboards that our clients use. Some of them produce csv files, others excel files, and the format of all those files is wildly different. Knime allows me to read in the data from those different files, combine it into one common dataset and then analyse that data. I used it for instance to create an interactive graph that plots the average daily solar array output per week for each of our clients (as a % of their maximum output) so I could compare the performance of each solar array.
@@ -422,122 +468,4 @@ coefs&amp;lt;-as.data.frame(coefs)
 coefs&amp;lt;-coefs&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;with(coefs,order(coefs$pvalue)),&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 knitr::kable(coefs)
 &lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><category term="blog" /><category term="R" /><category term="research" /><category term="statistics" /><category term="reporting" /><category term="RMarkdown" /><category term="Knitr" /><summary type="html">Recently I have been analyzing a large amount of data with R. A great tool to do this is Rstudio. It is an IDE for R that makes it easy to write your R code, explore the data and show the graphs. But if you want to communicate your results with others, sitting behind an IDE isn’t the best way. Fortunately Rstudio integrates with Knitr, RMarkdown and Pandoc. With those tools you can create PDF, HTML or word files from your R code.</summary></entry><entry><title type="html">Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems</title><link href="http://allican.be/blog/2016/02/04/creating_custom_persistent_arch_live_iso.html" rel="alternate" type="text/html" title="Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems" /><published>2016-02-04T00:00:00+08:00</published><updated>2016-02-09T13:48:27+08:00</updated><id>http://allican.be/blog/2016/02/04/creating_custom_persistent_arch_live_iso</id><content type="html" xml:base="http://allican.be/blog/2016/02/04/creating_custom_persistent_arch_live_iso.html">&lt;p&gt;I am running Arch Linux for a while now and am quite happy with it. Even though it is not the easiest n00b distro, in the end the documentation is so good that if you’re new to Linux, you can probably find out how to do most stuff if you’re inquisitive. One thing I had trouble with though, is getting a custom Live CD that could boot from my USB drive, has a persistence layer so changes are saved when booting, and booted both from UEFI only systems (my laptop) and preferably also BIOS only systems. It took me a while to figure this out, but I got it in the end. So I’ll document it for posterity.&lt;/p&gt;
-
-&lt;p&gt;The three main sources of documentation that helped me setting this up is the &lt;a href=&quot;https://wiki.archlinux.org/index.php/Remastering_the_Install_ISO&quot;&gt;Arch Linux documentation on Remastering the Install ISO&lt;/a&gt;, the &lt;a href=&quot;https://github.com/djgera/archiso/blob/master/docs/README.bootparams&quot;&gt;Boot Parameter documentation of ArchISO&lt;/a&gt; and &lt;a href=&quot;https://adayinthelifeof.nl/2011/10/11/creating-partitioned-virtual-disk-images/&quot;&gt;a blog post by Joshua Thijssen on creating partitioned disk images&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The Arch documentation on remastering the iso tells you most you should know. Download the dual installation iso from the Arch Linux website and read through the docs on how to extract the airootfs.sfs, mount it, chroot to it and modify it. You can install packages after the step that says&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;mkinitcpio -p linux&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;in there and do other stuff to the Live OS. Then you exit the chroot again, recreate the airootfs.sfs image and copy the new kernel and initrd image to the right places. I didn’t delete the squashfs-root folder though. I copied it to my homedir (outside the ~/customiso tree) so I can copy it back later if I need to instead of having to unsquashfs the airootfs.sfs file all the time. Also do the part with “modifying the EFI boot image”.&lt;/p&gt;
-
-&lt;p&gt;Up to there it was quite easy. The first problem I encountered was creating the ISO. Don’t use the genisoimage command in the docs. It won’t work for UEFI systems. The documentation below it on xorriso is better, if you combine it with the eltorito stuff lower down. In the end, this is the xorriso command I used to create the iso:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;iso_label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ARCH_201601&quot;&lt;/span&gt;
-xorriso &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -as mkisofs &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -iso-level 3 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -full-iso9660-filenames &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -volid &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;iso_label&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -appid &lt;span class=&quot;s2&quot;&gt;&quot;Arch Linux Live/Rescue CD&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -eltorito-boot isolinux/isolinux.bin &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -eltorito-catalog isolinux/boot.cat &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -no-emul-boot -boot-load-size 4 -boot-info-table &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -isohybrid-mbr ~/customiso/isolinux/isohdpfx.bin &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -eltorito-alt-boot &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -e EFI/archiso/efiboot.img &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -no-emul-boot &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -isohybrid-gpt-basdat &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    -output ~/arch-custom.iso &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    ~/customiso&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Make sure the iso_label is correct. It needs to stay the same as the original iso file. If you run&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;file &amp;lt;original_iso&amp;gt;.iso&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;it will tell you the label in the output.&lt;/p&gt;
-
-&lt;p&gt;If you run isohybrid –uefi on the resulting iso file, you have a working, remastered disk image for both BIOS and UEFI systems.&lt;/p&gt;
-
-&lt;p&gt;Now for the persistent bit. It turns out that &lt;a href=&quot;https://github.com/djgera/archiso/blob/master/docs/README.bootparams&quot;&gt;archiso has boot parameters&lt;/a&gt; that allow you to modify the behavior of the live os. It took me a while to figure out how this works with mkinitcpio and stuff. But in essence there are initcpio hooks that get run on startup of the live cd if you specify them in the HOOKS part of /etc/mkinitcpio.conf. One of those hooks is archiso. That one sets-up the filesystem and accepts parameters for a persistence layer with a cow (copy-on-write) filesystem. Normally that cow filesystem is a tmpfs and gets deleted after shutdown. But if you specify other options, all starting with cow_, then you can change this behaviour and put the cow filesystem on a persistent medium.&lt;/p&gt;
-
-&lt;p&gt;What took me a while to figure out is that these options need to be passed from te bootloader at startup to the kernel for the initrd image. THat is all that is needed. So what I do at startup, when you get to the bootmenu of the livecd/usb, is specify cow_device=/dev/sdb3 at the end of the kernel line. You can edit the line by pressing “e” in the bootmenu. The archiso hook of initrd will check that device for a folder called “persistent_${iso_label}” and if it doesn’t exist, create it. All changes you make to the cd will be stored there.&lt;/p&gt;
-
-&lt;p&gt;The last bit that I needed to figure out is how to make space on my USB drive for this persistent partition. My iso image is 1.2Gb and my USB drive is 8GB, so there is plenty of space for the persistent data. But if you just write the image to the usb drive with dd, the extra 6.8Gb isn’t used. If I run gparted on the usb drive afterwards, it makes a mess of things. So I needed to modify the iso image before writing it to USB. That is where the &lt;a href=&quot;https://adayinthelifeof.nl/2011/10/11/creating-partitioned-virtual-disk-images/&quot;&gt;blogpost by Joshua&lt;/a&gt; came in. Basically I treated the iso file as a harddrive with some tricks. I first made it as big as my usb key, then created an extra partition in it, and formatted that partition with ext3. After that I wrote the iso file to the usb drive with dd the regular way, and lo-and-behold, there was a third partition on the usb drive with an ext3 filesystem (called /dev/sdb3 in my computer) that I could specify as cow_device in the boot menu at startup. This is how I managed it.&lt;/p&gt;
-
-&lt;p&gt;First calculate how much space the persistent partiton should have do this by with REMAINING=(usb_drive_size_in_Gb-iso_image_size_in_Gb)*1024*1024*2. This will calculate the amount of blocks (each 512 bytes in size) to add to the iso. Make sure you leave some wriggle room for rounding errors and &lt;a href=&quot;https://en.wikipedia.org/wiki/Gibibyte&quot;&gt;difference between GiB and GB&lt;/a&gt;. Instead of using the complete 7.1Gb of my usb drive, I made the image 7.0Gb. 
-If you need to find out the actual size of your usb drive, use&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;lsblk /dev/sdb&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Once you know the size, grow the iso image by that size. Replace $REMAINING below by the calculated number of blocks above.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;dd &lt;span class=&quot;nv&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;progress &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/zero &lt;span class=&quot;nv&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512 &lt;span class=&quot;nv&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$REMAINING&lt;/span&gt; &amp;gt;&amp;gt; arch-custom-hybrid.iso&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;After that you need to create a partition in the file. You do this with&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;fdisk arch-custom.iso
-Welcome to fdisk &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;util-linux 2.27.1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.
-Changes will remain &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;memory only, &lt;span class=&quot;k&quot;&gt;until &lt;/span&gt;you decide to write them.
-Be careful before using the write command.
-
-
-Command &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: n
-Partition &lt;span class=&quot;nb&quot;&gt;type
-   &lt;/span&gt;p   primary &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1 primary, 0 extended, 3 free&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-   e   extended &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;container &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;logical partitions&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-Select &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default p&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: p
-Partition number &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;3,4, default 3&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
-First sector &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;14608384-26142719, default 14608384&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
-Last sector, +sectors or +size&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;K,M,G,T,P&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;14608384-26142719, default 26142719&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
-
-Created a new partition 3 of &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Linux'&lt;/span&gt; and of size 5.5 GiB.
-
-Command &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: p
-Disk arch-custom.iso: 12.5 GiB, 13385072640 bytes, 26142720 sectors
-Units: sectors of 1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 512 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 512 bytes
-Sector size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;logical/physical&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 512 bytes
-I/O size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;minimum/optimal&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 512 bytes
-Disklabel &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;: dos
-Disk identifier: 0x78abe923
-
-Device                  Boot    Start      End  Sectors  Size Id Type
-arch-custom.iso1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;           0 14608383 14608384    7G  0 Empty
-arch-custom.iso2           172      172        0    0B ef EFI &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;FAT-12/16/
-arch-custom.iso3      14608384 26142719 11534336  5.5G 83 Linux
-
-Command &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: w
-The partition table has been altered.
-Syncing disks.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;For most of those questions in fdisk (the ones ending with a : without input) I just hit enter, choosing the default option.&lt;/p&gt;
-
-&lt;p&gt;At this point you’re ready to create an ext3 (or other) filesystem in there. This is tricky as the file isn’t an actual block device. The blogpost tells you how to do it. You create a loopback device that points to the partition inside the iso image. That loopback device is available as any harddrive and you can create a filesystem in it like you would do with a normal partition. But to create the loopback device, you need to tell it exactly where in the image file the partition starts and ends. THIS IS VERY IMPORTANT. If you do this wrong, you’ll screw up the image file. So first you need to show exactly where the partition starts and ends. You can do this with&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;fdisk -l arch-custom.iso
-Disk arch-custom.iso: 12.5 GiB, 13385072640 bytes, 26142720 sectors
-Units: sectors of 1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 512 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 512 bytes
-Sector size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;logical/physical&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 512 bytes
-I/O size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;minimum/optimal&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 512 bytes
-Disklabel &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;: dos
-Disk identifier: 0x78abe923
-
-Device                  Boot    Start      End  Sectors  Size Id Type
-arch-custom.iso1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;           0 14608383 14608384    7G  0 Empty
-arch-custom.iso2           172      172        0    0B ef EFI &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;FAT-12/16/
-arch-custom.iso3      14608384 26142719 11534336  5.5G 83 Linux&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This tells you the Start and End of the arch-custom.iso3 partition.
-By multiplying both these numbers with 512, you get resp the $OFFSET and $SIZELIMIT for the loopback device.
-Setup the loopback device and format it with ext3 with&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;losetup -o &lt;span class=&quot;nv&quot;&gt;$OFFSET&lt;/span&gt; --sizelimit &lt;span class=&quot;nv&quot;&gt;$SIZELIMIT&lt;/span&gt; /dev/loop1 archiso-custom.iso
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mkfs -t ext3 -L cow /dev/loop1
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;losetup -d /dev/loop1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;At this point your image is ready (finally). You can now write it to the usb drive with (&lt;em&gt;WARNING!!!!! Make sure /dev/sdb is actually your usb drive. If it is any other drive YOU WILL ERASE IT COMPLETELY!!!&lt;/em&gt;)&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;dd &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arch-custom.iso &lt;span class=&quot;nv&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/sdb&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;At this point you can reboot and start from the usb drive (you might need to do something to the UEFI/BIOS to make it start from USB). If you are in the archlinux live boot menu, pres “e” to edit the default menu, and add cow_device=/dev/sdb3 to make it use /dev/sdb3 as the persistent cow device.&lt;/p&gt;</content><category term="blog" /><category term="ArchLinux" /><category term="UEFI" /><category term="live" /><category term="remaster" /><category term="iso" /><category term="persistent" /><category term="cow" /><summary type="html">I am running Arch Linux for a while now and am quite happy with it. Even though it is not the easiest n00b distro, in the end the documentation is so good that if you’re new to Linux, you can probably find out how to do most stuff if you’re inquisitive. One thing I had trouble with though, is getting a custom Live CD that could boot from my USB drive, has a persistence layer so changes are saved when booting, and booted both from UEFI only systems (my laptop) and preferably also BIOS only systems. It took me a while to figure this out, but I got it in the end. So I’ll document it for posterity.</summary></entry></feed>
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><category term="blog" /><category term="R" /><category term="research" /><category term="statistics" /><category term="reporting" /><category term="RMarkdown" /><category term="Knitr" /><summary type="html">Recently I have been analyzing a large amount of data with R. A great tool to do this is Rstudio. It is an IDE for R that makes it easy to write your R code, explore the data and show the graphs. But if you want to communicate your results with others, sitting behind an IDE isn’t the best way. Fortunately Rstudio integrates with Knitr, RMarkdown and Pandoc. With those tools you can create PDF, HTML or word files from your R code.</summary></entry></feed>
