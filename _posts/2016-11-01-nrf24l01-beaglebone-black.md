@@ -43,21 +43,40 @@ You can also see they are available with
 5: P-O-L-   1 Override Board Name,00A0,Override Manuf,BB-SPIDEV1
 {% endhighlight %}
 
-Still the RF24 library doesn't work though. This is because for some reason it uses the wrong device file.
-During install of the library (see howto above) the code for me was downloaded in ~/rf24libs. In that folder I needed to change the file *RF24/utility/SPIDEV/spi.cpp*. On line 21 you need to change
+For me still I couldn't get the library to work though. Turns out it is because of differences in the arguments between Linux and Arduino. With Arduino you give the radio() function the pin numbers of pins the CE and CSN pings of the board are connected to. With the BeagleBone BLack and SPIDEV the first argument is the pin number of the CE pin, while the second argument is the number of the SPI device that it is connected to. If you connected it as on the electron14.com tutorial, the CE pin is connected to pin GPIO_125 (pin 27 of header P9) and you're using SPI1.0. 
+In order to specify these pins in the gettingstarted example, you need to make sure there is only one line in *~/rf24libs/RF24/examples_linux/gettingstarted.cpp* which instantiates the RF24 radio with the correct numbers:
 {% highlight c %}
-this->device = "/dev/spidev0.0";
+RF24 radio(125, 10);
 {% endhighlight %}
-to
-{% highlight c %}
-this->device = "/dev/spidev1.0";
-{% endhighlight %}
+THe first argument specifies the CE pin is GPIO_125 while the second says that it uses SPI1.0, or in other words */dev/spidev1.0*. 
 
 After that you need to run
 {% highlight bash %}
-./configure
-make
-make install
+make gettingstarted
 {% endhighlight %}
-in the *~/rf24libs/RF24* directory to re-compile and install the library. After that the gettingstarted examples should start.
+in the *~/rf24libs/RF24/examples_linux* directory to compile it.
+After that, the example works:
+{% highlight bash %}
+# ./gettingstarted 
+RF24/examples/GettingStarted/
+STATUS       = 0xff RX_DR=1 TX_DS=1 MAX_RT=1 RX_P_NO=7 TX_FULL=1
+RX_ADDR_P0-1     = 0xffffffffff 0xffffffffff
+RX_ADDR_P2-5     = 0xff 0xff 0xff 0xff
+TX_ADDR      = 0xffffffffff
+RX_PW_P0-6   = 0xff 0xff 0xff 0xff 0xff 0xff
+EN_AA        = 0xff
+EN_RXADDR    = 0xff
+RF_CH        = 0xff
+RF_SETUP     = 0xff
+CONFIG       = 0xff
+DYNPD/FEATURE    = 0xff 0xff
+Data Rate    = 1MBPS
+Model        = nRF24L01
+CRC Length   = 16 bits
+PA Power     = PA_MAX
+
+ ************ Role Setup ***********
+ Choose a role: Enter 0 for pong_back, 1 for ping_out (CTRL+C to exit) 
+ >
+ {% endhighlight %}
 
