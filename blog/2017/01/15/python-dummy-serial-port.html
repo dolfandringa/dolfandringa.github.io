@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- _includes/base.html -->
+
+
+
+
+<html>
+  	<head>
+      <title>Creating dummy serial ports in pure python.</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="python,pyserial,solar,pseudoterminal" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
+  	  <link rel="stylesheet" href="/css/syntax.css" />
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">Creating dummy serial ports in pure python.</h2>
+                <p class="post-meta">
+                  Jan 15, 2017
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/python">python</a>  <a href="/tag/pyserial">pyserial</a>  <a href="/tag/solar">solar</a>  <a href="/tag/pseudoterminal">pseudoterminal</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>Recently I needed to reverse-engineer the serial communication between a solar inverter and a computer. Although hardware manufactures may often be good at making the hardware they sell, their accompanying software often leaves a lot to be desired. To develop my own software, I needed to interface with a specific inverter, both to intercept the serial communication at first, but later to write my own software. In order to be able to write unittests for the serial port, and to test my software without actually being connected to an inverter, I wanted to have a dummy serial port on my computer that listens for any connections to the port and responds whatever I tell it to.</p>
+
+<p>Many <a href="http://stackoverflow.com/questions/15173614/how-can-i-use-a-pseudoterminal-in-python-to-emulate-a-serial-port">questions have been asked on stackoverflow</a> about this (including by me), and an often recurring answer seems to be using software like socat for this. Socat definitely works well for communicating with serial ports, dumping data from serial ports to files, etc. I needed to also write tests for a piece of software that I was writing in python. Again, Mock protocols can be used for this and are often the best solution, but I was stubborn and wanted to figure out how to setup a dummy serial port that other software can communicate with.</p>
+
+<p>The trick is to use <a href="https://en.wikipedia.org/wiki/Pseudoterminal">pseudoterminals</a> in Linux. Pseudoterminals can be used (and are used) for many things, but serial communication can be one. Basically it is just a file that software can write to or read from as if it was a serial connection. Pseudoterminals work with a master and slave. One end is the master, which in my case is where my “dummy serial device” is listening. The slave side is the code/software I wanted to test. The master is usually /dev/ptmx on linux, while the slave is often of the form /dev/pts/&lt;x&gt; where x is any integer. The master endpoint is constant, even with multiple psuedoterminal connections, the master endpoint doesn’t change. The slave endpoints do have one for each psuedoterminal.</p>
+
+<p>This is where the trick was that I ran in to. Python has a <a href="https://docs.python.org/3/library/pty.html">pty module</a> that you can use to setup this master and slave pair. The <a href="https://docs.python.org/3/library/pty.html#pty.openpty">pty.openpty()</a> function returns two file descriptors, one for the master and one for the slave. These file descriptors already are opened and can be read from with <a href="https://docs.python.org/3/library/os.html#os.read">os.read</a> or written to with <a href="os.write">os.write</a>. They are not filenames but file descriptors. With <a href="https://docs.python.org/3/library/os.html#os.ttyname">os.ttyname</a> you can retrieve the actual filename of those file descriptors. But if you create a new file object for the master endpoint, you actually create a new file descriptor and instead of using the already opened connection to the slave, a new pseudoterminal (slave) will be created, with a new connection to the master. So while you can re-open the slave multiple times with different file descriptors and keep using the same connection to the master, you can’t open multiple file descriptors to the master that connect to the same slave.</p>
+
+<p>So to show some code with comments:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pty</span>
+<span class="kn">from</span> <span class="nn">serial</span> <span class="kn">import</span> <span class="n">Serial</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="k">def</span> <span class="nf">listener</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
+    <span class="c">#continuously listen to commands on the master device</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">b</span><span class="s">""</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">b</span><span class="s">"</span><span class="se">\r\n</span><span class="s">"</span><span class="p">):</span>
+            <span class="c">#keep reading one byte at a time until we have a full line</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"command: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
+
+        <span class="c">#write back the response</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="n">b</span><span class="s">'QPGS</span><span class="se">\r\n</span><span class="s">'</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">b</span><span class="s">"correct result</span><span class="se">\r\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">b</span><span class="s">"I dont understand</span><span class="se">\r\n</span><span class="s">"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_serial</span><span class="p">():</span>
+    <span class="s">"""Start the testing"""</span>
+    <span class="n">master</span><span class="p">,</span><span class="n">slave</span> <span class="o">=</span> <span class="n">pty</span><span class="o">.</span><span class="n">openpty</span><span class="p">()</span> <span class="c">#open the pseudoterminal</span>
+    <span class="n">s_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">ttyname</span><span class="p">(</span><span class="n">slave</span><span class="p">)</span> <span class="c">#translate the slave fd to a filename</span>
+
+    <span class="c">#create a separate thread that listens on the master device for commands</span>
+    <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">listener</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">master</span><span class="p">])</span>
+    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="c">#open a pySerial connection to the slave</span>
+    <span class="n">ser</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">s_name</span><span class="p">,</span> <span class="mi">2400</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="s">'test2</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span> <span class="c">#write the first command</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">b</span><span class="s">""</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">b</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span><span class="p">):</span>
+        <span class="c">#read the response</span>
+        <span class="n">res</span> <span class="o">+=</span><span class="n">ser</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"result: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="s">'QPGS</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span> <span class="c">#write a second command</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">b</span><span class="s">""</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">b</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span><span class="p">):</span>
+        <span class="c">#read the response</span>
+        <span class="n">res</span> <span class="o">+=</span><span class="n">ser</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"result: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">test_serial</span><span class="p">()</span></code></pre></figure>
+
+<p>This script has a listener function in a separate thread constantly listening on the master side for commands and responding accordingly. The test_serial function first starts the listener thread and then uses <a href="https://pythonhosted.org/pyserial/">pySerial</a> to open a serial connection to the slave. It sends a command and reads the response. And then repeats it with a different command.</p>
+
+<p>I hope this clarifies how to use psuedoterminals for dummy serial connections in python.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+              
+              
+              <li>
+                <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>

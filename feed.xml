@@ -1,5 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://allican.be/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="http://allican.be/feed.xml" rel="self" type="application/atom+xml" /><link href="http://allican.be/" rel="alternate" type="text/html" /><updated>2016-11-05T11:19:08+08:00</updated><id>http://allican.be/</id><title type="html">All I can be - A weblog by Dolf Andringa</title><subtitle>This site is my personal showcase and outlet about what keeps me off the streets. It will mostly be about hacking, programming, GNU/Linux, but also about ecology, travel and science. I am a weird combination of an ecologist, hacker and ideologist.
-</subtitle><entry><title type="html">NRF24L01 and SPIDEV on the Beagle Bone Black</title><link href="http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black.html" rel="alternate" type="text/html" title="NRF24L01 and SPIDEV on the Beagle Bone Black" /><published>2016-11-01T00:00:00+08:00</published><updated>2016-11-01T18:08:36+08:00</updated><id>http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black</id><content type="html" xml:base="http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black.html">&lt;p&gt;I am working on various electronics projects where I want to have a sensor node that collects data from a sensor and either logs it to a micro-SD-card directly or sens it wirelessly to another machine that uses/logs/etc the data. I opted for a set of &lt;a href=&quot;http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01&quot;&gt;NRF24L01+&lt;/a&gt; boards for the wireless communication between the nodes and data loggers. So to test it out I want to communicate between my &lt;a href=&quot;http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01&quot;&gt;Beagle Bone Black&lt;/a&gt; and an &lt;a href=&quot;https://www.arduino.cc/&quot;&gt;Arduino&lt;/a&gt;. The &lt;a href=&quot;https://www.arduino.cc/&quot;&gt;NRF24 library by TMRh20&lt;/a&gt; supplies a unified API for the NRF24L01 that should work on Arduino, linux (like Beagle Bone Black and Raspberry Pi) and other platforms. It also includes some examples that are identical across platforms so you can test between platforms with the same code. Really cool. I had trouble getting it to work on my Beagle Bone Black. This post hopefully will help other getting it to work on a Beagle Bone Black running Debian Jessy.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://allican.be/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="http://allican.be/feed.xml" rel="self" type="application/atom+xml" /><link href="http://allican.be/" rel="alternate" type="text/html" /><updated>2017-01-16T00:03:22+08:00</updated><id>http://allican.be/</id><title type="html">All I can be - A weblog by Dolf Andringa</title><subtitle>This site is my personal showcase and outlet about what keeps me off the streets. It will mostly be about hacking, programming, GNU/Linux, but also about ecology, travel and science. I am a weird combination of an ecologist, hacker and ideologist.
+</subtitle><entry><title type="html">Creating dummy serial ports in pure python.</title><link href="http://allican.be/blog/2017/01/15/python-dummy-serial-port.html" rel="alternate" type="text/html" title="Creating dummy serial ports in pure python." /><published>2017-01-15T00:00:00+08:00</published><updated>2017-01-16T00:02:49+08:00</updated><id>http://allican.be/blog/2017/01/15/python-dummy-serial-port</id><content type="html" xml:base="http://allican.be/blog/2017/01/15/python-dummy-serial-port.html">&lt;p&gt;Recently I needed to reverse-engineer the serial communication between a solar inverter and a computer. Although hardware manufactures may often be good at making the hardware they sell, their accompanying software often leaves a lot to be desired. To develop my own software, I needed to interface with a specific inverter, both to intercept the serial communication at first, but later to write my own software. In order to be able to write unittests for the serial port, and to test my software without actually being connected to an inverter, I wanted to have a dummy serial port on my computer that listens for any connections to the port and responds whatever I tell it to.&lt;/p&gt;
+
+&lt;p&gt;Many &lt;a href=&quot;http://stackoverflow.com/questions/15173614/how-can-i-use-a-pseudoterminal-in-python-to-emulate-a-serial-port&quot;&gt;questions have been asked on stackoverflow&lt;/a&gt; about this (including by me), and an often recurring answer seems to be using software like socat for this. Socat definitely works well for communicating with serial ports, dumping data from serial ports to files, etc. I needed to also write tests for a piece of software that I was writing in python. Again, Mock protocols can be used for this and are often the best solution, but I was stubborn and wanted to figure out how to setup a dummy serial port that other software can communicate with.&lt;/p&gt;
+
+&lt;p&gt;The trick is to use &lt;a href=&quot;https://en.wikipedia.org/wiki/Pseudoterminal&quot;&gt;pseudoterminals&lt;/a&gt; in Linux. Pseudoterminals can be used (and are used) for many things, but serial communication can be one. Basically it is just a file that software can write to or read from as if it was a serial connection. Pseudoterminals work with a master and slave. One end is the master, which in my case is where my “dummy serial device” is listening. The slave side is the code/software I wanted to test. The master is usually /dev/ptmx on linux, while the slave is often of the form /dev/pts/&amp;lt;x&amp;gt; where x is any integer. The master endpoint is constant, even with multiple psuedoterminal connections, the master endpoint doesn’t change. The slave endpoints do have one for each psuedoterminal.&lt;/p&gt;
+
+&lt;p&gt;This is where the trick was that I ran in to. Python has a &lt;a href=&quot;https://docs.python.org/3/library/pty.html&quot;&gt;pty module&lt;/a&gt; that you can use to setup this master and slave pair. The &lt;a href=&quot;https://docs.python.org/3/library/pty.html#pty.openpty&quot;&gt;pty.openpty()&lt;/a&gt; function returns two file descriptors, one for the master and one for the slave. These file descriptors already are opened and can be read from with &lt;a href=&quot;https://docs.python.org/3/library/os.html#os.read&quot;&gt;os.read&lt;/a&gt; or written to with &lt;a href=&quot;os.write&quot;&gt;os.write&lt;/a&gt;. They are not filenames but file descriptors. With &lt;a href=&quot;https://docs.python.org/3/library/os.html#os.ttyname&quot;&gt;os.ttyname&lt;/a&gt; you can retrieve the actual filename of those file descriptors. But if you create a new file object for the master endpoint, you actually create a new file descriptor and instead of using the already opened connection to the slave, a new pseudoterminal (slave) will be created, with a new connection to the master. So while you can re-open the slave multiple times with different file descriptors and keep using the same connection to the master, you can’t open multiple file descriptors to the master that connect to the same slave.&lt;/p&gt;
+
+&lt;p&gt;So to show some code with comments:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pty&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;serial&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;threading&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;listener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;#continuously listen to commands on the master device&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;#keep reading one byte at a time until we have a full line&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;command: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;c&quot;&gt;#write back the response&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'QPGS&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;correct result&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I dont understand&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Start the testing&quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;slave&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;openpty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#open the pseudoterminal&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;s_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttyname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;slave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#translate the slave fd to a filename&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;#create a separate thread that listens on the master device for commands&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threading&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;#open a pySerial connection to the slave&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2400&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'test2&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#write the first command&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;#read the response&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;result: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'QPGS&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#write a second command&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;#read the response&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;result: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;test_serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This script has a listener function in a separate thread constantly listening on the master side for commands and responding accordingly. The test_serial function first starts the listener thread and then uses &lt;a href=&quot;https://pythonhosted.org/pyserial/&quot;&gt;pySerial&lt;/a&gt; to open a serial connection to the slave. It sends a command and reads the response. And then repeats it with a different command.&lt;/p&gt;
+
+&lt;p&gt;I hope this clarifies how to use psuedoterminals for dummy serial connections in python.&lt;/p&gt;</content><category term="blog" /><category term="python" /><category term="pyserial" /><category term="solar" /><category term="pseudoterminal" /><summary type="html">Recently I needed to reverse-engineer the serial communication between a solar inverter and a computer. Although hardware manufactures may often be good at making the hardware they sell, their accompanying software often leaves a lot to be desired. To develop my own software, I needed to interface with a specific inverter, both to intercept the serial communication at first, but later to write my own software. In order to be able to write unittests for the serial port, and to test my software without actually being connected to an inverter, I wanted to have a dummy serial port on my computer that listens for any connections to the port and responds whatever I tell it to.</summary></entry><entry><title type="html">NRF24L01 and SPIDEV on the Beagle Bone Black</title><link href="http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black.html" rel="alternate" type="text/html" title="NRF24L01 and SPIDEV on the Beagle Bone Black" /><published>2016-11-01T00:00:00+08:00</published><updated>2016-11-01T18:08:36+08:00</updated><id>http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black</id><content type="html" xml:base="http://allican.be/blog/2016/11/01/nrf24l01-beaglebone-black.html">&lt;p&gt;I am working on various electronics projects where I want to have a sensor node that collects data from a sensor and either logs it to a micro-SD-card directly or sens it wirelessly to another machine that uses/logs/etc the data. I opted for a set of &lt;a href=&quot;http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01&quot;&gt;NRF24L01+&lt;/a&gt; boards for the wireless communication between the nodes and data loggers. So to test it out I want to communicate between my &lt;a href=&quot;http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01&quot;&gt;Beagle Bone Black&lt;/a&gt; and an &lt;a href=&quot;https://www.arduino.cc/&quot;&gt;Arduino&lt;/a&gt;. The &lt;a href=&quot;https://www.arduino.cc/&quot;&gt;NRF24 library by TMRh20&lt;/a&gt; supplies a unified API for the NRF24L01 that should work on Arduino, linux (like Beagle Bone Black and Raspberry Pi) and other platforms. It also includes some examples that are identical across platforms so you can test between platforms with the same code. Really cool. I had trouble getting it to work on my Beagle Bone Black. This post hopefully will help other getting it to work on a Beagle Bone Black running Debian Jessy.&lt;/p&gt;
 
 &lt;p&gt;There are various howto’s about the Beagle Bone Black and RF24, and as so often with the BBB, there are many articles contradicting eachother, using different pinouts than my BBB uses I guess. What I have found is that the only reliable pinout for a BBB is the one specified on the standard webinterface of your BBB (on the front-page at the bottom). So the only really useful how-to I ended up using is about the RF24 library on [https://tmrh20.github.io/RF24/Linux.html], which doesn’t talk about the BBB specifically. So after installing the RF24 library I just tried what some other how-to’s said but as soon as I started the “gettingstarted” example from there, I got the error&lt;/p&gt;
 
@@ -358,197 +416,4 @@ After this, restart mpd and pulseaudio should work. To check you can run &lt;cod
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;&amp;lt;myuser&amp;gt; &lt;/span&gt;11378  0.0  0.1 497404 11512 ?        S&amp;lt;sl 08:06   0:00 /usr/bin/pulseaudio --daemonize&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;no
 mpd      11513  0.3  0.1 563304 12604 ?        Sl   08:14   0:04 /usr/bin/pulseaudio --start --log-target&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;syslog&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;You see a pulseaudio session for your own user and one for the mpd user. If this is the case, you should be able to play music with MPD to pulseaudio.&lt;/p&gt;</content><category term="blog" /><category term="ArchLinux" /><category term="MPD" /><category term="PulseAudio" /><summary type="html">I love Gnome Music Player Client (gmpc) as an audio player, with MPD (Music Player Daemon) as a backend. Both because of the remote control possibilities but GMPC is also just a great client. But when installing MPD, combined with PulseAudio on my Arch Linux laptop, I ran into trouble. MPD runs as a different user, and as that user wasn’t able to connect to PulseAudio that runs under my regular desktop user.</summary></entry><entry><title type="html">Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr</title><link href="http://allican.be/blog/2016/02/07/rmarkdown_loops_and_knitr.html" rel="alternate" type="text/html" title="Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr" /><published>2016-02-07T00:00:00+08:00</published><updated>2016-02-09T13:48:27+08:00</updated><id>http://allican.be/blog/2016/02/07/rmarkdown_loops_and_knitr</id><content type="html" xml:base="http://allican.be/blog/2016/02/07/rmarkdown_loops_and_knitr.html">&lt;p&gt;Recently I have been analyzing a large amount of data with &lt;a href=&quot;https://www.r-project.org/&quot;&gt;R&lt;/a&gt;. A great tool to do this is &lt;a href=&quot;https://www.rstudio.com&quot;&gt;Rstudio&lt;/a&gt;. It is an IDE for R that makes it easy to write your R code, explore the data and show the graphs. But if you want to communicate your results with others, sitting behind an IDE isn’t the best way. Fortunately Rstudio integrates with Knitr, RMarkdown and Pandoc. With those tools you can create PDF, HTML or word files from your R code.&lt;/p&gt;
-
-&lt;p&gt;I was playing with this and ran into some problems. I eventually solved all of them and wanted to show my problems and solutions here, both for myself and other coming across the same problems. I am not going to give a complete how-to though. I suggest looking at the &lt;a href=&quot;http://rmarkdown.rstudio.com/&quot;&gt;RMarkdown documentation of Rstudio&lt;/a&gt; and the &lt;a href=&quot;http://kbroman.org/knitr_knutshell/pages/Rmarkdown.html&quot;&gt;Knitr RMarkdown documentation&lt;/a&gt; to get you started. This post will go over the following topics:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;How can I combine R loops with Markdown syntax to repeatedly show the test/plot results formatted with RMarkdown?&lt;/li&gt;
-  &lt;li&gt;How can I display a table nicely in the resulting HTML/PDF?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;table-output-in-rmarkdown&quot;&gt;Table output in RMarkdown&lt;/h2&gt;
-
-&lt;p&gt;To start with the quickest question first, you have to look at the second code block at the bottom. At the end it says &lt;code class=&quot;highlighter-rouge&quot;&gt;knitr::kable(coefs)&lt;/code&gt;. This is a function from Knitr that outputs a nice table in markdown syntax. If you pass it a table or data frame in R, the result is a nice looking table. Quite a nice function to have.&lt;/p&gt;
-
-&lt;h2 id=&quot;loops-with-rmarkdown-to-repeat-results-with-different-data&quot;&gt;Loops with RMarkdown to repeat results with different data&lt;/h2&gt;
-
-&lt;p&gt;With RMarkdown you can write Markdown syntax in an (Rmd) file, interspersed with code blocks with R code. Knitr reads the R-code, executes it in R and pastes the results back into the markdown output. That is then converted into HTML or PDF. 
-The trick to looping over a set of data and running the same tests/plots for all parts of the data is splitting your file up into multiple files.
-You have one “parent” file which loops over your data, and for each loop iteration, it calls a child file to do the actual analysis.&lt;/p&gt;
-
-&lt;p&gt;Let’s use an example. I have data for about 300 species. For each one I would like to run the same analysis. Furthermore my species are grouped into species_groups. I would like to group the analyses in these species_groups.
-I have a data frame called &lt;code class=&quot;highlighter-rouge&quot;&gt;samples&lt;/code&gt; with the actual data, and a list called &lt;code class=&quot;highlighter-rouge&quot;&gt;species_groups&lt;/code&gt; and a list called &lt;code class=&quot;highlighter-rouge&quot;&gt;species&lt;/code&gt;. All are saved in samples.RDa. By loading that the objects become available.&lt;/p&gt;
-
-&lt;p&gt;In my parent file (see below) I loop over all species groups in &lt;code class=&quot;highlighter-rouge&quot;&gt;for(sg in species_groups)&lt;/code&gt; and with &lt;code class=&quot;highlighter-rouge&quot;&gt;for(sp in sort(species[species$species_group==sg,]$species_colname)){&lt;/code&gt; I loop over a sorted list of all species in the species group. Inside the inner loop the Knitr magic happens. The call to knit_child causes Knitr at that point to load the file ‘individual_species_blog.Rmd’ specified as an argument. This file is another Rmd file (see second code block) that contains Markdown with R code blocks interspersed.&lt;/p&gt;
-
-&lt;p&gt;The child file does the actual analysis per species and outputs the results. The parent file only calls it.
-What about the &lt;code class=&quot;highlighter-rouge&quot;&gt;out&amp;lt;-NULL&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;out&amp;lt;-c(out,knit_child(...))&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;paste(out...)&lt;/code&gt; lines in the parent file, I hear you ask? Well, the result of knit_child is already Markdown syntax. But anything inside the triple-back-quoted blocks in RMarkdown is printed in a code block, which would make a mess of the Markdown syntax that is the result of knit_child. So we instead make a vector called ‘out’ and append all the results of knit_child onto it. So in the end, after the last loop, out is a vector of a whole lot of strings. The inline code &lt;code class=&quot;highlighter-rouge&quot;&gt;paste(out, collapse='\n')&lt;/code&gt; prints the actual results and puts newline characters between the different strings.&lt;/p&gt;
-
-&lt;p&gt;Talking about output, there are different ways to modify how the R code is being output into Markdown syntax. These are all specified in the &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; blocks for each block of R code. One that is important in this respect is the include=FALSE parameter that is in the R-block where knit_child is called. If you don’t include it, Knitr will print all kinds of other output in the Markdown file that has to do with the knit_child call. As it is stuff we don’t want in our final output, I say eval=TRUE so the code does get evaluated normally, but include=FALSE makes sure no output is actually included in the resulting Markdown file. As you can see, the subsequent paste(output…) call is outside this block, so the output of that statement ís included in the markdown file.&lt;/p&gt;
-
-&lt;p&gt;The last thing tying it all together is making variables from the parent file available in the child file. This is where the environment comes in. Inside our species loop, we make a new environment for each species with &lt;code class=&quot;highlighter-rouge&quot;&gt;env.new()&lt;/code&gt;. This environment inherits from the parent environment. So anything that was available in our parent environment (like the variables &lt;code class=&quot;highlighter-rouge&quot;&gt;sg&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;sp&lt;/code&gt;  and &lt;code class=&quot;highlighter-rouge&quot;&gt;specnum&lt;/code&gt;) is also available in the new environment. But variables inside the child environment don’t accidentally carry over to other child environments. That way we can safely refer to &lt;code class=&quot;highlighter-rouge&quot;&gt;sp&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;specnum&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;sg&lt;/code&gt; in our child Rmd file. The only problem is that the child Rmd file can’t be run individually anymore because these variables aren’t available anymore if the child Rmd file isn’t called from the parent Rmd file. The solution to this is to put something like &lt;code class=&quot;highlighter-rouge&quot;&gt;if(!exists('sp'))&lt;/code&gt; in your child Rmd file to specify a species if it isn’t specified already.&lt;/p&gt;
-
-&lt;p&gt;The parent Rmd file:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-md&quot; data-lang=&quot;md&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;test&quot;&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Dolf&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Andringa'&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;February&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;7,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2016&quot;&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;s&quot;&gt;html_document&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;fig_caption&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;keep_md&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;number_sections&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;no&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;journal&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;toc&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;toc_depth&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;toc_float&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;collapsed&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;{r getdata, results=FALSE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
-load(&quot;samples.RDa&quot;)
-library(knitr)
-&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;
-# Methods
-
-.... some explanation
-
-# Results
-&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;{r echo=FALSE, eval=TRUE, include=FALSE}
-out &amp;lt;- NULL
-for(sg in species_groups){
-  print(sg)
-  specnum&amp;lt;-0
-  for(sp in sort(species&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;species$species_group==sg,&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;$species_colname)){
-    sp&amp;lt;-sp #update the sp variable in the environment
-    sp.common&amp;lt;-species&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;species$species_colname==sp,c(&quot;common_name&quot;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; #update the sp.common variable in the environment
-    env=new.env() #create a new empty environment, it inherits objects from the current environment.
-    out &amp;lt;- c(out, knit_child('individual_species_blog.Rmd', envir=env))
-    specnum&amp;lt;-specnum+1
-  } 
-}
-&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;
-&lt;span class=&quot;sb&quot;&gt;`r paste(out, collapse='\n')`&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This is the child Rmd file (called individual_species_blog.Rmd):&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-md&quot; data-lang=&quot;md&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Individual&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Species&quot;&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Dolf&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Andringa'&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;February&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;7,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2016&quot;&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;html_document&lt;/span&gt;
-&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;{r echo=FALSE, eval=TRUE, include=FALSE}
-library(knitr)
-library(lmtest)
-load(&quot;samples.RDa&quot;)
-data &amp;lt;-subset(samples, species_group==sg)
-data$y &amp;lt;- data&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;,c(sp)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;{r eval='TRUE', echo=FALSE, results='asis'}
-if(specnum==0) cat('&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;##',sg,'&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;');
-&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;
-
-### `r sp` {.tabset}
-`r sp.common`
-
-&lt;span class=&quot;p&quot;&gt;```&lt;/span&gt;{r eval=TRUE, echo=FALSE}
-
-m&amp;lt;-glm(data$y~data$site_name, family=poisson)
-
-coefs&amp;lt;-NULL
-coefs$coefficient&amp;lt;-NULL
-coefs$value&amp;lt;-NULL
-coefs$pvalue&amp;lt;-NULL
-coeft&amp;lt;-coeftest(m)
-for(name in names(m$coefficients)){
-    p&lt;span class=&quot;nt&quot;&gt;&amp;lt;-round&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;coeft&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&quot;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Pr&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;|z|)&quot;)],3)
-    coefs$coefficient&amp;lt;-c(coefs$coefficient,name)
-    coefs$value&amp;lt;-c(coefs$value,m$coefficients&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;[name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;])
-    coefs$pvalue&amp;lt;-c(coefs$pvalue,p)
-}
-coefs&amp;lt;-as.data.frame(coefs)
-coefs&amp;lt;-coefs&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;with(coefs,order(coefs$pvalue)),&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-knitr::kable(coefs)
-&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><category term="blog" /><category term="R" /><category term="research" /><category term="statistics" /><category term="reporting" /><category term="RMarkdown" /><category term="Knitr" /><summary type="html">Recently I have been analyzing a large amount of data with R. A great tool to do this is Rstudio. It is an IDE for R that makes it easy to write your R code, explore the data and show the graphs. But if you want to communicate your results with others, sitting behind an IDE isn’t the best way. Fortunately Rstudio integrates with Knitr, RMarkdown and Pandoc. With those tools you can create PDF, HTML or word files from your R code.</summary></entry></feed>
+&lt;p&gt;You see a pulseaudio session for your own user and one for the mpd user. If this is the case, you should be able to play music with MPD to pulseaudio.&lt;/p&gt;</content><category term="blog" /><category term="ArchLinux" /><category term="MPD" /><category term="PulseAudio" /><summary type="html">I love Gnome Music Player Client (gmpc) as an audio player, with MPD (Music Player Daemon) as a backend. Both because of the remote control possibilities but GMPC is also just a great client. But when installing MPD, combined with PulseAudio on my Arch Linux laptop, I ran into trouble. MPD runs as a different user, and as that user wasn’t able to connect to PulseAudio that runs under my regular desktop user.</summary></entry></feed>
