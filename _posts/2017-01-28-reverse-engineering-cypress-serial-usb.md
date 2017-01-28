@@ -10,6 +10,7 @@ tags:
     - usbip
     - cypress
     - driver
+    - solar
 ---
 The last few weeks I have been busy on a solar monitoring project. I have a minimal viable product working based on an RS232 enabled inverter I have here. The first client I wanted to deploy it with has a similar inverter from the same company, just with a usb port instead of RS232. I was expecting it to be a serial over USB port that would just work as-is with a usb to serial driver, especially because it advertises itself as a Cypress USB to Serial device when you attach it to your computer. Unfortunately this wasn't true, requiring me to reverse-engineer the USB communication for it. In the end this was easier than I thought it would be and it was a whole lot of fun. This post just shares the quest I went through.
 
