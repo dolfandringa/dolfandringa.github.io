@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Reverse Engineering a Cypress USB to Serial USB driver
+title: Reverse Engineering a Cypress USB to Serial driver
 category: blog
 date: "2017-01-28"
 tags: 
