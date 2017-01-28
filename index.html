@@ -59,25 +59,25 @@
         
         
             <header class="major">
-                <h2>Drawing images and interactively change text on a canvas using Angular JS.</h2>
+                <h2>Reverse Engineering a Cypress USB to Serial USB driver</h2>
                 <p class="post-meta">
-                  Jan 16, 2017
+                  Jan 28, 2017
                   
                   
                   <span class="tags">
-                    Tags:  <a href="/tag/angularjs">angularjs</a>  <a href="/tag/web-application">web-application</a>  <a href="/tag/website">website</a>  <a href="/tag/development">development</a>  <a href="/tag/canvas">canvas</a>  <a href="/tag/html5">html5</a> 
+                    Tags:  <a href="/tag/usb">usb</a>  <a href="/tag/reverse_engineering">reverse_engineering</a>  <a href="/tag/python">python</a>  <a href="/tag/usbip">usbip</a>  <a href="/tag/cypress">cypress</a>  <a href="/tag/driver">driver</a>  <a href="/tag/solar">solar</a> 
                   </span>
                 </p>
             </header>
 
             <section>
-                <p>So I love <a href="https://angularjs.org/">AngularJS</a> (or Angular as <a href="https://www.infoq.com/news/2016/12/angular-4">you’re supposed to call it now</a>) for creating the interfaces of web-applications. I have really started to decouple the interfaces I make from the backend, by using Angular for the front-end and <a href="http://flask.pocoo.org">flask</a> to create a RESTful backend with which Angular communicates. It’s awesome. Right now I am making a web-interface that draws an image and dynamically changes numbers in that image depending on data it fetches from the backend. It is used in this case to show an image of a Solar Power system and dynamically change numbers in the image, showing the current state (battery capacity, panel output, power consumption, etc) of their system. I am using Angular for this and the <a href="http://www.w3schools.com/html/html5_canvas.asp">HTML5 Canvas</a> object.</p>
+                <p>The last few weeks I have been busy on a solar monitoring project. I have a minimal viable product working based on an RS232 enabled inverter I have here. The first client I wanted to deploy it with has a similar inverter from the same company, just with a usb port instead of RS232. I was expecting it to be a serial over USB port that would just work as-is with a usb to serial driver, especially because it advertises itself as a Cypress USB to Serial device when you attach it to your computer. Unfortunately this wasn’t true, requiring me to reverse-engineer the USB communication for it. In the end this was easier than I thought it would be and it was a whole lot of fun. This post just shares the quest I went through.</p>
 
 
             </section>
             <footer>
               <ul class="actions">
-                <li><a href="/blog/2017/01/16/drawing-images-and-changing-text-on-a-canvas-with-angular.html" class="button">Read More</a></li>
+                <li><a href="/blog/2017/01/28/reverse-engineering-cypress-serial-usb.html" class="button">Read More</a></li>
               </ul>
             </footer>
 
@@ -88,6 +88,24 @@
             
 
                 <article class="6u 12u(small)">
+                    <header>
+                        <h2><a href="/blog/2017/01/16/drawing-images-and-changing-text-on-a-canvas-with-angular.html">Drawing images and interactively change text on a canvas using Angular JS.</a></h2>
+                    </header>
+                    <section>
+                        <p>So I love <a href="https://angularjs.org/">AngularJS</a> (or Angular as <a href="https://www.infoq.com/news/2016/12/angular-4">you’re supposed to call it now</a>) for creating the interfaces of web-applications. I have really started to decouple the interfaces I make from the backend, by using Angular for the front-end and <a href="http://flask.pocoo.org">flask</a> to create a RESTful backend with which Angular communicates. It’s awesome. Right now I am making a web-interface that draws an image and dynamically changes numbers in that image depending on data it fetches from the backend. It is used in this case to show an image of a Solar Power system and dynamically change numbers in the image, showing the current state (battery capacity, panel output, power consumption, etc) of their system. I am using Angular for this and the <a href="http://www.w3schools.com/html/html5_canvas.asp">HTML5 Canvas</a> object.</p>
+
+
+                    </section>
+                    <footer>
+                        <ul class="actions">
+                            <li><a href="/blog/2017/01/16/drawing-images-and-changing-text-on-a-canvas-with-angular.html" class="button">Read More</a></li>
+                        </ul>
+                    </footer>
+                </article>
+
+            
+
+                <article class="6u$ 12u(small)">
                     <header>
                         <h2><a href="/blog/2017/01/15/python-dummy-serial-port.html">Creating dummy serial ports in pure python.</a></h2>
                     </header>
@@ -105,7 +123,7 @@
 
             
 
-                <article class="6u$ 12u(small)">
+                <article class="6u 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/11/01/nrf24l01-beaglebone-black.html">NRF24L01 and SPIDEV on the Beagle Bone Black</a></h2>
                     </header>
@@ -123,7 +141,7 @@
 
             
 
-                <article class="6u 12u(small)">
+                <article class="6u$ 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/10/26/business-intelligence-with-knime.html">Business intelligence and data manipulation with Knime</a></h2>
                     </header>
@@ -141,7 +159,7 @@
 
             
 
-                <article class="6u$ 12u(small)">
+                <article class="6u 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/09/13/tragedy-in-the-amazon.html">Tragedy in the Amazon</a></h2>
                     </header>
@@ -160,7 +178,7 @@ The Tambopata-Madidi area on the foothills of the Andes is one if the last areas
 
             
 
-                <article class="6u 12u(small)">
+                <article class="6u$ 12u(small)">
                     <header>
                         <h2><a href="/project/2016/06/28/beaglebone_logic_level_analyser.html">My Beagle Bone Black Logic-level analyser in  a web-application</a></h2>
                     </header>
@@ -178,7 +196,7 @@ The Tambopata-Madidi area on the foothills of the Andes is one if the last areas
 
             
 
-                <article class="6u$ 12u(small)">
+                <article class="6u 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/06/09/arch-reinstalling-kernel-after-failed-upgrade.html">Reinstalling the kernel on Arch Linux after a failed upgrade.</a></h2>
                     </header>
@@ -196,7 +214,7 @@ The Tambopata-Madidi area on the foothills of the Andes is one if the last areas
 
             
 
-                <article class="6u 12u(small)">
+                <article class="6u$ 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/05/13/finding-chinese-ip-cam.html">Setting up a chinese IP camera without manual</a></h2>
                     </header>
@@ -214,7 +232,7 @@ The Tambopata-Madidi area on the foothills of the Andes is one if the last areas
 
             
 
-                <article class="6u$ 12u(small)">
+                <article class="6u 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/04/29/gorgeous-earth.html">Gorgeous earth art</a></h2>
                     </header>
@@ -233,7 +251,7 @@ These are just some of the images. You can <a href="http://eros.usgs.gov/imagega
 
             
 
-                <article class="6u 12u(small)">
+                <article class="6u$ 12u(small)">
                     <header>
                         <h2><a href="/project/2016/04/24/AquaponicsModeler.html">Aquaponics Modeler: a modeling application for Aquaponics systems.</a></h2>
                     </header>
@@ -253,7 +271,7 @@ Of course I could just have done the maths for this on the back of a napkin, but
 
             
 
-                <article class="6u$ 12u(small)">
+                <article class="6u 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/02/20/pulseaudio-mpd-archlinux.html">Problems getting MPD, PulseAudio and Arch Linux to work together</a></h2>
                     </header>
@@ -271,7 +289,7 @@ Of course I could just have done the maths for this on the back of a napkin, but
 
             
 
-                <article class="6u 12u(small)">
+                <article class="6u$ 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/02/07/rmarkdown_loops_and_knitr.html">Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr</a></h2>
                     </header>
@@ -289,7 +307,7 @@ Of course I could just have done the maths for this on the back of a napkin, but
 
             
 
-                <article class="6u$ 12u(small)">
+                <article class="6u 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/02/04/creating_custom_persistent_arch_live_iso.html">Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems</a></h2>
                     </header>
@@ -307,7 +325,7 @@ Of course I could just have done the maths for this on the back of a napkin, but
 
             
 
-                <article class="6u 12u(small)">
+                <article class="6u$ 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/01/21/my-favorite-tools.html">My favorite web development tools.</a></h2>
                     </header>
@@ -325,7 +343,7 @@ Of course I could just have done the maths for this on the back of a napkin, but
 
             
 
-                <article class="6u$ 12u(small)">
+                <article class="6u 12u(small)">
                     <header>
                         <h2><a href="/project/2016/01/04/Biodata.html">Biodata: a flexible research data entry application</a></h2>
                     </header>
@@ -343,7 +361,7 @@ Of course I could just have done the maths for this on the back of a napkin, but
 
             
 
-                <article class="6u 12u(small)">
+                <article class="6u$ 12u(small)">
                     <header>
                         <h2><a href="/blog/2016/01/03/my-search-for-free-hosting-and-email.html">My search for free website and email hosting</a></h2>
                     </header>

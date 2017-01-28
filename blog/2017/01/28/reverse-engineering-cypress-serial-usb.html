@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<!-- _includes/base.html -->
+
+
+
+
+<html>
+  	<head>
+      <title>Reverse Engineering a Cypress USB to Serial USB driver</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="usb,reverse_engineering,python,usbip,cypress,driver,solar" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
+  	  <link rel="stylesheet" href="/css/syntax.css" />
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">Reverse Engineering a Cypress USB to Serial USB driver</h2>
+                <p class="post-meta">
+                  Jan 28, 2017
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/usb">usb</a>  <a href="/tag/reverse_engineering">reverse_engineering</a>  <a href="/tag/python">python</a>  <a href="/tag/usbip">usbip</a>  <a href="/tag/cypress">cypress</a>  <a href="/tag/driver">driver</a>  <a href="/tag/solar">solar</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>The last few weeks I have been busy on a solar monitoring project. I have a minimal viable product working based on an RS232 enabled inverter I have here. The first client I wanted to deploy it with has a similar inverter from the same company, just with a usb port instead of RS232. I was expecting it to be a serial over USB port that would just work as-is with a usb to serial driver, especially because it advertises itself as a Cypress USB to Serial device when you attach it to your computer. Unfortunately this wasn’t true, requiring me to reverse-engineer the USB communication for it. In the end this was easier than I thought it would be and it was a whole lot of fun. This post just shares the quest I went through.</p>
+
+<p>The inverter uses a Cypress Serial to USB chip for communication with device ID 0665:5161.
+This is the lsusb output:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$lsusb</span> -vd 0665:5161
+
+Bus 001 Device 004: ID 0665:5161 Cypress Semiconductor USB to Serial
+Couldn<span class="s1">'t open device, some information will be missing
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               1.10
+  bDeviceClass            0 (Defined at Interface level)
+  bDeviceSubClass         0 
+  bDeviceProtocol         0 
+  bMaxPacketSize0         8
+  idVendor           0x0665 Cypress Semiconductor
+  idProduct          0x5161 USB to Serial
+  bcdDevice            0.02
+  iManufacturer           3 
+  iProduct                1 
+  iSerial                 0 
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength           34
+    bNumInterfaces          1
+    bConfigurationValue     1
+    iConfiguration          0 
+    bmAttributes         0xa0
+      (Bus Powered)
+      Remote Wakeup
+    MaxPower              100mA
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        0
+      bAlternateSetting       0
+      bNumEndpoints           1
+      bInterfaceClass         3 Human Interface Device
+      bInterfaceSubClass      0 No Subclass
+      bInterfaceProtocol      0 None
+      iInterface              0 
+        HID Device Descriptor:
+          bLength                 9
+          bDescriptorType        33
+          bcdHID               1.11
+          bCountryCode            0 Not supported
+          bNumDescriptors         1
+          bDescriptorType        34 Report
+          wDescriptorLength      27
+         Report Descriptors: 
+           ** UNAVAILABLE **
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x81  EP 1 IN
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0008  1x 8 bytes
+        bInterval              12</span></code></pre></figure>
+
+<p>There is <a href="http://www.power-software-download.com/">stock software</a> with this inverter and many other inverters and UPS’s that use the same chip. This software runs on 32 and 64 bit windows, linux and mac, which is already an impressive list. But I need my software to run on an ARM device. The stock software is <a href="http://www.javadecompilers.com/">easy to decompile</a> and gave me a lot of info on the commands the inverter understands. It uses a native platform specific compiled driver through with a <a href="https://en.wikipedia.org/wiki/Java_Native_Interface">JNI interface</a> for it’s usb communication. This one is (as far as I can find) not available for ARM devices.</p>
+
+<p>If you’re not using the supplied driver, the usbhid driver binds to it on Linux, suggesting it is a keyboard or mouse, even though it’s description is a Cypress USB to Serial device. The cypress_m8 driver for linux supports a Cypress USB to Serial devices that manifest itself as HID device.
+Even though my device is not claimed by that driver, I hoped it might be supported by it nonetheless. Thanks to <a href="http://askubuntu.com/questions/408627/usb-to-serial-device-why-no-dev-entry">info on the ubuntu ask stackexchange site</a> I figured out how to add this device ID to the cypress_m8 driver and recompile it, but the driver complained a required endpoint was not available. So no luck there.</p>
+
+<p>The next was going to be reverse engineering the supplied driver. I started looking at this point at the <a href="http://walac.github.io/pyusb/">PyUSB module</a>, which is an awesome python interface to the <a href="http://libusb.org/">libusb library</a>. It is quite easy to use it to communicate with usb devices in python. <a href="https://github.com/walac/pyusb/blob/master/docs/tutorial.rst">The tutorial</a> on it is really good, but left me wondering about how the device would communicate with the control, interrupt, isochronous and bulk messages. Some random tries to communicate with it failed.</p>
+
+<p>To get more info on the communication, i looked at decompiling the supplied driver, which is a whole can of worms that’s definitely not a magic bullet. There’s a few good disassemblers and decompilers available, but they didn’t supply me with any good info beyond what the <a href="https://en.wikipedia.org/wiki/Objdump">objdump</a> and <a href="https://linux.die.net/man/1/strings">strings</a> tools in linux can already give you.</p>
+
+<p>Using objdump I saw a lot of the functions that are in the driver. Googling those function names, it turned out that most of this driver is actually just the regular open source libusb driver (is it even legal for them to publish a closed source driver containing the libusb code?). It just implements a few extra functions around it, and a <a href="https://en.wikipedia.org/wiki/Java_Native_Interface">Java JNI</a> set of functions on top of that. So my pyusb (or any libusb based library for that matter) direction was the right one. I just needed to figure out what those extra functions were doing. Googling one of then (ups_write), I figured out that <a href="https://github.com/k3a/Fortron-FSP-EP-650">K3A reverse engineered his UPS</a> based on the same chip already. This was an enormous help, even though it’s only just a few lines of code really. I definitely owe him a <a href="https://beeroverip.org/pilsner-urquell/">Beer over IP</a>. It confirmed that I was heading in the right direction, and he showed me exactly what the ups_write and ups_read functions are doing. Ups_write is sending control messages and ups_read does an interrupt transfer to get the response back. That is really most of what I needed. With this knowledge I could send messages to my inverter and get data back.</p>
+
+<p>The messages for his UPS differ from the ones of my inverter though. I already figured out the messages that these inverters need from the Java code, but it looked like the driver (probably in the Java JNI functions) is translating these messages into something else before sending them to the UPS. So needed to still test the communication between the driver on my pc and the inverter. A complication is that although I have vpn access to the arm box attached to the specific inverter, it is located over an hour drive away from me in a workshop, and the whole problem stated in the first place because their driver doesn’t work on ARM.</p>
+
+<p>Was I going to get in a car and drive there for capturing the communication between the stock software and inverter on my laptop? Of course not! Enter the <a href="http://usbip.sourceforge.net/">USB/IP project</a>. They wrote a daemon and driver to allow you to forward usb communication over IP, allowing me to share the inverter’s usb connection from the ARM box, through the VPN to my local laptop, and run the software locally as if it was connected directly to it.</p>
+
+<p>So the now I could use wireshark and usbmon to directly monitor. The steps to take are start wireshark on the usbmon interface. Start capturing and then start the “working” application. Let it go until you feel the application got data through USB that it understands, stop it and stop the capturing in wireshark. At that point you should have some useful USB data. You should filter in wireshark to only see the relevant data. I did it with the filter usb.bus_id == 4, which filters everything on the bus that my device (usbip device) is on. You can check which bus it is on with ‘lsusb’ in linux.</p>
+
+<p>Next you need to see if you can create the same traffic from pyusb. So I opened a second wireshark instance (so I can compare the two side-by-side), started capturing in this one and then started python and setup the usb device there. I used the following code for that:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">usb.core</span><span class="o">,</span> <span class="nn">usb.util</span><span class="o">,</span> <span class="nn">usb.control</span>
+<span class="kn">import</span> <span class="nn">crc16</span>
+<span class="n">vendorId</span> <span class="o">=</span> <span class="mh">0x0665</span>
+<span class="n">productId</span> <span class="o">=</span> <span class="mh">0x5161</span>
+<span class="n">interface</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">dev</span> <span class="o">=</span> <span class="n">usb</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">idVendor</span><span class="o">=</span><span class="n">vendorId</span><span class="p">,</span> <span class="n">idProduct</span><span class="o">=</span><span class="n">productId</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">dev</span><span class="o">.</span><span class="n">is_kernel_driver_active</span><span class="p">(</span><span class="n">interface</span><span class="p">):</span>
+    <span class="n">dev</span><span class="o">.</span><span class="n">detach_kernel_driver</span><span class="p">(</span><span class="n">interface</span><span class="p">)</span>
+<span class="n">dev</span><span class="o">.</span><span class="n">set_interface_altsetting</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span></code></pre></figure>
+
+<p>What the vendorID, productID and interface numbers are depends on your device. <code class="highlighter-rouge">lsusb -vd &lt;vendorId&gt;:&lt;productID&gt;</code> might give you more info. This is where <a href="https://github.com/k3a/Fortron-FSP-EP-650/blob/master/main.cpp">K3A helped me a lot</a>.</p>
+
+<p>From that point you need to look in wireshark at the USB data going back and forth. As I said I had two windows open, one with the data sent by the program I had (and it’s driver) the other with the data I sent back and forth. If you click on a packet in wireshark, you see two panels with the data being sent. The bottom panel contains the raw hexadecimal and text representations of that data side by side, while the middle one contains the interpretation of that for this protocol. So if you click on a field in the middle panel, it will highlight the hex and text data that correspond to it in the bottom. If you see differences between data between both wireshark windows, you can see that way which USB/URB fields are actually different. There are a few that will always be different, namely the URB id, URB sec and URB usec fields. So don’t worry about those. In my case, when talking USB control requests, the main points to get right where the bmRequestType (0x21 in the example below) bRequest (0x09), wValue (0x0200), wIndex(0x0000), wLength (0x0008) and the actual Data Fragment.</p>
+
+<ul>
+  <li><img src="/images/wireshark_usbmon-thumb.png" alt="Wireshark USB monitoring data" data-fullimage="/images/wireshark_usbmon.png"></li>
+</ul>
+
+<p>The Data Fragment is the real data you are sending in the body of the control request. That is the part that changed for me and I had to figure out myself. Basically for this inverter it consists of a string (QPI in the example), followed by a 2 byte CRC (<a href="https://pypi.python.org/pypi/crc16/">crc16.crcxmodem</a> in python helped here) and a linefeed character ‘\r’, and then padded with null characters up to 8 bytes. Knowing this, I could send any command to the inverter and get valid data back. In this case, the data comes back through an interrupt message.</p>
+
+<p>So this was the snippet of test code that I wrote that allowed me to send commands to the inverter and get data back:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">getCommand</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="n">crc</span> <span class="o">=</span> <span class="n">crc16</span><span class="o">.</span><span class="n">crc16xmodem</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">'big'</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">+</span><span class="n">crc</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">+</span><span class="n">b</span><span class="s">'</span><span class="se">\r</span><span class="s">'</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">+</span><span class="n">b</span><span class="s">'</span><span class="se">\0</span><span class="s">'</span>
+    <span class="k">return</span> <span class="n">cmd</span>
+
+<span class="k">def</span> <span class="nf">sendCommand</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
+    <span class="n">dev</span><span class="o">.</span><span class="n">ctrl_transfer</span><span class="p">(</span><span class="mh">0x21</span><span class="p">,</span> <span class="mh">0x9</span><span class="p">,</span> <span class="mh">0x200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getResult</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">res</span><span class="o">=</span><span class="s">""</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="s">'</span><span class="se">\r</span><span class="s">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span> <span class="ow">and</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">+=</span><span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dev</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mh">0x81</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="mh">0x00</span><span class="p">])</span>
+        <span class="k">except</span> <span class="n">usb</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">USBError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="mi">110</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="n">sendCommand</span><span class="p">(</span><span class="n">getCommand</span><span class="p">(</span><span class="s">'QPI'</span><span class="p">))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">getResult</span><span class="p">()</span></code></pre></figure>
+
+<p>It’s the world’s smallest driver ever, once again <a href="https://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants">standing on the shoulders of giants</a>.
+Of course I need to now abstract it to a level where I can request specific variables from the inverter, check the integrity of the returned data, which also contains a 2-byte CRC16, etc. But at this point that is a matter of either knowing what the messages and it’s responses mean (which I do) or just repeating the messages yourself using python code and then looking at the returned data and looking at the inverter to see which number means what (a bit less reliable). One tip is to attach a device to the inverter and request all those variables frequently and logging it in a database or CSV file. Looking at the numbers over time, combined with knowledge about the inverter and how they work can get you a long way to figure this out.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+              
+              
+              <li>
+                <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>
