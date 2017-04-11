@@ -16,7 +16,7 @@ For quicker navigation, jump to my:
  - [Bio](#bio)
 
 # Resumé #
-My full resumé can also be [downloaded as pdf](/assets/resumeDolfAndringa.pdf).
+My full resumé can also be [downloaded as pdf](/assets/ResumeDolfAndringa.pdf).
 {% include resume-it.md %}
 
 ## Bio ##
