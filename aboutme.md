@@ -15,7 +15,8 @@ For quicker navigation, jump to my:
  - [Resumé](#resumé)
  - [Bio](#bio)
 
-<a name="resum" ></a>
+
+ <span id="resum" >&nbsp;</span>
 ## Resumé ##
 My full resumé can also be [downloaded as pdf](/assets/ResumeDolfAndringa.pdf).
 {% include resume-it.md %}
