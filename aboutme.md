@@ -12,10 +12,11 @@ tags:
 Below you can find my resumé, and for those réally interested, also my Bio. 
 For quicker navigation, jump to my:
 
- - [Resumé](#resum)
+ - [Resumé](#resumé)
  - [Bio](#bio)
 
-# Resumé #
+<a name="resum" ></a>
+## Resumé ##
 My full resumé can also be [downloaded as pdf](/assets/ResumeDolfAndringa.pdf).
 {% include resume-it.md %}
 
