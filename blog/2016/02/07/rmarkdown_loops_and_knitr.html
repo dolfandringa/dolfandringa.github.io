@@ -96,98 +96,14 @@ I have a data frame called <code class="highlighter-rouge">samples</code> with t
 <p>The child file does the actual analysis per species and outputs the results. The parent file only calls it.
 What about the <code class="highlighter-rouge">out&lt;-NULL</code> <code class="highlighter-rouge">out&lt;-c(out,knit_child(...))</code> and <code class="highlighter-rouge">paste(out...)</code> lines in the parent file, I hear you ask? Well, the result of knit_child is already Markdown syntax. But anything inside the triple-back-quoted blocks in RMarkdown is printed in a code block, which would make a mess of the Markdown syntax that is the result of knit_child. So we instead make a vector called ‘out’ and append all the results of knit_child onto it. So in the end, after the last loop, out is a vector of a whole lot of strings. The inline code <code class="highlighter-rouge">paste(out, collapse='\n')</code> prints the actual results and puts newline characters between the different strings.</p>
 
-<p>Talking about output, there are different ways to modify how the R code is being output into Markdown syntax. These are all specified in the <code class="highlighter-rouge"><span class="p">{</span><span class="err">r</span><span class="w"> </span><span class="err">...</span><span class="p">}</span></code> blocks for each block of R code. One that is important in this respect is the include=FALSE parameter that is in the R-block where knit_child is called. If you don’t include it, Knitr will print all kinds of other output in the Markdown file that has to do with the knit_child call. As it is stuff we don’t want in our final output, I say eval=TRUE so the code does get evaluated normally, but include=FALSE makes sure no output is actually included in the resulting Markdown file. As you can see, the subsequent paste(output…) call is outside this block, so the output of that statement ís included in the markdown file.</p>
+<p>Talking about output, there are different ways to modify how the R code is being output into Markdown syntax. These are all specified in the <code class="highlighter-rouge">{r ...}</code> blocks for each block of R code. One that is important in this respect is the include=FALSE parameter that is in the R-block where knit_child is called. If you don’t include it, Knitr will print all kinds of other output in the Markdown file that has to do with the knit_child call. As it is stuff we don’t want in our final output, I say eval=TRUE so the code does get evaluated normally, but include=FALSE makes sure no output is actually included in the resulting Markdown file. As you can see, the subsequent paste(output…) call is outside this block, so the output of that statement ís included in the markdown file.</p>
 
 <p>The last thing tying it all together is making variables from the parent file available in the child file. This is where the environment comes in. Inside our species loop, we make a new environment for each species with <code class="highlighter-rouge">env.new()</code>. This environment inherits from the parent environment. So anything that was available in our parent environment (like the variables <code class="highlighter-rouge">sg</code> <code class="highlighter-rouge">sp</code>  and <code class="highlighter-rouge">specnum</code>) is also available in the new environment. But variables inside the child environment don’t accidentally carry over to other child environments. That way we can safely refer to <code class="highlighter-rouge">sp</code> <code class="highlighter-rouge">specnum</code> and <code class="highlighter-rouge">sg</code> in our child Rmd file. The only problem is that the child Rmd file can’t be run individually anymore because these variables aren’t available anymore if the child Rmd file isn’t called from the parent Rmd file. The solution to this is to put something like <code class="highlighter-rouge">if(!exists('sp'))</code> in your child Rmd file to specify a species if it isn’t specified already.</p>
 
 <p>The parent Rmd file:</p>
 
-<figure class="highlight"><pre><code class="language-md" data-lang="md"><table style="border-spacing: 0"><tbody><tr>
-<td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39</pre></td>
-<td class="code"><pre><span class="nn">---</span>
-<span class="s">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">test"</span>
-<span class="s">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dolf</span><span class="nv"> </span><span class="s">Andringa'</span>
-<span class="s">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
-<span class="s">output</span><span class="pi">:</span>
-  <span class="s">html_document</span><span class="pi">:</span>
-    <span class="s">fig_caption</span><span class="pi">:</span> <span class="s">yes</span>
-    <span class="s">keep_md</span><span class="pi">:</span> <span class="s">yes</span>
-    <span class="s">number_sections</span><span class="pi">:</span> <span class="s">no</span>
-    <span class="s">theme</span><span class="pi">:</span> <span class="s">journal</span>
-    <span class="s">toc</span><span class="pi">:</span> <span class="s">yes</span>
-    <span class="s">toc_depth</span><span class="pi">:</span> <span class="s">2</span>
-    <span class="s">toc_float</span><span class="pi">:</span>
-      <span class="s">collapsed</span><span class="pi">:</span> <span class="s">true</span>
-<span class="nn">---</span>
-<span class="sb">```</span>{r getdata, results=FALSE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
-load("samples.RDa")
-library(knitr)
-<span class="p">```</span>
-# Methods
-
-.... some explanation
-
-# Results
-<span class="p">```</span>{r echo=FALSE, eval=TRUE, include=FALSE}
-out &lt;- NULL
-for(sg in species_groups){
-  print(sg)
-  specnum&lt;-0
-  for(sp in sort(species<span class="p">[</span><span class="nv">species$species_group==sg,</span><span class="p">]</span>$species_colname)){
-    sp&lt;-sp #update the sp variable in the environment
-    sp.common&lt;-species<span class="p">[</span><span class="nv">species$species_colname==sp,c("common_name")</span><span class="p">]</span> #update the sp.common variable in the environment
-    env=new.env() #create a new empty environment, it inherits objects from the current environment.
-    out &lt;- c(out, knit_child('individual_species_blog.Rmd', envir=env))
-    specnum&lt;-specnum+1
-  } 
-}
-<span class="sb">```</span>
-<span class="sb">`r paste(out, collapse='\n')`</span><span class="w">
-</span></pre></td>
-</tr></tbody></table></code></pre></figure>
-
-<p>This is the child Rmd file (called individual_species_blog.Rmd):</p>
-
-<figure class="highlight"><pre><code class="language-md" data-lang="md"><table style="border-spacing: 0"><tbody><tr>
-<td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-md" data-lang="md"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -226,29 +142,114 @@ for(sg in species_groups){
 37
 38
 39
-40</pre></td>
+</pre></td>
 <td class="code"><pre><span class="nn">---</span>
-<span class="s">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Individual</span><span class="nv"> </span><span class="s">Species"</span>
-<span class="s">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dolf</span><span class="nv"> </span><span class="s">Andringa'</span>
-<span class="s">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
-<span class="s">output</span><span class="pi">:</span> <span class="s">html_document</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">test"</span>
+<span class="na">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dolf</span><span class="nv"> </span><span class="s">Andringa'</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
+<span class="na">output</span><span class="pi">:</span>
+  <span class="na">html_document</span><span class="pi">:</span>
+    <span class="na">fig_caption</span><span class="pi">:</span> <span class="s">yes</span>
+    <span class="na">keep_md</span><span class="pi">:</span> <span class="s">yes</span>
+    <span class="na">number_sections</span><span class="pi">:</span> <span class="s">no</span>
+    <span class="na">theme</span><span class="pi">:</span> <span class="s">journal</span>
+    <span class="na">toc</span><span class="pi">:</span> <span class="s">yes</span>
+    <span class="na">toc_depth</span><span class="pi">:</span> <span class="s">2</span>
+    <span class="na">toc_float</span><span class="pi">:</span>
+      <span class="na">collapsed</span><span class="pi">:</span> <span class="no">true</span>
 <span class="nn">---</span>
-<span class="sb">```</span>{r echo=FALSE, eval=TRUE, include=FALSE}
+<span class="sb">```{r getdata, results=FALSE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+load("samples.RDa")
+library(knitr)
+```</span>
+<span class="gh"># Methods</span>
+
+.... some explanation
+
+<span class="gh"># Results</span>
+<span class="p">```</span><span class="nl">{r echo=FALSE, eval=TRUE, include=FALSE}</span><span class="sb">
+out &lt;- NULL
+for(sg in species_groups){
+  print(sg)
+  specnum&lt;-0
+  for(sp in sort(species[species$species_group==sg,]$species_colname)){
+    sp&lt;-sp #update the sp variable in the environment
+    sp.common&lt;-species[species$species_colname==sp,c("common_name")] #update the sp.common variable in the environment
+    env=new.env() #create a new empty environment, it inherits objects from the current environment.
+    out &lt;- c(out, knit_child('individual_species_blog.Rmd', envir=env))
+    specnum&lt;-specnum+1
+  } 
+}
+</span><span class="p">```</span>
+<span class="sb">`r paste(out, collapse='\n')`</span></pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>This is the child Rmd file (called individual_species_blog.Rmd):</p>
+
+<figure class="highlight"><pre><code class="language-md" data-lang="md"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+</pre></td>
+<td class="code"><pre><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Individual</span><span class="nv"> </span><span class="s">Species"</span>
+<span class="na">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dolf</span><span class="nv"> </span><span class="s">Andringa'</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
+<span class="na">output</span><span class="pi">:</span> <span class="s">html_document</span>
+<span class="nn">---</span>
+<span class="sb">```{r echo=FALSE, eval=TRUE, include=FALSE}
 library(knitr)
 library(lmtest)
 load("samples.RDa")
 data &lt;-subset(samples, species_group==sg)
-data$y &lt;- data<span class="p">[</span><span class="nv">,c(sp)</span><span class="p">]</span>
-<span class="p">```</span>
+data$y &lt;- data[,c(sp)]
+```</span>
 
-<span class="p">```</span>{r eval='TRUE', echo=FALSE, results='asis'}
-if(specnum==0) cat('<span class="se">\n</span>##',sg,'<span class="se">\n</span>');
-<span class="p">```</span>
+<span class="p">```</span><span class="nl">{r eval='TRUE', echo=FALSE, results='asis'}</span><span class="sb">
+if(specnum==0) cat('\n##',sg,'\n');
+</span><span class="p">```</span>
 
-### `r sp` {.tabset}
-`r sp.common`
+<span class="gu">### `r sp` {.tabset}</span>
+<span class="sb">`r sp.common`</span>
 
-<span class="p">```</span>{r eval=TRUE, echo=FALSE}
+<span class="p">```</span><span class="nl">{r eval=TRUE, echo=FALSE}</span><span class="sb">
 
 m&lt;-glm(data$y~data$site_name, family=poisson)
 
@@ -258,16 +259,15 @@ coefs$value&lt;-NULL
 coefs$pvalue&lt;-NULL
 coeft&lt;-coeftest(m)
 for(name in names(m$coefficients)){
-    p<span class="nt">&lt;-round</span><span class="err">(</span><span class="na">coeft</span><span class="err">[</span><span class="na">name</span><span class="err">,</span><span class="na">c</span><span class="err">("</span><span class="na">Pr</span><span class="err">(</span><span class="nt">&gt;</span>|z|)")],3)
+    p&lt;-round(coeft[name,c("Pr(&gt;|z|)")],3)
     coefs$coefficient&lt;-c(coefs$coefficient,name)
-    coefs$value&lt;-c(coefs$value,m$coefficients<span class="p">[</span><span class="nv">[name</span><span class="p">]</span>])
+    coefs$value&lt;-c(coefs$value,m$coefficients[[name]])
     coefs$pvalue&lt;-c(coefs$pvalue,p)
 }
 coefs&lt;-as.data.frame(coefs)
-coefs&lt;-coefs<span class="p">[</span><span class="nv">with(coefs,order(coefs$pvalue)),</span><span class="p">]</span>
+coefs&lt;-coefs[with(coefs,order(coefs$pvalue)),]
 knitr::kable(coefs)
-<span class="sb">```</span><span class="w">
-</span></pre></td>
+</span><span class="p">```</span></pre></td>
 </tr></tbody></table></code></pre></figure>
 
 

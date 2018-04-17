@@ -74,7 +74,7 @@
 <p>The inverter uses a Cypress Serial to USB chip for communication with device ID 0665:5161.
 This is the lsusb output:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$lsusb</span> -vd 0665:5161
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$lsusb</span> <span class="nt">-vd</span> 0665:5161
 
 Bus 001 Device 004: ID 0665:5161 Cypress Semiconductor USB to Serial
 Couldn<span class="s1">'t open device, some information will be missing
@@ -154,7 +154,7 @@ Even though my device is not claimed by that driver, I hoped it might be support
 
 <p>Next you need to see if you can create the same traffic from pyusb. So I opened a second wireshark instance (so I can compare the two side-by-side), started capturing in this one and then started python and setup the usb device there. I used the following code for that:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">usb.core</span><span class="o">,</span> <span class="nn">usb.util</span><span class="o">,</span> <span class="nn">usb.control</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">usb.core</span><span class="p">,</span> <span class="n">usb</span><span class="o">.</span><span class="n">util</span><span class="p">,</span> <span class="n">usb</span><span class="o">.</span><span class="n">control</span>
 <span class="kn">import</span> <span class="nn">crc16</span>
 <span class="n">vendorId</span> <span class="o">=</span> <span class="mh">0x0665</span>
 <span class="n">productId</span> <span class="o">=</span> <span class="mh">0x5161</span>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!-- _includes/base.html -->
+
+
+
+
+<html>
+  	<head>
+      <title>Development of a full-stack of mobile and web-applications using Ionic and Flask Appbuilder</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="flask,flask-appbuilder,ionic,web-application,software development,websockets,GIS,JSON Schema,forms,superset" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
+  	  <link rel="stylesheet" href="/css/syntax.css" />
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">Development of a full-stack of mobile and web-applications using Ionic and Flask Appbuilder</h2>
+                <p class="post-meta">
+                  Apr 17, 2018
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/flask">flask</a>  <a href="/tag/flask-appbuilder">flask-appbuilder</a>  <a href="/tag/ionic">ionic</a>  <a href="/tag/web-application">web-application</a>  <a href="/tag/software development">software development</a>  <a href="/tag/websockets">websockets</a>  <a href="/tag/GIS">GIS</a>  <a href="/tag/JSON Schema">JSON Schema</a>  <a href="/tag/forms">forms</a>  <a href="/tag/superset">superset</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>For a project I am currently working on, I need to develop a web and mobile client. In short, it is a data-management system for a government agency where people in the field will report environmental data, while regional and national offices validate the data and use it in management reports.</p>
+
+<p>Of course, I am using existing (open source) products as much as possible, not to re-invent the wheel. But by now I have a set of tools available that allow me to rapidly develop this stack.</p>
+
+<p>So what am I using for this? To create nice looking reports/dashboard for policy makers and managers, I decided to use <a href="https://superset.incubator.apache.org/">Apache Superset</a>. This is an awesome tool that allows not-too-technical people (depends on your point of view I guess) to create dashboards that are great for policy makers. It can connect to a whole host of databases and pull the data in, and provides drag-and-drop interfaces to create graphs, pivot tables, filters, maps, etc. Basically anyone with decent MS Excel skills can also use superset.</p>
+
+<p><a href="/images/modama%20stack.png"><img src="http://allican.be/images/modama%20stack.png" alt="The full application stack" height="700px"></a></p>
+
+<p>The nice thing for me personally, is that superset is developed using <a href="http://flaskappbuilder.pythonanywhere.com/">Flask App Builder</a> (FAB). I have been using Flask for a long time already so it allows me to extend Superset if needed. Also, it allows me to develop additional functionality in FAB and integrate the two in one application.</p>
+
+<p>So the next element in the stack is a web-application built using FAB. The web-application allows government officials to see all the reported data and verify it to ensure data quality. Once verified, data will be available for the reports in Superset. Additionally, the web-application allows authentication and authorisation management. Different government agencies will report using different datasets. In the web-application we can configure who has access to which datasets. The datasets are defined using <a href="https://www.sqlalchemy.org/">SQLAlchemy</a>.</p>
+
+<p>Aside from the security/credentials/authentication functionality, FAB also provides views functionality, which allow you to define views very easily based on your SQLAlchemy data models, providing nice looking CRUD functionality out of the box. So certain government officials can use the web-application to edit reports (for validation) or add new data based on paper reports (yes that still happens). FAB uses <a href="https://wtforms.readthedocs.io/en/stable/">WTForms</a> for the form generation. Since location is an important part of the data being collected, I also use <a href="https://geoalchemy-2.readthedocs.io/en/latest/">GeoAlchemy</a> to add the geographic component to the data models using PostGIS. This is where the first custom development comes in since FAB doesn’t support GeoAlchemy. Guess there will be a contribution from me coming to FAB soon :)</p>
+
+<p>The next step is a mobile app that will be used by people in the field to collect data. Data will be collected on- or offline, using the mobile camera and GPS and data will be sent to the central server when internet is available. <a href="https://ionicframework.com/">Ionic</a> will be used for the mobile app development, which will basically just display forms for the datasets that the user has access to as defined on the server. Forms and validation are easy in Angular/Ionic. So I’ll create an app that gets a form definition from the server and dynamically generates the form from it. So how do I send the form/dataset definitions from the server to the mobile client? Using <a href="https://spacetelescope.github.io/understanding-json-schema/">JSON Schema</a>. This allows me to define the datasets, data types and restrictions like number limits, string formats (email, date time, length, etc) and turn that into a form in Angular. How do I generate the JSON Schema, I will use a library to convert the WTForms forms as generated by the FAB views into JSON Schema.</p>
+
+<p>And how do the mobile and web-applications communicate? Using websockets. I will add those to FAB and add <a href="https://jwt.io/">JSON Web Token</a> functionality to the FAB security manager so the mobile app can store the JWT locally after the user logged-in once and use that for authentication.</p>
+
+<p>I will write a number of articles next covering the non-standard parts of this whole stack. The topics covered will be the JWT authentication addition to FAB, the GeoAlchemy addition to FAB, the generation of the JSON Schema from WTForms and maybe a few other things. The standard parts won’t be covered in articles, just use the links above to find the docs of the respective packages. They all have excellent documentation.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+              
+              
+              <li>
+                <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>

@@ -77,7 +77,7 @@
 systemd[1]: systemd-modules-load.service: Main process exited, <span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span>1
 systemd[1]: Failed to start Load Kernel Modules.
 systemd[1]: systemd-modules-load.service: Unit entered failed state.
-systemd[1]: systemd-modules-load.service: Failed with result <span class="s1">'exit-code'</span>.
+systemd[1]: systemd-modules-load.service: Failed with result <span class="s1">'exit-code'</span><span class="nb">.</span>
 systemd-modules-load[173]: Failed to lookup <span class="nb">alias</span> <span class="s1">'loop'</span>: Function not implemented
 systemd-modules-load[173]: Failed to lookup <span class="nb">alias</span> <span class="s1">'vboxdrv'</span>: Function not implemented
 systemd-modules-load[173]: Failed to lookup <span class="nb">alias</span> <span class="s1">'vboxpci'</span>: Function not implemented
@@ -91,8 +91,8 @@ mount[336]: mount: unknown filesystem <span class="nb">type</span> <span class="
 systemd[1]: boot-efi.mount: Mount process exited, <span class="nv">code</span><span class="o">=</span>exited <span class="nv">status</span><span class="o">=</span>32
 systemd[1]: Failed to mount /boot/efi.
 systemd[1]: Dependency failed <span class="k">for </span>Local File Systems.
-systemd[1]: <span class="nb">local</span>-fs.target: Job <span class="nb">local</span>-fs.target/start failed with result <span class="s1">'dependency'</span>.
-systemd[1]: <span class="nb">local</span>-fs.target: Triggering <span class="nv">OnFailure</span><span class="o">=</span> dependencies.
+systemd[1]: local-fs.target: Job local-fs.target/start failed with result <span class="s1">'dependency'</span><span class="nb">.</span>
+systemd[1]: local-fs.target: Triggering <span class="nv">OnFailure</span><span class="o">=</span> dependencies.
 systemd[1]: boot-efi.mount: Unit entered failed state.</code></pre></figure>
 
 <p>So there was clearly something wrong with my kernel modules, causing them not to load. Fortunately I still had my <a href="/blog/2016/02/04/creating_custom_persistent_arch_live_iso.html">custom persistent arch iso live USB stick</a>. With this, the solution was quite easy:</p>

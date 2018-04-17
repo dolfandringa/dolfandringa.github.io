@@ -75,7 +75,7 @@
 
 <p>The Arch documentation on remastering the iso tells you most you should know. Download the dual installation iso from the Arch Linux website and read through the docs on how to extract the airootfs.sfs, mount it, chroot to it and modify it. You can install packages after the step that says</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mkinitcpio -p linux</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mkinitcpio <span class="nt">-p</span> linux</code></pre></figure>
 
 <p>in there and do other stuff to the Live OS. Then you exit the chroot again, recreate the airootfs.sfs image and copy the new kernel and initrd image to the right places. I didn’t delete the squashfs-root folder though. I copied it to my homedir (outside the ~/customiso tree) so I can copy it back later if I need to instead of having to unsquashfs the airootfs.sfs file all the time. Also do the part with “modifying the EFI boot image”.</p>
 
@@ -83,20 +83,20 @@
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">iso_label</span><span class="o">=</span><span class="s2">"ARCH_201601"</span>
 xorriso <span class="se">\</span>
-    -as mkisofs <span class="se">\</span>
-    -iso-level 3 <span class="se">\</span>
-    -full-iso9660-filenames <span class="se">\</span>
-    -volid <span class="s2">"</span><span class="k">${</span><span class="nv">iso_label</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
-    -appid <span class="s2">"Arch Linux Live/Rescue CD"</span> <span class="se">\</span>
-    -eltorito-boot isolinux/isolinux.bin <span class="se">\</span>
-    -eltorito-catalog isolinux/boot.cat <span class="se">\</span>
-    -no-emul-boot -boot-load-size 4 -boot-info-table <span class="se">\</span>
-    -isohybrid-mbr ~/customiso/isolinux/isohdpfx.bin <span class="se">\</span>
-    -eltorito-alt-boot <span class="se">\</span>
-    -e EFI/archiso/efiboot.img <span class="se">\</span>
-    -no-emul-boot <span class="se">\</span>
-    -isohybrid-gpt-basdat <span class="se">\</span>
-    -output ~/arch-custom.iso <span class="se">\</span>
+    <span class="nt">-as</span> mkisofs <span class="se">\</span>
+    <span class="nt">-iso-level</span> 3 <span class="se">\</span>
+    <span class="nt">-full-iso9660-filenames</span> <span class="se">\</span>
+    <span class="nt">-volid</span> <span class="s2">"</span><span class="k">${</span><span class="nv">iso_label</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-appid</span> <span class="s2">"Arch Linux Live/Rescue CD"</span> <span class="se">\</span>
+    <span class="nt">-eltorito-boot</span> isolinux/isolinux.bin <span class="se">\</span>
+    <span class="nt">-eltorito-catalog</span> isolinux/boot.cat <span class="se">\</span>
+    <span class="nt">-no-emul-boot</span> <span class="nt">-boot-load-size</span> 4 <span class="nt">-boot-info-table</span> <span class="se">\</span>
+    <span class="nt">-isohybrid-mbr</span> ~/customiso/isolinux/isohdpfx.bin <span class="se">\</span>
+    <span class="nt">-eltorito-alt-boot</span> <span class="se">\</span>
+    <span class="nt">-e</span> EFI/archiso/efiboot.img <span class="se">\</span>
+    <span class="nt">-no-emul-boot</span> <span class="se">\</span>
+    <span class="nt">-isohybrid-gpt-basdat</span> <span class="se">\</span>
+    <span class="nt">-output</span> ~/arch-custom.iso <span class="se">\</span>
     ~/customiso</code></pre></figure>
 
 <p>Make sure the iso_label is correct. It needs to stay the same as the original iso file. If you run</p>
@@ -116,16 +116,16 @@ xorriso <span class="se">\</span>
 <p>First calculate how much space the persistent partiton should have do this by with REMAINING=(usb_drive_size_in_Gb-iso_image_size_in_Gb)*1024*1024*2. This will calculate the amount of blocks (each 512 bytes in size) to add to the iso. Make sure you leave some wriggle room for rounding errors and <a href="https://en.wikipedia.org/wiki/Gibibyte">difference between GiB and GB</a>. Instead of using the complete 7.1Gb of my usb drive, I made the image 7.0Gb. 
 If you need to find out the actual size of your usb drive, use</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>lsblk /dev/sdb</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>lsblk /dev/sdb</code></pre></figure>
 
 <p>Once you know the size, grow the iso image by that size. Replace $REMAINING below by the calculated number of blocks above.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>dd <span class="nv">status</span><span class="o">=</span>progress <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">bs</span><span class="o">=</span>512 <span class="nv">count</span><span class="o">=</span><span class="nv">$REMAINING</span> &gt;&gt; arch-custom-hybrid.iso</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>dd <span class="nv">status</span><span class="o">=</span>progress <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">bs</span><span class="o">=</span>512 <span class="nv">count</span><span class="o">=</span><span class="nv">$REMAINING</span> <span class="o">&gt;&gt;</span> arch-custom-hybrid.iso</code></pre></figure>
 
 <p>After that you need to create a partition in the file. You do this with</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>fdisk arch-custom.iso
-Welcome to fdisk <span class="o">(</span>util-linux 2.27.1<span class="o">)</span>.
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>fdisk arch-custom.iso
+Welcome to fdisk <span class="o">(</span>util-linux 2.27.1<span class="o">)</span><span class="nb">.</span>
 Changes will remain <span class="k">in </span>memory only, <span class="k">until </span>you decide to write them.
 Be careful before using the write command.
 
@@ -162,7 +162,7 @@ Syncing disks.</code></pre></figure>
 
 <p>At this point you’re ready to create an ext3 (or other) filesystem in there. This is tricky as the file isn’t an actual block device. The blogpost tells you how to do it. You create a loopback device that points to the partition inside the iso image. That loopback device is available as any harddrive and you can create a filesystem in it like you would do with a normal partition. But to create the loopback device, you need to tell it exactly where in the image file the partition starts and ends. THIS IS VERY IMPORTANT. If you do this wrong, you’ll screw up the image file. So first you need to show exactly where the partition starts and ends. You can do this with</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>fdisk -l arch-custom.iso
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>fdisk <span class="nt">-l</span> arch-custom.iso
 Disk arch-custom.iso: 12.5 GiB, 13385072640 bytes, 26142720 sectors
 Units: sectors of 1 <span class="k">*</span> 512 <span class="o">=</span> 512 bytes
 Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: 512 bytes / 512 bytes
@@ -179,9 +179,9 @@ arch-custom.iso3      14608384 26142719 11534336  5.5G 83 Linux</code></pre></fi
 By multiplying both these numbers with 512, you get resp the $OFFSET and $SIZELIMIT for the loopback device.
 Setup the loopback device and format it with ext3 with</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>losetup -o <span class="nv">$OFFSET</span> --sizelimit <span class="nv">$SIZELIMIT</span> /dev/loop1 archiso-custom.iso
-<span class="gp">$ </span>mkfs -t ext3 -L cow /dev/loop1
-<span class="gp">$ </span>losetup -d /dev/loop1</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>losetup <span class="nt">-o</span> <span class="nv">$OFFSET</span> <span class="nt">--sizelimit</span> <span class="nv">$SIZELIMIT</span> /dev/loop1 archiso-custom.iso
+<span class="nv">$ </span>mkfs <span class="nt">-t</span> ext3 <span class="nt">-L</span> cow /dev/loop1
+<span class="nv">$ </span>losetup <span class="nt">-d</span> /dev/loop1</code></pre></figure>
 
 <p>At this point your image is ready (finally). You can now write it to the usb drive with (<em>WARNING!!!!! Make sure /dev/sdb is actually your usb drive. If it is any other drive YOU WILL ERASE IT COMPLETELY!!!</em>)</p>
 
