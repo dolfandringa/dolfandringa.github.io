@@ -33,6 +33,6 @@ dribbble_username:      # Replace this with your Dribbble username
 markdown: kramdown
 
 tag_index_dir: "/archive/"
-gems:
+plugins:
       - jekyll-last-modified-at
       - jekyll-feed

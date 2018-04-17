@@ -10,7 +10,7 @@ puts versions
 
 gem 'github-pages', versions['github-pages']
 gem 'jekyll-last-modified-at'
-gem 'link-checker'
+#gem 'link-checker'
 gem 'jekyll-sitemap'
 gem 'pygments.rb'
 gem 'nokogiri'
