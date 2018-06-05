@@ -5,7 +5,8 @@ title: Projects
 
 Aside from the projects below, I have plenty <a href="/project-ideas.html">project ideas</a> that I didn't get round to yet.
     <section class="first">
-        {% for post in site.categories.project limit:1 | sort: 'last_modified_at' %}
+        {% assign sorted = (site.categories.project | sort: 'date') | reverse %}
+        {% for post in sorted limit:1 %}
             <header class="major">
                 <h2>{{ post.title }}</h2>
                 <p class="post-meta">
@@ -31,8 +32,7 @@ Aside from the projects below, I have plenty <a href="/project-ideas.html">proje
     </section>
     <section>
         <div class="row">
-            {% for post in site.categories.project offset:1 | sort: 'last_modified_at' %}
-
+            {% for post in sorted offset:1 %}
                 <article class="{% cycle '6u', '6u$' %} 12u(small)">
                     <header>
                         <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
