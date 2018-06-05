@@ -2,7 +2,7 @@
 layout: post
 title: "Sighting Extractor: Using facebook for citizen science"
 category: project
-date: "2016-01-04"
+date: "2018-07-05"
 tags: 
     - citizen-science
     - facebook
