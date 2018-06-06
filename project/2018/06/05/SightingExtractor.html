@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!-- _includes/base.html -->
+
+
+
+
+<html>
+  	<head>
+      <title>Sighting Extractor: Using Facebook for citizen science</title>
+  		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      
+      
+        <meta name="keywords" content="citizen-science,Facebook,database,monitoring,data-entry,conservation" />
+      
+  		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  		<script src="/js/jquery.min.js"></script>
+  		<script src="/js/jquery.poptrox.min.js"></script>
+  		<script src="/js/skel.min.js"></script>
+  		<script src="/js/init.js"></script>
+      <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
+      <script src="/jesl/jesl.min.js"> </script>
+  	  <link rel="stylesheet" href="/css/syntax.css" />
+  		<noscript>
+  			<link rel="stylesheet" href="/css/skel.css" />
+  			<link rel="stylesheet" href="/css/style.css" />
+  			<link rel="stylesheet" href="/css/style-xlarge.css" />
+  		</noscript>
+  		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+  	</head>
+
+	<body id="top">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1545300899113871";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+      <header id="header">
+          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <h1><strong>I am <a href="/aboutme">Dolf Andringa</a></strong>, an ecologist, geek and software developer.
+            This site contains my personal ramblings.</h1>
+      </header>
+      <!-- Main -->
+        <nav>
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/projects.html">Projects</a></li>
+              <li><a href="/aboutme.html">About Me</a></li>
+              <li><a href="/archive/">Archive</a></li>
+          </ul>
+        </nav>
+      <div id="main">
+
+
+            <article>
+        <header class="major">
+            <h2 class="post-title">Sighting Extractor: Using Facebook for citizen science</h2>
+                <p class="post-meta">
+                  Jun 5, 2018
+                  
+                  
+                  <span class="tags">
+                    Tags:  <a href="/tag/citizen-science">citizen-science</a>  <a href="/tag/Facebook">Facebook</a>  <a href="/tag/database">database</a>  <a href="/tag/monitoring">monitoring</a>  <a href="/tag/data-entry">data-entry</a>  <a href="/tag/conservation">conservation</a> 
+                  </span>
+                </p>
+        </header>
+
+        <section>
+            <p>There are many citizen science projects around the globe where scientists or policy makers try to involve the general public in collecting data. For conservation, citizen science is a powerful tool, allowing policy makers and conservationists to involve the public in helping to make policy, employ a large voluntary workforce and create awareness among the public. Traditionally this has been done by creating dedicated mobile apps, which citizen scientists use to report data. A plethora of apps exist for many different purposes.</p>
+
+<p>The disadvantage of those apps is that they take up space and uses need to install them on their mobile device before being able to submit data. This requires a level of commitment that limits the size of the target audience. Furthermore, the provided forms are often inflexible. Especially tourists that are likely to only submit data once or twice, may not have the dedication to install and use these apps. A tool used by most of them though in their day-to-day life is Facebook. So why not use Facebook pages to let user report their citizen science information? The main disadvantage to using a free-form tool like Facebook is the lack of control over the way data is submitted. Using machine learning techniques like natural language and image recognition, it is possible to transform free-form reports from Facebook into the more strict data format needs of scientists.</p>
+
+<p>SightingExtractor is a Facebook app that helps organizations and researchers involve users in their citizen science initiatives using Facebook instead of dedicated apps. Using the Facebook Graph API, posts to a page can be extracted, and the corresponding text and pictures used to extract citizen science data. Initial focus will be on extracting sightings of animals of marine biological interest to conservation organizations in the Philippines, but with additional work, the tools should be applicable in a much bigger field in the future.</p>
+
+<h2 id="privacy-policy">Privacy Policy</h2>
+<p>The Facebook app will only read the messages posted to the Facebook page it is added to, in order to interpret the messages for the intended citizen science project(s). No other information will be gathered, and the messages won’t be used for any other purpose, including marketing. Data will not be shared by us with anyone, except for as part of research publications, documents and reports based on the citizen science data.</p>
+
+        </section>
+        
+        <footer>
+          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
+          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
+        </footer>
+
+    </article>
+
+
+      </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+              
+              
+              <li>
+                <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://github.com/dolfandringa" class="icon fa-github">
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <li>
+                <a href="https://linkedin.com/in/dolfandringa" class="icon fa-linkedin">
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+              <li>
+                <a href="https://plus.google.com/+dolfandringa" class="icon fa-google-plus">
+                  <span class="label">Google+</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+
+              
+              <li>
+                <a href="mailto:dolfandringa@gmail.com" class="icon fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Dolf Andringa 2005</li>
+            </ul>
+          
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72709986-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
+
+        </footer>
+
+	</body>
+</html>
