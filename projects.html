@@ -5,7 +5,7 @@ title: Projects
 
 Aside from the projects below, I have plenty <a href="/project-ideas.html">project ideas</a> that I didn't get round to yet.
     <section class="first">
-        {% assign sorted = (site.categories.project | sort: 'date') | reverse %}
+        {% assign sorted = site.project | sort: 'date' | reverse %}
         {% for post in sorted limit:1 %}
             <header class="major">
                 <h2>{{ post.title }}</h2>

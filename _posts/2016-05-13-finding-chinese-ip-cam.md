@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Setting up a chinese IP camera without manual
-category: blog
 date: "2016-05-13"
 tags: 
     - networking

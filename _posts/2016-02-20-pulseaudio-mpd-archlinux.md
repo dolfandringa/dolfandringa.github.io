@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Problems getting MPD, PulseAudio and Arch Linux to work together
-category: blog
 date: "2016-02-20"
 tags: 
     - ArchLinux

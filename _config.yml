@@ -31,6 +31,12 @@ dribbble_username:      # Replace this with your Dribbble username
 
 # Build settings
 markdown: kramdown
+permalink: blog/:year/:month/:day/:title:output_ext
+
+collections:
+    project:
+        permalink: /:collection/:year/:month/:day/:title:output_ext
+        output: true
 
 tag_index_dir: "/archive/"
 plugins:

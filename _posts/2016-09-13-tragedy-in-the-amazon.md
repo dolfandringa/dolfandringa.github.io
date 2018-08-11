@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Tragedy in the Amazon
-category: blog
 date: "2016-09-13"
 tags: 
     - Amazon

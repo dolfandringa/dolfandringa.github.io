@@ -1,7 +1,6 @@
 ---
 layout: post
 title: NRF24L01 and SPIDEV on the Beagle Bone Black
-category: blog
 date: "2016-11-01"
 tags: 
     - wireless

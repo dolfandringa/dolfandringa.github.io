@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Reinstalling the kernel on Arch Linux after a failed upgrade.
-category: blog
 date: "2016-06-09"
 tags: 
     - ArchLinux
@@ -40,7 +39,7 @@ systemd[1]: boot-efi.mount: Unit entered failed state.
 {% endhighlight %}
 
 
-So there was clearly something wrong with my kernel modules, causing them not to load. Fortunately I still had my [custom persistent arch iso live USB stick]({% post_url 2016-02-04-creating_custom_persistent_arch_live_iso %}). With this, the solution was quite easy:
+So there was clearly something wrong with my kernel modules, causing them not to load. Fortunately I still had my [custom persistent arch iso live USB stick]({{ site.baseurl }}{% link _posts/2016-02-04-creating_custom_persistent_arch_live_iso.md %}). With this, the solution was quite easy:
 
 I booted my laptop from the usb stick. Once in the live cd, I [setup the network with netctl](https://wiki.archlinux.org/index.php/netctl#Wireless_.28WPA-PSK.29). Once I had network, I mounted my the partition with my OS's root filesystem with ```mount /dev/sda8 /mnt``` and chrooted into it with ```arch-chroot /mnt /bin/bash```. Now I was back in my normal OS. All I had to do now was reinstall the kernel and modules. I did ```pacman -S --force linux linux-headers mkinitcpio kmod```. The ```--force``` in there makes sure everything gets reinstalled even if files from the package already exist in the filesystem. With me this was necessary since the same kernel and modules were already partially installed. It also re-built the initramfs and installed it. After this was done and a reboot, my os was up and running again. Phew! Thank heavens for the live USB stick.
 

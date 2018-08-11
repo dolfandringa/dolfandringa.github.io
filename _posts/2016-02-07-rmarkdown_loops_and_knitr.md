@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Outputting HTML or PDF results in a loop with R, RMarkdown and Knitr
-category: blog
 date: "2016-02-07"
 tags: 
     - R

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Development of a full-stack of mobile and web-applications using Ionic and Flask Appbuilder
-category: blog
 date: "2018-04-17"
 tags: 
     - flask

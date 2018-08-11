@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Gorgeous earth art
-category: blog
 date: "2016-04-29"
 tags: 
     - landsat

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Why Innovation Depends on a Free and Open Internet
-category: blog
 date: "2017-07-13"
 tags: 
     - internet

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Creating dummy serial ports in pure python.
-category: blog
 date: "2017-01-15"
 tags: 
     - python

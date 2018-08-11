@@ -1,7 +1,6 @@
 ---
 layout: post
 title: My search for free website and email hosting
-category: blog
 date: "2016-01-03"
 tags: 
     - hosting

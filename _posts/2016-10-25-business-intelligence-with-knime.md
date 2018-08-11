@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Business intelligence and data manipulation with Knime
-category: blog
 date: "2016-10-26"
 tags: 
     - business_intelligence

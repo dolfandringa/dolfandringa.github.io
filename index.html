@@ -7,7 +7,7 @@ tags:
 ---
 
     <section class="first">
-        {% assign posts = site.posts | sort:date | reverse %}
+        {% assign posts = site.documents | sort:date | reverse %}
         {% for post in posts limit:1 %}
             <header class="major">
                 <h2>{{ post.title }}</h2>

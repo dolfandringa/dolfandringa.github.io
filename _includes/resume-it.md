@@ -4,11 +4,10 @@
 |               |                                                 |
 |---------------|-------------------------------------------------|
 |2017 - present |Consultant at College of Computer Studies at Foundation University, Dumaguete, The Philippines.           |
-|               |I work two days a week at Foundation University where I co-founded a hacker-/makerspace where I teach students software development, electronics, 3D printing and other subjects. Most of the activities of students is extra-curricular, but I also supervise some thesis subjects. The college furthermore frequently asks my advise regarding it's research and education strategy, and I spearhead environmentally or socially relevant projects that implement technological solutions.     |
-|               |                                                 |
+|               |I work 2-3 days a week at Foundation University where I co-founded a hacker-/makerspace where I teach students software development, electronics, 3D printing and other subjects. Most of the activities of students is extra-curricular, but I also supervise capstone and thesis subjects. The college furthermore frequently asks my advise regarding it's research and education strategy, and I spearhead environmentally or socially relevant projects that implement technological solutions.     |
 |---------------|-------------------------------------------------|
 |2016 - present |Technology and conservation consultant           |
-|               |I specialize in full-stack software development in python. I furthermore consult on geo-spatial and scientific data management, analysis and reporting. As my affinity with marine conservation, science and GIS is very strong, I enjoy applying my skills in this area most, but also derive a lot of satisfaction from purely technological challenges. Although my main software development specialty is full-stack web-development in Python, I am versatile and have experience in Java, C, R and other languages.     |
+|               |I specialize in full-stack software development in Python, Angular and Ionic. I furthermore consult on geospatial and scientific data management, analysis and reporting. As my affinity with marine conservation, science and GIS is very strong, I enjoy applying my skills in this area most, but also derive a lot of satisfaction from purely technological challenges. Although my main software development specialty is full-stack web-development in Python and Angular, I am versatile and have experience in Java, C, R, PHP and other languages.     |
 |---------------|-------------------------------------------------|
 |2016 - present |Partner at East Solar Works           |
 |               |East Solar Works is a solar company that mainly focuses on new applications of solar power. It moved from regular solar power installations to solar water pumping for municipal and rural water supplies. As one of the partners, my main responsibility is implementing ICT solutions, technical support and R&D and optimizing business processes. My previous experience in building IT solutions and as CTO of an IT company come together in this role.          |
@@ -51,12 +50,12 @@
 Only a selection is listed, starting with the skills/techniques I am most comfortable with.
 
 |Computers general:|Linux, Windows, Open Office, Microsoft Office, Apple|
-|Data analysis and scientific writing|R, SPSS, Scipy, Bibtex, Latex, Stella, Canoco|
-|GIS:|PostGIS, QGIS, Grass GIS, OpenLayers, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS|
-|Programming and related languages:|Python, PHP, Java, C, Bash, HTML|
-|Web development tools/libraries:|Flask, AngularJS, SQLAlchemy, WebPy, RabbitMQ, Drupal, Wordpress, Pylons, JQuery, ExtJS|
-|Dev-ops tools/services:|Github, Jenkins, Ansible, Vagrant, AWS EC2/S3, Heroku, Apache, Lighttpd, OpenVPN, IPTables|
-|Databases:|PostgreSQL, PostGIS, MySQL, SQLite, Redis|
+|Data science and business intelligence|R, SPSS, Scipy, Bibtex, Latex, Jupyter, Apache Superset|
+|GIS:|PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS|
+|Programming and related languages:|Python, Typescript, Javascript, PHP, Java, C, Bash, HTML|
+|Web development tools/libraries:|Flask, Angular, Ionic, SQLAlchemy, Drupal, WebPy, MQTT, RabbitMQ, Wordpress, Pylons, JQuery, ExtJS|
+|Dev-ops tools/services:|Github/Lab/etc, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN|
+|Databases:|PostgreSQL, PostGIS, MongoDB, MySQL, SQLite, Redis|
 |Ecological fieldwork:|Mark-recapture, belt transects, roving diver, dung count, fieldwork setup, execution and supervision, reef check surveys.|
 |Other:|Drivers license, SSI Dive Control Specialist (Assistant Instructor) (500+ dives)|
 {: .skills}
@@ -72,7 +71,7 @@ Only a selection is listed, starting with the skills/techniques I am most comfor
 
 ### Hobbies ###
 
- - (Micro) Electronics and hacking, member of the [Waterspace](//waterspace.foundationu.com) arts and technology incubator and hacker space and former member of the [Nurdspace hacker space](//nurdspace.nl).
+ - (Micro) Electronics and hacking, member of the [Nightowl](//wiki.foundationu.com/nightowl) arts and technology incubator and hacker space and former member of the [Nurdspace hacker space](//nurdspace.nl).
  - Scuba diving, Cycle racing
  - Traveling, including many tropical countries in Asia, Latin America and Africa, some of which for longer periods doing research or (volunteer) work.
- - Hill walking, birding and hiking
+ - Hill walking, diving, birding and hiking

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Drawing images and interactively change text on a canvas using Angular JS.
-category: blog
 date: "2017-01-16"
 tags: 
     - angularjs
