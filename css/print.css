@@ -1,0 +1,92 @@
+@media print {
+/*  * {
+    display:none;
+  }
+  .printable, .printable > *{
+    display:block;
+  }
+*/
+  h3 {
+    margin-bottom: 0px !important;
+  }
+  header, nav, footer {
+    display: none;
+  }
+  body{
+    font-size: 12pt !important;
+  }
+  #main{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0px !important;
+    padding: 20px 5px !important;
+  }
+  #other-skills-and-qualifications + p{
+    margin: 0px;
+  }
+  #main a,
+  #main a:hover,
+  #main a:visited,
+  #main a:link{
+    color: black !important;
+    border-bottom: 0px !important;
+  }
+  p,
+  ul li,
+  ol li,
+  table.resume tr td,
+  table.skills tr td,
+  table.personalinfo tr td,
+  table.education tr td{
+    color: black !important;
+    font-size: 1em !important;
+  }
+  table.resume thead,
+  table.skills thead,
+  table.education thead{
+    display: none;
+  }
+  table.resume tbody tr:first-child td,
+  table.skills tbody tr:first-child td,
+  table.education tbody tr:first-child td{
+    border-top: 1px solid black;
+  }
+  table.resume tbody:last-child tr:last-child td,
+  table.skills tbody:last-child tr:last-child td,
+  table.education tbody:last-child tr:last-child td{
+    border-bottom: 1px solid black;
+  }
+  table.resume tbody tr td:nth-child(1),
+  table.skills tbody tr td:nth-child(1),
+  table.education tbody tr td:nth-child(1){
+    border-right: 1px solid black;
+  }
+  table.resume,
+  table.skills,
+  table.education{
+    border: 1px solid black !important;
+  }
+  table.education tbody tr td strong,
+  table.skills tbody tr td strong{
+    color: black !important;
+    font-weight: bold;
+  }
+  table.resume tbody tr td,
+  table.skills tbody tr td,
+  table.education tbody tr td,
+  table.personalinfo tbody tr td{
+    line-height: 1.5em !important;
+    padding: 0.2em 0.5em !important;
+  }
+  table.personalinfo tbody tr td:nth-child(1){
+    width: 20%;
+    min-width: 300px;
+    padding-left: 0px !important;
+  }
+  table.personalinfo tbody tr:nth-child(2n+1){
+    background-color: white !important;
+  }
+  table.personalinfo tr{
+    border: 0px !important;
+  }
+}
