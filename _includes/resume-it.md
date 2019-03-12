@@ -4,10 +4,10 @@
 |               |                                                 |
 |---------------|-------------------------------------------------|
 |2017 - present |Consultant at College of Computer Studies at Foundation University, Dumaguete, The Philippines.           |
-|               |I work 2-3 days a week at Foundation University where I co-founded a hacker-/makerspace where I teach students software development, electronics, 3D printing and other subjects. Most of the activities of students is extra-curricular, but I also supervise capstone and thesis subjects. The college furthermore frequently asks my advise regarding it's research and education strategy, and I spearhead environmentally or socially relevant projects that implement technological solutions.     |
+|               |I work 2-3 days a week at Foundation University I consult on Software Development and IoT projects where I teach students while they assist me on software development and IoT projects, and advise capstone and thesis projects. Most projects are run from the Nightowl Technology incubator, which I lead and involve a combination of mobbile and backend software development, electronics and 3D printing..     |
 |---------------|-------------------------------------------------|
-|2016 - present |Technology and conservation consultant           |
-|               |I specialize in full-stack software development in Python, Angular and Ionic. I furthermore consult on geospatial and scientific data management, analysis and reporting. As my affinity with marine conservation, science and GIS is very strong, I enjoy applying my skills in this area most, but also derive a lot of satisfaction from purely technological challenges. Although my main software development specialty is full-stack web-development in Python and Angular, I am versatile and have experience in Java, C, R, PHP and other languages.     |
+|2016 - present |Consultant
+|               |I specialize in full-stack software development in Python, Angular and Ionic. I furthermore consult on geospatial and scientific data management, analysis and reporting. As my affinity with marine conservation, science and GIS is very strong, I enjoy applying my skills in this area most, but also derive a lot of satisfaction from purely technological challenges. Although my main software development specialty is full-stack web-development in Python and Angular, I am versatile and have experience in Java, C/C++, R, PHP and other languages.     |
 |---------------|-------------------------------------------------|
 |2016 - present |Partner at East Solar Works           |
 |               |East Solar Works is a solar company that mainly focuses on new applications of solar power. It moved from regular solar power installations to solar water pumping for municipal and rural water supplies. As one of the partners, my main responsibility is implementing ICT solutions, technical support and R&D and optimizing business processes. My previous experience in building IT solutions and as CTO of an IT company come together in this role.          |
@@ -30,20 +30,10 @@
 
 ### Education ###
 
-|           |           |
-|---------------|-------------------------------------------------|
 |2014|<strong>SSI Dive Control Specialist</strong> at Island Divers, Cambodia.|
-|           |A Dive Control Specialist is an assistant dive instructor for Scuba Schools International which qualifies me to lead groups of qualified divers, and teach part of the open water course for new divers.           |
-|---------------|-------------------------------------------------|
-|1999 - 2008|<strong>MSc in Biology</strong> at Wageningen University, specialisation Tropical ecology           |
-|           |<strong>Major MSc thesis</strong>: Mangroves: feeding ground or shelter? The thesis involved field experiments in Sofala Bay, Mozambique to prove whether mangrove forests are important for marine life as a shelter for predators or as a feeding ground due to either higher marine or terrestrial food availability. This research was done completely independent of local organisations and only the help of my wife, and several fisherman that I employed.          |
-|           |<strong>Internship</strong>: Research on and the conservation of the endemic Utila Spinytailed Iguana (Ctenosaura bakeri) at the “Iguana Reasearch and Breeding Center” on the mangrove island of Utila, Honduras, Central America.         |
-|           |<strong>Minor MSc thesis</strong>: Using open standards in 3D visualisation of geo-data: Using GML, X3D and XML in GIS. This thesis concerned the development of a proof of concept for a 3D environment which could be used on the internet to visualise geo-information.           |
-|           |Various committees and board membership of study association “BVW Biologica”<br />Twice the organisation of mini cultural festival “Droeffeest” for several hundred to 1000 visitors.           |
-|---------------|-------------------------------------------------|
+|1999 - 2008|<strong>MSc in Biology</strong> at Wageningen University, specialisation Tropical ecology and a minor in Geographic Information Science          |
 |1993 - 1999|Secondary school “Stedelijk Gymnasium Apeldoorn”          |
-|---------------|-------------------------------------------------|
-{: .education}
+{: .skills}
 
 ### Other skills and qualifications ###
 
@@ -52,11 +42,11 @@ Only a selection is listed, starting with the skills/techniques I am most comfor
 |Computers general:|Linux, Windows, Open Office, Microsoft Office, Apple|
 |Data science and business intelligence|R, SPSS, Scipy, Bibtex, Latex, Jupyter, Apache Superset|
 |GIS:|PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS|
-|Programming and related languages:|Python, Typescript, Javascript, PHP, Java, C, Bash, HTML|
-|Web development tools/libraries:|Flask, Angular, Ionic, SQLAlchemy, Drupal, WebPy, MQTT, RabbitMQ, Wordpress, Pylons, JQuery, ExtJS|
+|Programming and related languages:|Python, Typescript, Javascript, PHP, Java, C, C++|
 |Dev-ops tools/services:|Github/Lab/etc, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN|
 |Databases:|PostgreSQL, PostGIS, MongoDB, MySQL, SQLite, Redis|
-|Ecological fieldwork:|Mark-recapture, belt transects, roving diver, dung count, fieldwork setup, execution and supervision, reef check surveys.|
+|Electronics and Prototyping:|Atmel and ESP8266 embedded device programming, Fusion360, PCB Design, 3D printing|
+|Web development tools/libraries:|Flask, Angular, Ionic, SQLAlchemy, Drupal, MQTT, RabbitMQ, Wordpress, Pylons, JQuery, ExtJS|
 |Other:|Drivers license, SSI Dive Control Specialist (Assistant Instructor) (500+ dives)|
 {: .skills}
 
@@ -74,4 +64,4 @@ Only a selection is listed, starting with the skills/techniques I am most comfor
  - (Micro) Electronics and hacking, member of the [Nightowl](//wiki.foundationu.com/nightowl) arts and technology incubator and hacker space and former member of the [Nurdspace hacker space](//nurdspace.nl).
  - Scuba diving, Cycle racing
  - Traveling, including many tropical countries in Asia, Latin America and Africa, some of which for longer periods doing research or (volunteer) work.
- - Hill walking, diving, birding and hiking
+ - Hiking, cycling, diving
