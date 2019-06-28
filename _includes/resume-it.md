@@ -2,8 +2,8 @@
 
 |               |                                                 |
 |---------------|-------------------------------------------------|
-|2019 - present |Senior Software Engineer at CoInspect, San Fransisco, California, USA. |
-|               |I work as part-time full stack Javascript software engineer and advisor on new product development at the Cebu team of San Fransisco based company CoInspect. CoInspect makes mobile and webbased software and hardware solutions for the large franschises in the food industry in the United States.|
+|2019 - present |Senior Software Engineer at CoInspect, Cebu, The Philippines. |
+|               |For the San Fransisco, USA based company CoInspect I work as part-time full stack Javascript and Typescript software engineer and advisor on new product development for their Cebu team. CoInspect makes mobile and webbased software and hardware solutions for the large franschises in the food industry in the United States.|
 |---------------|-------------------------------------------------|
 |2019 - present |Incorporator and Advisor for Dumaguete's ARC |
 |               |ARC is a non-profit technology incubator in Dumaguete that wants to stimulate a technology driven, environmentally and socially conscious innovative economy in the Dumaguete area. We do this by providing the facilities and guidance to enterprising and driven professionals that want to make a difference by creating innovative solutions that contribute to a better life for the people in Dumaguete and the Philippines as a whole. I am a founding members of the organisation and function as a project development advisor and technical consultant. |
