@@ -13,6 +13,7 @@ tags:
     - JSON Schema
     - forms
     - superset
+pdf: true
 ---
 For a project I am currently working on, I need to develop a web and mobile client. In short, it is a data-management system for a government agency where people in the field will report environmental data, while regional and national offices validate the data and use it in management reports.
 
