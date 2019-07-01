@@ -5,3 +5,7 @@ The master branch contains the static HTML while the jekyll branch contains the 
 This separation is done because the github jekyll implementation doesn't allow the use of plugins. So I chose
 to build the jekyll files locally into the master branch, which then gets pushed to github, while the jekyll files
 are still managed in the same account on github.
+
+## Contributing
+
+If you have something to contribute, [Fork my repository](https://help.github.com/en/articles/fork-a-repo), checkout the jekyll branch, add or edit the specific posts, and [issue a pull request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork) back to me with an explanation.
