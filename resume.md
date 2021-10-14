@@ -14,7 +14,7 @@ pdf: true
 
 ### Personal Information ###
 
-| Name                | Dolf ANDRINGA |
+| Name                | Dolf Bouwe Joseph August ANDRINGA |
 | Birthday and -place | 05 October 1980, 's-Hertogenbosch, The Netherlands |
 | Nationality         | Dutch |
 | Gender              | Male |
@@ -27,5 +27,10 @@ pdf: true
 | Mobile | +639272892137 |
 | Email | dolfandringa@gmail.com |
 {: .personalinfo}
+
+### References
+
+| Jomar Colao<br />jomar@hellotherma.com<br />cell:  0918-9300405 | David Andrew Francis Duldulao<br />david@hellotherma.com<br />cell: 0922-4342056 | Michelle Manlunas <br />michelle@hellotherma.com<br />cell: 0917-3057774 |
+{: .references}
 
 {% include resume-it.md %}
