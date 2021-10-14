@@ -77,7 +77,7 @@
 
 <h2 id="table-output-in-rmarkdown">Table output in RMarkdown</h2>
 
-<p>To start with the quickest question first, you have to look at the second code block at the bottom. At the end it says <code class="highlighter-rouge">knitr::kable(coefs)</code>. This is a function from Knitr that outputs a nice table in markdown syntax. If you pass it a table or data frame in R, the result is a nice looking table. Quite a nice function to have.</p>
+<p>To start with the quickest question first, you have to look at the second code block at the bottom. At the end it says <code class="language-plaintext highlighter-rouge">knitr::kable(coefs)</code>. This is a function from Knitr that outputs a nice table in markdown syntax. If you pass it a table or data frame in R, the result is a nice looking table. Quite a nice function to have.</p>
 
 <h2 id="loops-with-rmarkdown-to-repeat-results-with-different-data">Loops with RMarkdown to repeat results with different data</h2>
 
@@ -86,16 +86,16 @@ The trick to looping over a set of data and running the same tests/plots for all
 You have one “parent” file which loops over your data, and for each loop iteration, it calls a child file to do the actual analysis.</p>
 
 <p>Let’s use an example. I have data for about 300 species. For each one I would like to run the same analysis. Furthermore my species are grouped into species_groups. I would like to group the analyses in these species_groups.
-I have a data frame called <code class="highlighter-rouge">samples</code> with the actual data, and a list called <code class="highlighter-rouge">species_groups</code> and a list called <code class="highlighter-rouge">species</code>. All are saved in samples.RDa. By loading that the objects become available.</p>
+I have a data frame called <code class="language-plaintext highlighter-rouge">samples</code> with the actual data, and a list called <code class="language-plaintext highlighter-rouge">species_groups</code> and a list called <code class="language-plaintext highlighter-rouge">species</code>. All are saved in samples.RDa. By loading that the objects become available.</p>
 
-<p>In my parent file (see below) I loop over all species groups in <code class="highlighter-rouge">for(sg in species_groups)</code> and with <code class="highlighter-rouge">for(sp in sort(species[species$species_group==sg,]$species_colname)){</code> I loop over a sorted list of all species in the species group. Inside the inner loop the Knitr magic happens. The call to knit_child causes Knitr at that point to load the file ‘individual_species_blog.Rmd’ specified as an argument. This file is another Rmd file (see second code block) that contains Markdown with R code blocks interspersed.</p>
+<p>In my parent file (see below) I loop over all species groups in <code class="language-plaintext highlighter-rouge">for(sg in species_groups)</code> and with <code class="language-plaintext highlighter-rouge">for(sp in sort(species[species$species_group==sg,]$species_colname)){</code> I loop over a sorted list of all species in the species group. Inside the inner loop the Knitr magic happens. The call to knit_child causes Knitr at that point to load the file ‘individual_species_blog.Rmd’ specified as an argument. This file is another Rmd file (see second code block) that contains Markdown with R code blocks interspersed.</p>
 
 <p>The child file does the actual analysis per species and outputs the results. The parent file only calls it.
-What about the <code class="highlighter-rouge">out&lt;-NULL</code> <code class="highlighter-rouge">out&lt;-c(out,knit_child(...))</code> and <code class="highlighter-rouge">paste(out...)</code> lines in the parent file, I hear you ask? Well, the result of knit_child is already Markdown syntax. But anything inside the triple-back-quoted blocks in RMarkdown is printed in a code block, which would make a mess of the Markdown syntax that is the result of knit_child. So we instead make a vector called ‘out’ and append all the results of knit_child onto it. So in the end, after the last loop, out is a vector of a whole lot of strings. The inline code <code class="highlighter-rouge">paste(out, collapse='\n')</code> prints the actual results and puts newline characters between the different strings.</p>
+What about the <code class="language-plaintext highlighter-rouge">out&lt;-NULL</code> <code class="language-plaintext highlighter-rouge">out&lt;-c(out,knit_child(...))</code> and <code class="language-plaintext highlighter-rouge">paste(out...)</code> lines in the parent file, I hear you ask? Well, the result of knit_child is already Markdown syntax. But anything inside the triple-back-quoted blocks in RMarkdown is printed in a code block, which would make a mess of the Markdown syntax that is the result of knit_child. So we instead make a vector called ‘out’ and append all the results of knit_child onto it. So in the end, after the last loop, out is a vector of a whole lot of strings. The inline code <code class="language-plaintext highlighter-rouge">paste(out, collapse='\n')</code> prints the actual results and puts newline characters between the different strings.</p>
 
-<p>Talking about output, there are different ways to modify how the R code is being output into Markdown syntax. These are all specified in the <code class="highlighter-rouge">{r ...}</code> blocks for each block of R code. One that is important in this respect is the include=FALSE parameter that is in the R-block where knit_child is called. If you don’t include it, Knitr will print all kinds of other output in the Markdown file that has to do with the knit_child call. As it is stuff we don’t want in our final output, I say eval=TRUE so the code does get evaluated normally, but include=FALSE makes sure no output is actually included in the resulting Markdown file. As you can see, the subsequent paste(output…) call is outside this block, so the output of that statement ís included in the markdown file.</p>
+<p>Talking about output, there are different ways to modify how the R code is being output into Markdown syntax. These are all specified in the <code class="language-plaintext highlighter-rouge">{r ...}</code> blocks for each block of R code. One that is important in this respect is the include=FALSE parameter that is in the R-block where knit_child is called. If you don’t include it, Knitr will print all kinds of other output in the Markdown file that has to do with the knit_child call. As it is stuff we don’t want in our final output, I say eval=TRUE so the code does get evaluated normally, but include=FALSE makes sure no output is actually included in the resulting Markdown file. As you can see, the subsequent paste(output…) call is outside this block, so the output of that statement ís included in the markdown file.</p>
 
-<p>The last thing tying it all together is making variables from the parent file available in the child file. This is where the environment comes in. Inside our species loop, we make a new environment for each species with <code class="highlighter-rouge">env.new()</code>. This environment inherits from the parent environment. So anything that was available in our parent environment (like the variables <code class="highlighter-rouge">sg</code> <code class="highlighter-rouge">sp</code>  and <code class="highlighter-rouge">specnum</code>) is also available in the new environment. But variables inside the child environment don’t accidentally carry over to other child environments. That way we can safely refer to <code class="highlighter-rouge">sp</code> <code class="highlighter-rouge">specnum</code> and <code class="highlighter-rouge">sg</code> in our child Rmd file. The only problem is that the child Rmd file can’t be run individually anymore because these variables aren’t available anymore if the child Rmd file isn’t called from the parent Rmd file. The solution to this is to put something like <code class="highlighter-rouge">if(!exists('sp'))</code> in your child Rmd file to specify a species if it isn’t specified already.</p>
+<p>The last thing tying it all together is making variables from the parent file available in the child file. This is where the environment comes in. Inside our species loop, we make a new environment for each species with <code class="language-plaintext highlighter-rouge">env.new()</code>. This environment inherits from the parent environment. So anything that was available in our parent environment (like the variables <code class="language-plaintext highlighter-rouge">sg</code> <code class="language-plaintext highlighter-rouge">sp</code>  and <code class="language-plaintext highlighter-rouge">specnum</code>) is also available in the new environment. But variables inside the child environment don’t accidentally carry over to other child environments. That way we can safely refer to <code class="language-plaintext highlighter-rouge">sp</code> <code class="language-plaintext highlighter-rouge">specnum</code> and <code class="language-plaintext highlighter-rouge">sg</code> in our child Rmd file. The only problem is that the child Rmd file can’t be run individually anymore because these variables aren’t available anymore if the child Rmd file isn’t called from the parent Rmd file. The solution to this is to put something like <code class="language-plaintext highlighter-rouge">if(!exists('sp'))</code> in your child Rmd file to specify a species if it isn’t specified already.</p>
 
 <p>The parent Rmd file:</p>
 
@@ -151,21 +151,21 @@ What about the <code class="highlighter-rouge">out&lt;-NULL</code> <code class="
     <span class="na">number_sections</span><span class="pi">:</span> <span class="s">no</span>
     <span class="na">theme</span><span class="pi">:</span> <span class="s">journal</span>
     <span class="na">toc</span><span class="pi">:</span> <span class="s">yes</span>
-    <span class="na">toc_depth</span><span class="pi">:</span> <span class="s">2</span>
+    <span class="na">toc_depth</span><span class="pi">:</span> <span class="m">2</span>
     <span class="na">toc_float</span><span class="pi">:</span>
       <span class="na">collapsed</span><span class="pi">:</span> <span class="no">true</span>
 <span class="nn">---</span>
-<span class="sb">```{r getdata, results=FALSE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
-load("samples.RDa")
-library(knitr)
-```</span>
+<span class="p">```</span><span class="nl">{r getdata, results=FALSE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+</span><span class="sb">load("samples.RDa")
+library(knitr)</span>
+<span class="p">```</span>
 <span class="gh"># Methods</span>
 
 .... some explanation
 
 <span class="gh"># Results</span>
-<span class="p">```</span><span class="nl">{r echo=FALSE, eval=TRUE, include=FALSE}</span><span class="sb">
-out &lt;- NULL
+<span class="p">```</span><span class="nl">{r echo=FALSE, eval=TRUE, include=FALSE}
+</span><span class="sb">out &lt;- NULL
 for(sg in species_groups){
   print(sg)
   specnum&lt;-0
@@ -176,9 +176,10 @@ for(sg in species_groups){
     out &lt;- c(out, knit_child('individual_species_blog.Rmd', envir=env))
     specnum&lt;-specnum+1
   } 
-}
-</span><span class="p">```</span>
-<span class="sb">`r paste(out, collapse='\n')`</span></pre></td>
+}</span>
+<span class="p">```</span>
+<span class="sb">`r paste(out, collapse='\n')`</span>
+</pre></td>
 </tr></tbody></table></code></pre></figure>
 
 <p>This is the child Rmd file (called individual_species_blog.Rmd):</p>
@@ -231,23 +232,23 @@ for(sg in species_groups){
 <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
 <span class="na">output</span><span class="pi">:</span> <span class="s">html_document</span>
 <span class="nn">---</span>
-<span class="sb">```{r echo=FALSE, eval=TRUE, include=FALSE}
-library(knitr)
+<span class="p">```</span><span class="nl">{r echo=FALSE, eval=TRUE, include=FALSE}
+</span><span class="sb">library(knitr)
 library(lmtest)
 load("samples.RDa")
 data &lt;-subset(samples, species_group==sg)
-data$y &lt;- data[,c(sp)]
-```</span>
+data$y &lt;- data[,c(sp)]</span>
+<span class="p">```</span>
 
-<span class="p">```</span><span class="nl">{r eval='TRUE', echo=FALSE, results='asis'}</span><span class="sb">
-if(specnum==0) cat('\n##',sg,'\n');
-</span><span class="p">```</span>
+<span class="p">```</span><span class="nl">{r eval='TRUE', echo=FALSE, results='asis'}
+</span><span class="sb">if(specnum==0) cat('\n##',sg,'\n');</span>
+<span class="p">```</span>
 
 <span class="gu">### `r sp` {.tabset}</span>
 <span class="sb">`r sp.common`</span>
 
-<span class="p">```</span><span class="nl">{r eval=TRUE, echo=FALSE}</span><span class="sb">
-
+<span class="p">```</span><span class="nl">{r eval=TRUE, echo=FALSE}
+</span><span class="sb">
 m&lt;-glm(data$y~data$site_name, family=poisson)
 
 coefs&lt;-NULL
@@ -263,8 +264,9 @@ for(name in names(m$coefficients)){
 }
 coefs&lt;-as.data.frame(coefs)
 coefs&lt;-coefs[with(coefs,order(coefs$pvalue)),]
-knitr::kable(coefs)
-</span><span class="p">```</span></pre></td>
+knitr::kable(coefs)</span>
+<span class="p">```</span>
+</pre></td>
 </tr></tbody></table></code></pre></figure>
 
 

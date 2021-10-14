@@ -98,75 +98,75 @@ I for instance use the python scripting node to Date/Time manipulations and some
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="n">mpl</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
 
-<span class="c">#set the matplotlib style, based on ggplot but slightly adjusted</span>
-<span class="n">mystyle</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">library</span><span class="p">[</span><span class="s">'ggplot'</span><span class="p">]</span>
+<span class="c1">#set the matplotlib style, based on ggplot but slightly adjusted
+</span><span class="n">mystyle</span> <span class="o">=</span> <span class="n">mpl</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">library</span><span class="p">[</span><span class="s">'ggplot'</span><span class="p">]</span>
 <span class="n">mystyle</span><span class="p">[</span><span class="s">'lines.linewidth'</span><span class="p">]</span><span class="o">=</span> <span class="mf">1.6</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">mystyle</span><span class="p">)</span>
+<span class="n">mpl</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">mystyle</span><span class="p">)</span>
 
-<span class="c">#create a gridspec where the graph will take up 5/6 of the grid</span>
-<span class="c">#and the legend the last bit</span>
+<span class="c1">#create a gridspec where the graph will take up 5/6 of the grid
+#and the legend the last bit
+</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="p">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'% of maximum output'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Time'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Average daily output (% of max) per week"</span><span class="p">);</span>
 
-<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'</span><span class="si">% </span><span class="s">of maximum output'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Time'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Average daily output (</span><span class="si">% </span><span class="s">of max) per week"</span><span class="p">);</span>
+<span class="n">x</span><span class="o">=</span><span class="n">input_table</span><span class="p">[</span><span class="s">'Date'</span><span class="p">]</span> <span class="c1"># a-axis
+</span>
+<span class="c1"># variables for the y-axes (data series)
+</span><span class="n">line_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">input_table</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">'Date'</span><span class="p">,</span><span class="s">'Year'</span><span class="p">,</span><span class="s">'Week'</span><span class="p">)]</span>
 
-<span class="n">x</span><span class="o">=</span><span class="n">input_table</span><span class="p">[</span><span class="s">'Date'</span><span class="p">]</span> <span class="c"># a-axis</span>
-
-<span class="c"># variables for the y-axes (data series)</span>
-<span class="n">line_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">input_table</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">'Date'</span><span class="p">,</span><span class="s">'Year'</span><span class="p">,</span><span class="s">'Week'</span><span class="p">)]</span>
-
-<span class="c"># use viridis for coloring the data series</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_color_cycle</span><span class="p">([</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cols</span><span class="p">))])</span>
+<span class="c1"># use viridis for coloring the data series
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">set_color_cycle</span><span class="p">([</span><span class="n">cm</span><span class="p">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_cols</span><span class="p">))])</span>
 
 <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">line_cols</span><span class="p">:</span>
-	<span class="c">#plot the data series</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">input_table</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+	<span class="c1">#plot the data series
+</span>    <span class="n">ax1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">input_table</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
 
-<span class="c">#setup the legendto the right of the plot</span>
-<span class="n">leg1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">'center left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#setup the legendto the right of the plot
+</span><span class="n">leg1</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">'center left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="c">#Now some magic to allow clicking in the legend to switch data series on and off</span>
-<span class="n">lined</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1">#Now some magic to allow clicking in the legend to switch data series on and off
+</span><span class="n">lined</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="k">for</span> <span class="n">legline</span><span class="p">,</span> <span class="n">origline</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">leg1</span><span class="o">.</span><span class="n">get_lines</span><span class="p">(),</span> <span class="n">ax1</span><span class="o">.</span><span class="n">lines</span><span class="p">):</span>
-    <span class="n">legline</span><span class="o">.</span><span class="n">set_picker</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">legline</span><span class="p">,</span> <span class="n">origline</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">leg1</span><span class="p">.</span><span class="n">get_lines</span><span class="p">(),</span> <span class="n">ax1</span><span class="p">.</span><span class="n">lines</span><span class="p">):</span>
+    <span class="n">legline</span><span class="p">.</span><span class="n">set_picker</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
     <span class="n">lined</span><span class="p">[</span><span class="n">legline</span><span class="p">]</span><span class="o">=</span><span class="n">origline</span>
 
 <span class="k">def</span> <span class="nf">onpick</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-    <span class="c"># on the pick event, find the orig line corresponding to the</span>
-    <span class="c"># legend proxy line, and toggle the visibility</span>
-    <span class="n">legline</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">artist</span>
+    <span class="c1"># on the pick event, find the orig line corresponding to the
+</span>    <span class="c1"># legend proxy line, and toggle the visibility
+</span>    <span class="n">legline</span> <span class="o">=</span> <span class="n">event</span><span class="p">.</span><span class="n">artist</span>
     <span class="n">origline</span> <span class="o">=</span> <span class="n">lined</span><span class="p">[</span><span class="n">legline</span><span class="p">]</span>
-    <span class="n">vis</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">origline</span><span class="o">.</span><span class="n">get_visible</span><span class="p">()</span>
-    <span class="n">origline</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="n">vis</span><span class="p">)</span>
-    <span class="c"># Change the alpha on the line in the legend so we can see what lines</span>
-    <span class="c"># have been toggled</span>
-    <span class="k">if</span> <span class="n">vis</span><span class="p">:</span>
-        <span class="n">legline</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">origline</span><span class="p">.</span><span class="n">get_visible</span><span class="p">()</span>
+    <span class="n">origline</span><span class="p">.</span><span class="n">set_visible</span><span class="p">(</span><span class="n">vis</span><span class="p">)</span>
+    <span class="c1"># Change the alpha on the line in the legend so we can see what lines
+</span>    <span class="c1"># have been toggled
+</span>    <span class="k">if</span> <span class="n">vis</span><span class="p">:</span>
+        <span class="n">legline</span><span class="p">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">legline</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">legline</span><span class="p">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
     <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span>
 
-    <span class="c">#rescale the y-axis according to the currently active data series</span>
-    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">ax1</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">l</span><span class="o">.</span><span class="n">get_visible</span><span class="p">():</span>
+    <span class="c1">#rescale the y-axis according to the currently active data series
+</span>    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">ax1</span><span class="p">.</span><span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">l</span><span class="p">.</span><span class="n">get_visible</span><span class="p">():</span>
             <span class="k">continue</span>
-        <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">get_data</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span><span class="nb">max</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
         
-    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">fig</span><span class="p">.</span><span class="n">canvas</span><span class="p">.</span><span class="n">draw</span><span class="p">()</span>
 
-<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s">'pick_event'</span><span class="p">,</span> <span class="n">onpick</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">canvas</span><span class="p">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s">'pick_event'</span><span class="p">,</span> <span class="n">onpick</span><span class="p">)</span>
 
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="n">output_image</span> <span class="o">=</span> <span class="s">""</span></code></pre></figure>
 

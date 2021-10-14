@@ -76,7 +76,7 @@ Aborted</span></code></pre></figure>
 
 <p>It took me quite a while to figure out what was going wrong. It turned out to be various problems, mostly related to the SPI bus and it’s pinout.</p>
 
-<p>The NRF24L01 uses the SPI bus for communication. The Beagle Bone Black uses SPIDEV for this and has two SPI buses. Those need to be enabled, and for them (or I believe actually only 1 of the 2) to work, the HDMI bus needs to be disabled. What I had to do was first edit <code class="highlighter-rouge">/bootuEnv.txt</code> and make sure the following two lines were in there:</p>
+<p>The NRF24L01 uses the SPI bus for communication. The Beagle Bone Black uses SPIDEV for this and has two SPI buses. Those need to be enabled, and for them (or I believe actually only 1 of the 2) to work, the HDMI bus needs to be disabled. What I had to do was first edit <code class="language-plaintext highlighter-rouge">/bootuEnv.txt</code> and make sure the following two lines were in there:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">cape_disable</span><span class="o">=</span>bone_capemgr.disable_partno<span class="o">=</span>BB-BONELT-HDMI,BB-BONELT-HDMIN
 <span class="nv">cape_enable</span><span class="o">=</span>bone_capemgr.enable_partno<span class="o">=</span>BB-SPIDEV0,BB-SPIDEV1</code></pre></figure>
@@ -155,7 +155,7 @@ You can also see they are available with</p>
 
 <p>After having it wired like this I wanted to get the gettingstarted sample in <em>~/rf24libs/RF24/examples_linux/gettingstarted.cpp</em> to work. The problem I had there is that the RF24 radio() statement in there, which instantiates the RF24 radio is different on Linux than it is on Arduino. On Arduino you give the radio() function the pin numbers to which the CE and CSN pins of the NRF24 are connected. With the Beagle Bone Black and SPIDEV the first argument is the pin number of the CE pin, while the second argument is the number of the SPI device that it is connected to. If you connected it as I showed above, the CE pin is connected to pin GPIO_115 (pin 27 of header P9) and you’re using SPI1. So the line with RF12 radio() in <em>~/rf24libs/RF24/examples_linux/gettingstarted.cpp</em> should look like this:</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">RF24</span> <span class="n">radio</span><span class="p">(</span><span class="mi">115</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">RF24</span> <span class="nf">radio</span><span class="p">(</span><span class="mi">115</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span></code></pre></figure>
 
 <p>The first argument specifies the CE pin is GPIO_115 while the second says that it uses SPI1, or in other words <em>/dev/spidev2.0</em>.</p>
 

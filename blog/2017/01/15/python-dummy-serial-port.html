@@ -81,43 +81,43 @@
 <span class="kn">import</span> <span class="nn">threading</span>
 
 <span class="k">def</span> <span class="nf">listener</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
-    <span class="c">#continuously listen to commands on the master device</span>
-    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">b</span><span class="s">""</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">b</span><span class="s">"</span><span class="se">\r\n</span><span class="s">"</span><span class="p">):</span>
-            <span class="c">#keep reading one byte at a time until we have a full line</span>
-            <span class="n">res</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"command: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
+    <span class="c1">#continuously listen to commands on the master device
+</span>    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="sa">b</span><span class="s">""</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">b</span><span class="s">"</span><span class="se">\r\n</span><span class="s">"</span><span class="p">):</span>
+            <span class="c1">#keep reading one byte at a time until we have a full line
+</span>            <span class="n">res</span> <span class="o">+=</span> <span class="n">os</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"command: %s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
 
-        <span class="c">#write back the response</span>
-        <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="n">b</span><span class="s">'QPGS</span><span class="se">\r\n</span><span class="s">'</span><span class="p">:</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">b</span><span class="s">"correct result</span><span class="se">\r\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="c1">#write back the response
+</span>        <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="sa">b</span><span class="s">'QPGS</span><span class="se">\r\n</span><span class="s">'</span><span class="p">:</span>
+            <span class="n">os</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="sa">b</span><span class="s">"correct result</span><span class="se">\r\n</span><span class="s">"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">b</span><span class="s">"I dont understand</span><span class="se">\r\n</span><span class="s">"</span><span class="p">)</span>
+            <span class="n">os</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="sa">b</span><span class="s">"I dont understand</span><span class="se">\r\n</span><span class="s">"</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">test_serial</span><span class="p">():</span>
     <span class="s">"""Start the testing"""</span>
-    <span class="n">master</span><span class="p">,</span><span class="n">slave</span> <span class="o">=</span> <span class="n">pty</span><span class="o">.</span><span class="n">openpty</span><span class="p">()</span> <span class="c">#open the pseudoterminal</span>
-    <span class="n">s_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">ttyname</span><span class="p">(</span><span class="n">slave</span><span class="p">)</span> <span class="c">#translate the slave fd to a filename</span>
+    <span class="n">master</span><span class="p">,</span><span class="n">slave</span> <span class="o">=</span> <span class="n">pty</span><span class="p">.</span><span class="n">openpty</span><span class="p">()</span> <span class="c1">#open the pseudoterminal
+</span>    <span class="n">s_name</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">ttyname</span><span class="p">(</span><span class="n">slave</span><span class="p">)</span> <span class="c1">#translate the slave fd to a filename
+</span>
+    <span class="c1">#create a separate thread that listens on the master device for commands
+</span>    <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">listener</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">master</span><span class="p">])</span>
+    <span class="n">thread</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="c">#create a separate thread that listens on the master device for commands</span>
-    <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">listener</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">master</span><span class="p">])</span>
-    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-    <span class="c">#open a pySerial connection to the slave</span>
-    <span class="n">ser</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">s_name</span><span class="p">,</span> <span class="mi">2400</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="s">'test2</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span> <span class="c">#write the first command</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">b</span><span class="s">""</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">b</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span><span class="p">):</span>
-        <span class="c">#read the response</span>
-        <span class="n">res</span> <span class="o">+=</span><span class="n">ser</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"result: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
-    <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="s">'QPGS</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span> <span class="c">#write a second command</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">b</span><span class="s">""</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">b</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span><span class="p">):</span>
-        <span class="c">#read the response</span>
-        <span class="n">res</span> <span class="o">+=</span><span class="n">ser</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"result: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
+    <span class="c1">#open a pySerial connection to the slave
+</span>    <span class="n">ser</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">s_name</span><span class="p">,</span> <span class="mi">2400</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ser</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s">'test2</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span> <span class="c1">#write the first command
+</span>    <span class="n">res</span> <span class="o">=</span> <span class="sa">b</span><span class="s">""</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">b</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span><span class="p">):</span>
+        <span class="c1">#read the response
+</span>        <span class="n">res</span> <span class="o">+=</span><span class="n">ser</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"result: %s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">ser</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s">'QPGS</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span> <span class="c1">#write a second command
+</span>    <span class="n">res</span> <span class="o">=</span> <span class="sa">b</span><span class="s">""</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">b</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span><span class="p">):</span>
+        <span class="c1">#read the response
+</span>        <span class="n">res</span> <span class="o">+=</span><span class="n">ser</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"result: %s"</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">'__main__'</span><span class="p">:</span>
     <span class="n">test_serial</span><span class="p">()</span></code></pre></figure>

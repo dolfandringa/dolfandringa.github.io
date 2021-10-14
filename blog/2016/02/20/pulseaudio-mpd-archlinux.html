@@ -74,8 +74,8 @@
 output: Failed to open audio output
 pulse_output: Failed to open <span class="s2">"PulseAudio Analog Out"</span> <span class="o">[</span>pulse]: failed to connect: Access denied</code></pre></figure>
 
-<p>The solution is to edit /etc/pulse/client.conf and set <code class="highlighter-rouge">autospawn = yes</code> and make sure the line is not commented with a <code class="highlighter-rouge">;</code> at the beginning.
-After this, restart mpd and pulseaudio should work. To check you can run <code class="highlighter-rouge">ps auwx|grep pulse</code>. It should show output similar to the following:</p>
+<p>The solution is to edit /etc/pulse/client.conf and set <code class="language-plaintext highlighter-rouge">autospawn = yes</code> and make sure the line is not commented with a <code class="language-plaintext highlighter-rouge">;</code> at the beginning.
+After this, restart mpd and pulseaudio should work. To check you can run <code class="language-plaintext highlighter-rouge">ps auwx|grep pulse</code>. It should show output similar to the following:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">&lt;myuser&gt; 11378  0.0  0.1 497404 11512 ?        S&lt;sl 08:06   0:00 /usr/bin/pulseaudio <span class="nt">--daemonize</span><span class="o">=</span>no
 mpd      11513  0.3  0.1 563304 12604 ?        Sl   08:14   0:04 /usr/bin/pulseaudio <span class="nt">--start</span> <span class="nt">--log-target</span><span class="o">=</span>syslog</code></pre></figure>

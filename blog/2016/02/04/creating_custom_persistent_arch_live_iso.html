@@ -117,7 +117,7 @@ If you need to find out the actual size of your usb drive, use</p>
 
 <p>Once you know the size, grow the iso image by that size. Replace $REMAINING below by the calculated number of blocks above.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>dd <span class="nv">status</span><span class="o">=</span>progress <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">bs</span><span class="o">=</span>512 <span class="nv">count</span><span class="o">=</span><span class="nv">$REMAINING</span> <span class="o">&gt;&gt;</span> arch-custom-hybrid.iso</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">dd </span><span class="nv">status</span><span class="o">=</span>progress <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">bs</span><span class="o">=</span>512 <span class="nv">count</span><span class="o">=</span><span class="nv">$REMAINING</span> <span class="o">&gt;&gt;</span> arch-custom-hybrid.iso</code></pre></figure>
 
 <p>After that you need to create a partition in the file. You do this with</p>
 
@@ -182,7 +182,7 @@ Setup the loopback device and format it with ext3 with</p>
 
 <p>At this point your image is ready (finally). You can now write it to the usb drive with (<em>WARNING!!!!! Make sure /dev/sdb is actually your usb drive. If it is any other drive YOU WILL ERASE IT COMPLETELY!!!</em>)</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">dd <span class="k">if</span><span class="o">=</span>arch-custom.iso <span class="nv">of</span><span class="o">=</span>/dev/sdb</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">dd </span><span class="k">if</span><span class="o">=</span>arch-custom.iso <span class="nv">of</span><span class="o">=</span>/dev/sdb</code></pre></figure>
 
 <p>At this point you can reboot and start from the usb drive (you might need to do something to the UEFI/BIOS to make it start from USB). If you are in the archlinux live boot menu, pres “e” to edit the default menu, and add cow_device=/dev/sdb3 to make it use /dev/sdb3 as the persistent cow device.</p>
 
