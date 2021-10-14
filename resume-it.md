@@ -23,7 +23,7 @@ pdf: true
 
 ### Contact information ###
 
-| Address | Meyherhof apt 1, Palmey Way<br />brgy West-Balabag<br />Valencia<br />Negros Oriental 6215<br /> |
+| Address | Meyherhof, 8 Palmey Way<br />brgy West-Balabag<br />Valencia<br />Negros Oriental 6215<br /> |
 | Mobile | +639272892137 |
 | Email | dolfandringa@gmail.com |
 {: .personalinfo}

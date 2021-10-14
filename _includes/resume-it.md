@@ -2,11 +2,8 @@
 
 |               |                                                 |
 |---------------|-------------------------------------------------|
-|2019 - present |Senior Software Engineer at CoInspect, Cebu, The Philippines. |
-|               |For the San Fransisco, USA based company CoInspect I work as part-time full stack Javascript and Typescript software engineer and advisor on new product development for their Cebu team. CoInspect makes mobile and webbased software and hardware solutions for the large franschises in the food industry in the United States.|
-|---------------|-------------------------------------------------|
-|2019 - present |Incorporator and Advisor for Dumaguete's ARC |
-|               |ARC is a non-profit technology incubator in Dumaguete that wants to stimulate a technology driven, environmentally and socially conscious innovative economy in the Dumaguete area. We do this by providing the facilities and guidance to enterprising and driven professionals that want to make a difference by creating innovative solutions that contribute to a better life for the people in Dumaguete and the Philippines as a whole. I am a founding members of the organisation and function as a project development advisor and technical consultant. |
+|2019 - present |Consultant IoT and Systems Integration at CoInspect Inc, San Francisco, California, US. |
+|               |For the San Fransisco, USA based company Therma I consult on, designing our LoRaWAN based products and integrating them into the cloud based products developed by the other teams. I am in charge of technical product design and architecture, firmware development, electronics design and systems integration. Therma° is combating climate change by building the smart cold chain. IoT-powered temperature monitoring and analytics prevent food, product, and energy waste - leading drivers of climate change. Therma° has partnered with national restaurant brands in the United States to supply chain leaders in food and healthcare to increase profits while protecting our planet.|
 |---------------|-------------------------------------------------|
 |2017 - 2019    |Consultant at College of Computer Studies at Foundation University, Dumaguete, The Philippines.           |
 |               |I work 2-3 days a week at Foundation University I consult on Software Development and IoT projects where I teach students while they assist me on software development and IoT projects, and advise capstone and thesis projects. Most projects are run from the Nightowl Technology incubator, which I lead and involve a combination of mobbile and backend software development, electronics and 3D printing..     |
@@ -35,6 +32,8 @@
 
 ### Education ###
 
+|2021|<strong>The Things Certified Advanced</strong> and <strong>The Things Certified Network Management</strong> and <strong>The Things Certified Security
+</strong> at The Things Industries, The Netherlands|
 |2014|<strong>SSI Dive Control Specialist</strong> at Island Divers, Cambodia.|
 |1999 - 2008|<strong>MSc in Biology</strong> at Wageningen University, specialisation Tropical ecology and a minor in Geographic Information Science          |
 |1993 - 1999|Secondary school “Stedelijk Gymnasium Apeldoorn”          |
@@ -47,10 +46,10 @@ Only a selection is listed, starting with the skills/techniques I am most comfor
 |Computers general:|Linux, Windows, Open Office, Microsoft Office, Apple|
 |Data science and business intelligence|R, SPSS, Scipy, Bibtex, Latex, Jupyter, Apache Superset|
 |GIS:|PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS|
-|Programming and related languages:|Python, Typescript, Javascript, PHP, Java, C, C++|
-|Dev-ops tools/services:|Github/Lab/etc, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN|
+|Programming and related languages:|Python, Embedded C/C++, Typescript, Javascript, PHP, Java |
+|Dev-ops tools/services:|Github/Lab/etc, Kubernetes, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN|
 |Databases:|PostgreSQL, PostGIS, MongoDB, MySQL, SQLite, Redis|
-|Electronics and Prototyping:|Atmel and ESP8266 embedded device programming, Fusion360, PCB Design, 3D printing|
+|Electronics and Prototyping:|STM32, Atmel and ESP8266 embedded device programming, Eagle, Fusion360, PCB Design, 3D printing|
 |Web development tools/libraries:|Flask, Angular, Ionic, SQLAlchemy, Drupal, MQTT, RabbitMQ, Wordpress, Pylons, JQuery, ExtJS|
 |Other:|Drivers license, SSI Dive Control Specialist (Assistant Instructor) (500+ dives)|
 {: .skills}
@@ -66,7 +65,7 @@ Only a selection is listed, starting with the skills/techniques I am most comfor
 
 ### Hobbies ###
 
- - (Micro) Electronics and hacking, member of the [Nightowl](//wiki.foundationu.com/nightowl) arts and technology incubator and hacker space and former member of the [Nurdspace hacker space](//nurdspace.nl).
- - Scuba diving, Cycle racing
+ - (Micro) Electronics and hacking, Former member of the [Nightowl](//wiki.foundationu.com/nightowl) arts and technology incubator and hacker space and former member of the [Nurdspace hacker space](//nurdspace.nl).
+ - Motorcycles, Scuba diving, Cycle racing
  - Traveling, including many tropical countries in Asia, Latin America and Africa, some of which for longer periods doing research or (volunteer) work.
  - Hiking, cycling, diving

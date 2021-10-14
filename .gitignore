@@ -2,3 +2,6 @@ _site
 .sass-cache
 *.swp
 node_modules
+vendor
+.bundle
+versions.json
