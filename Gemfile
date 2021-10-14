@@ -17,5 +17,5 @@ gem 'pygments.rb'
 gem 'nokogiri'
 gem 'rmagick'
 gem "sprockets", "~> 3.7"
-gem 'jekyll-assets', '>=2.0'
+gem 'jekyll-assets', '>= 2.0'
 gem 'jekyll-pdf', git: 'https://github.com/abeMedia/jekyll-pdf'

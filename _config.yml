@@ -33,6 +33,11 @@ dribbble_username:      # Replace this with your Dribbble username
 markdown: kramdown
 permalink: blog/:year/:month/:day/:title:output_ext
 
+pdf:
+  cache: false
+  page_size: A4
+  layout: pdf
+
 collections:
     project:
         permalink: /:collection/:year/:month/:day/:title:output_ext

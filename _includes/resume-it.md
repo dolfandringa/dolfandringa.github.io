@@ -32,8 +32,7 @@
 
 ### Education ###
 
-|2021|<strong>The Things Certified Advanced</strong> and <strong>The Things Certified Network Management</strong> and <strong>The Things Certified Security
-</strong> at The Things Industries, The Netherlands|
+|2021|<strong>The Things Certified Advanced</strong> and <strong>The Things Certified Network Management</strong> and <strong>The Things Certified Security</strong> at The Things Industries, The Netherlands|
 |2014|<strong>SSI Dive Control Specialist</strong> at Island Divers, Cambodia.|
 |1999 - 2008|<strong>MSc in Biology</strong> at Wageningen University, specialisation Tropical ecology and a minor in Geographic Information Science          |
 |1993 - 1999|Secondary school “Stedelijk Gymnasium Apeldoorn”          |
