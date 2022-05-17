@@ -2,8 +2,8 @@
 
 |               |                                                 |
 |---------------|-------------------------------------------------|
-|2019 - present |Consultant IoT and Systems Integration at CoInspect Inc, San Francisco, California, US. |
-|               |For the San Fransisco, USA based company Therma I consult on, designing our LoRaWAN based products and integrating them into the cloud based products developed by the other teams. I am in charge of technical product design and architecture, firmware development, electronics design and systems integration. Therma° is combating climate change by building the smart cold chain. IoT-powered temperature monitoring and analytics prevent food, product, and energy waste - leading drivers of climate change. Therma° has partnered with national restaurant brands in the United States to supply chain leaders in food and healthcare to increase profits while protecting our planet.|
+|2019 - present |Lead IoT Engineer at CoInspect Philippines Inc (dba Therma), Cebu City, Cebu, The Philippines. |
+|               |For the Cebu office of San Fransisco based company Therma (hellotherma.com) I am the technical lead engineer in charge of the IoT architecture and development. Therma° is combating climate change by building the smart cold chain. My responsibilities include technical supervision of a team of engineers, system architecture, integration of embedded and cloud based systems, firmware development, setting up devops automation and supporting our other teams as needed. Recently, after building up a good team of IoT engineers, I have shifted towards R&D and the development of new products for the company. |
 |---------------|-------------------------------------------------|
 |2017 - 2019    |Consultant at College of Computer Studies at Foundation University, Dumaguete, The Philippines.           |
 |               |I work 2-3 days a week at Foundation University I consult on Software Development and IoT projects where I teach students while they assist me on software development and IoT projects, and advise capstone and thesis projects. Most projects are run from the Nightowl Technology incubator, which I lead and involve a combination of mobbile and backend software development, electronics and 3D printing..     |
@@ -48,8 +48,8 @@ Only a selection is listed, starting with the skills/techniques I am most comfor
 |Programming and related languages:|Python, Embedded C/C++, Typescript, Javascript, PHP, Java |
 |Dev-ops tools/services:|Github/Lab/etc, Kubernetes, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN|
 |Databases:|PostgreSQL, PostGIS, MongoDB, MySQL, SQLite, Redis|
-|Electronics and Prototyping:|STM32, Atmel and ESP8266 embedded device programming, Eagle, Fusion360, PCB Design, 3D printing|
-|Web development tools/libraries:|Flask, Angular, Ionic, SQLAlchemy, Drupal, MQTT, RabbitMQ, Wordpress, Pylons, JQuery, ExtJS|
+|Electronics, Embedded development and Prototyping:|STM32, Atmel and ESP8266 embedded device programming, OpenWRT, Armbian, Eagle, Fusion360, PCB Design, 3D printing|
+|Web development tools/libraries:|Flask, Angular, Ionic, React, Drupal, MQTT, RabbitMQ, Wordpress, Pylons|
 |Other:|Drivers license, SSI Dive Control Specialist (Assistant Instructor) (500+ dives)|
 {: .skills}
 

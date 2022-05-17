@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 require 'json'
 require 'open-uri'
 puts 'Fetching supported version from github.com'
-#versions = open('https://pages.github.com/versions.json').read
-versions = open('versions.json').read
+versions = open('https://pages.github.com/versions.json').read
+#versions = open('versions.json').read
 versions = JSON.parse(versions)
 puts versions
 
@@ -17,5 +17,5 @@ gem 'pygments.rb'
 gem 'nokogiri'
 gem 'rmagick'
 gem "sprockets", "~> 3.7"
-gem 'jekyll-assets', '>= 2.0'
-gem 'jekyll-pdf', git: 'https://github.com/abeMedia/jekyll-pdf'
+gem "jekyll-assets", '~> 2'
+gem 'jekyll-pdf', git: 'https://github.com/jekyll-pdf/jekyll-pdf'
