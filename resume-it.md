@@ -8,24 +8,14 @@ tags:
     - Resume
 pdf: true
 ---
-## Curriculum Vitae Dolf Andringa, MSc ##
+<section markdown="1" id="me">
+# Dolf Andringa, MSc ##
+{: .name}
 
 <h3 class='date'>{{'now'|date: '%B %Y'}}</h3>
 
-### Personal Information ###
 
-| Name                | Dolf ANDRINGA |
-| Birthday and -place | 05 October 1980, 's-Hertogenbosch, The Netherlands |
-| Nationality         |  Dutch |
-| Gender              | Male |
-| Marital status      | Married |
+| dolfandringa@gmail.com | +639272892137 | Meyerhof, 8 Palmey Way, West Balabag, Valencia, Negros Oriental 6215, The Philippines |
 {: .personalinfo}
-
-### Contact information ###
-
-| Address | Meyherhof, 8 Palmey Way<br />brgy West-Balabag<br />Valencia<br />Negros Oriental 6215<br /> |
-| Mobile | +639272892137 |
-| Email | dolfandringa@gmail.com |
-{: .personalinfo}
-
+</section>
 {% include resume-it.md %}

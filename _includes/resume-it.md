@@ -1,9 +1,27 @@
+<section markdown="1" id="summary">
+### Summary
+
+bla
+
+</section>
+
+<section markdown="1" id="patents">
+### Patents
+
+
+
+</section>
+
+<section markdown="1" id="employment">
 ### Employment history ###
 
 |               |                                                 |
 |---------------|-------------------------------------------------|
-|2019 - present |Lead IoT Engineer at CoInspect Philippines Inc (dba Therma), Cebu City, Cebu, The Philippines. |
-|               |For the Cebu office of San Fransisco based company Therma (hellotherma.com) I am the technical lead engineer in charge of the IoT architecture and development. Therma° is combating climate change by building the smart cold chain. My responsibilities include technical supervision of a team of engineers, system architecture, integration of embedded and cloud based systems, firmware development, setting up devops automation and supporting our other teams as needed. Recently, after building up a good team of IoT engineers, I have shifted towards R&D and the development of new products for the company. |
+|2022 - present |Solutions Architect at Therma, Cebu City, Cebu, The Philippines. |
+|               |Technical architecture, and initial development of both the hardware and back-end of our energy product, feed company strategy decisions new products and data driven  |
+|---------------|-------------------------------------------------|
+|2019 - 2022 |Lead IoT Engineer at CoInspect Philippines Inc (dba Therma), Cebu City, Cebu, The Philippines. |
+|               |For the Cebu office of San Fransisco based company Therma (hellotherma.com) I am the technical lead engineer in charge of the IoT architecture and development, including our LoRaWAN infrastructure and the integration of hardware into the back-end and hardware and firmware development.  My responsibilities include technical supervision of a team of engineers, system architecture, integration of embedded and cloud based systems, firmware development, setting up devops automation and supporting our other teams as needed. |
 |---------------|-------------------------------------------------|
 |2017 - 2019    |Consultant at College of Computer Studies at Foundation University, Dumaguete, The Philippines.           |
 |               |I work 2-3 days a week at Foundation University I consult on Software Development and IoT projects where I teach students while they assist me on software development and IoT projects, and advise capstone and thesis projects. Most projects are run from the Nightowl Technology incubator, which I lead and involve a combination of mobbile and backend software development, electronics and 3D printing..     |
@@ -29,42 +47,28 @@
 |2001 - 2004|Various jobs at Wageningen University          |
 |           |Including a system administrator at the head office, tutoring a course, development of a website for the Biology study, and development of information material for the health and safety department.           |
 {: .resume}
+</section>
 
+<section markdown="1" id="education">
 ### Education ###
 
-|2021|<strong>The Things Certified Advanced</strong> and <strong>The Things Certified Network Management</strong> and <strong>The Things Certified Security</strong> at The Things Industries, The Netherlands|
-|2014|<strong>SSI Dive Control Specialist</strong> at Island Divers, Cambodia.|
+|2021|<strong>The Things Certified Advanced</strong> and <strong>The Things Certified Network Management</strong> and <strong>The Things Certified Security</strong> LoRaWAN certifications at The Things Industries, The Netherlands|
 |1999 - 2008|<strong>MSc in Biology</strong> at Wageningen University, specialisation Tropical ecology and a minor in Geographic Information Science          |
 |1993 - 1999|Secondary school “Stedelijk Gymnasium Apeldoorn”          |
 {: .skills}
+</section>
 
-### Other skills and qualifications ###
+<section markdown="1" id="skills">
+### Skills ###
 
-Only a selection is listed, starting with the skills/techniques I am most comfortable with.
-
-|Computers general:|Linux, Windows, Open Office, Microsoft Office, Apple|
-|Data science and business intelligence|R, SPSS, Scipy, Bibtex, Latex, Jupyter, Apache Superset|
-|GIS:|PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS|
-|Programming and related languages:|Python, Embedded C/C++, Typescript, Javascript, PHP, Java |
-|Dev-ops tools/services:|Github/Lab/etc, Kubernetes, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN|
-|Databases:|PostgreSQL, PostGIS, MongoDB, MySQL, SQLite, Redis|
-|Electronics, Embedded development and Prototyping:|STM32, Atmel and ESP8266 embedded device programming, OpenWRT, Armbian, Eagle, Fusion360, PCB Design, 3D printing|
-|Web development tools/libraries:|Flask, Angular, Ionic, React, Drupal, MQTT, RabbitMQ, Wordpress, Pylons|
-|Other:|Drivers license, SSI Dive Control Specialist (Assistant Instructor) (500+ dives)|
+{% comment %}|GIS:|PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS|{% endcomment %}
+|Data science|R, Jupyter, SciPy, SPSS, Bibtex, Latex, Apache Superset, AWS SageMaker|
+|Programming languages:|Python, Embedded C/C++, Typescript, Javascript, PHP, Java |
+|IoT and Infrastructure:|MQTT, RabbitMQ, LoRaWAN, WiFi, LTE, Powerline, AWS IoT, AWS SQS/Lambda/SNS|
+|Dev-ops tools/services:|Github/Lab/etc, Kubernetes, GitOps, FluxCD, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN|
+|Databases:|PostgreSQL, InfluxDB, Redis, MongoDB, MySQL, SQLite|
+|Hardware Development & Embdedded:|STM32, Atmel and ESP8266, Arduino, FreeRTOS, PlatformIO, Make, OpenWRT, Armbian, Eagle, Fusion360, PCB Design|
+|Web development frameworks:|Flask, NestJS, NodeJS, Express, FastAPI, Angular, Ionic, React, Drupal, Pylons|
+|Languages:| Dutch, English, Spanish, French, German|
 {: .skills}
-
-### Languages ###
-
-- Dutch: Mother tongue
-- English: Fluent
-- Spanish: Professional working knowledge
-- French: Good working knowledge
-- German: Good conversation abilities
-- Portuguese: Basic conversation
-
-### Hobbies ###
-
- - (Micro) Electronics and hacking, Former member of the [Nightowl](//wiki.foundationu.com/nightowl) arts and technology incubator and hacker space and former member of the [Nurdspace hacker space](//nurdspace.nl).
- - Motorcycles, Scuba diving, Cycle racing
- - Traveling, including many tropical countries in Asia, Latin America and Africa, some of which for longer periods doing research or (volunteer) work.
- - Hiking, cycling, diving
+</section>

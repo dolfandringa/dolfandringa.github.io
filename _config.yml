@@ -48,4 +48,5 @@ plugins:
       - jekyll-last-modified-at
       - jekyll-feed
       - jekyll-assets
+      - jekyll-coffeescript
 #      - jekyll-pdf

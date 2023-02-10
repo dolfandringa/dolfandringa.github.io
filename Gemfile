@@ -14,6 +14,7 @@ gem 'jekyll-last-modified-at'
 #gem 'link-checker'
 gem 'jekyll-sitemap'
 gem 'pygments.rb'
+gem 'jekyll-coffeescript'
 gem 'nokogiri'
 gem 'rmagick'
 gem "sprockets", "~> 3.7"
