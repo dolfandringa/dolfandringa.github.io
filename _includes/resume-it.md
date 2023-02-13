@@ -18,16 +18,16 @@ bla
 |               |                                                 |
 |---------------|-------------------------------------------------|
 |2022 - present |Solutions Architect at Therma, Cebu City, Cebu, The Philippines. |
-|               |Technical architecture, and initial development of both the hardware and back-end of our energy product, feed company strategy decisions new products and data driven  |
+|               |Evolving from my previous position I was put in charge of designing and technical leadership of initial development of new products and hardware prototypes for Therma, designing technical solutions that involved ML, back-end, DevOps, and hardware integration. The main product I worked on was our cooling intelligence platform, aimed at responding to climate change challenges presented by the energy consumption of refrigeration and air-conditioning systems.|
 |---------------|-------------------------------------------------|
 |2019 - 2022 |Lead IoT Engineer at CoInspect Philippines Inc (dba Therma), Cebu City, Cebu, The Philippines. |
-|               |For the Cebu office of San Fransisco based company Therma (hellotherma.com) I am the technical lead engineer in charge of the IoT architecture and development, including our LoRaWAN infrastructure and the integration of hardware into the back-end and hardware and firmware development.  My responsibilities include technical supervision of a team of engineers, system architecture, integration of embedded and cloud based systems, firmware development, setting up devops automation and supporting our other teams as needed. |
+|               |For the Cebu office of San Fransisco based startup Therma (hellotherma.com) I was the technical lead engineer in charge of the IoT architecture and development, including designing and implementing our LoRaWAN infrastructure and the integration of hardware into the back-end and hardware and firmware development. My responsibilities included technical supervision of a team of engineers, system architecture, integration of embedded and cloud based systems, firmware development, electronics design of prototypes, setting up devops automation and supporting our other teams as needed. I furthermore did the electronics design and PCB design for a prototype LoRaWAN gateway and sensor.|
 |---------------|-------------------------------------------------|
 |2017 - 2019    |Consultant at College of Computer Studies at Foundation University, Dumaguete, The Philippines.           |
-|               |I work 2-3 days a week at Foundation University I consult on Software Development and IoT projects where I teach students while they assist me on software development and IoT projects, and advise capstone and thesis projects. Most projects are run from the Nightowl Technology incubator, which I lead and involve a combination of mobbile and backend software development, electronics and 3D printing..     |
+|               |For 3 days a week at Foundation University I consulted on Software Development and IoT projects, taking the students along with me to teach them software development, rapid prototyping and electronics, and supervise their capstone and thesis projects. Most projects are were from the Nightowl Technology incubator. |
 |---------------|-------------------------------------------------|
 |2016 - present |Consultant
-|               |I specialize in full-stack software development in Python, Angular and Ionic. I furthermore consult on projects involving electronics and the Internet of Things geospatial and scientific data management, analysis and reporting. As my affinity with marine conservation, science and GIS is very strong, I enjoy applying my skills in this area most, but also derive a lot of satisfaction from purely technological challenges. Although my main software development specialty is full-stack web-development in Python and Angular, I am versatile and have experience in Java, C/C++, R, PHP and other languages.     |
+|               |I specialize in software development in Python, Angular and Ionic. I furthermore consult on projects involving electronics, IoT, geospatial and scientific data management, analysis and reporting. As my affinity with marine conservation, science and GIS is very strong, I enjoy applying my skills in this area most, but also derive a lot of satisfaction from purely technological challenges. |
 |---------------|-------------------------------------------------|
 |2016 - present |Partner at East Solar Works           |
 |               |East Solar Works is a solar company that mainly focuses on new applications of solar power. It moved from regular solar power installations to solar water pumping for municipal and rural water supplies. As one of the partners, my main responsibility is implementing ICT solutions, technical support and R&D and optimizing business processes. My previous experience in building IT solutions and as CTO of an IT company come together in this role.          |
@@ -53,22 +53,33 @@ bla
 ### Education ###
 
 |2021|<strong>The Things Certified Advanced</strong> and <strong>The Things Certified Network Management</strong> and <strong>The Things Certified Security</strong> LoRaWAN certifications at The Things Industries, The Netherlands|
+|2014|<strong>SSI Dive Control Specialist</strong> at Island Divers, Cambodia.<br />A Dive Control Specialist is an assistant dive instructor for Scuba Schools International which qualifies me to lead groups of qualified divers, and teach part of the open water course for new divers.           |
 |1999 - 2008|<strong>MSc in Biology</strong> at Wageningen University, specialisation Tropical ecology and a minor in Geographic Information Science          |
-|1993 - 1999|Secondary school “Stedelijk Gymnasium Apeldoorn”          |
-{: .skills}
+{: .education}
 </section>
 
 <section markdown="1" id="skills">
 ### Skills ###
 
-{% comment %}|GIS:|PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS|{% endcomment %}
-|Data science|R, Jupyter, SciPy, SPSS, Bibtex, Latex, Apache Superset, AWS SageMaker|
-|Programming languages:|Python, Embedded C/C++, Typescript, Javascript, PHP, Java |
-|IoT and Infrastructure:|MQTT, RabbitMQ, LoRaWAN, WiFi, LTE, Powerline, AWS IoT, AWS SQS/Lambda/SNS|
-|Dev-ops tools/services:|Github/Lab/etc, Kubernetes, GitOps, FluxCD, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN|
-|Databases:|PostgreSQL, InfluxDB, Redis, MongoDB, MySQL, SQLite|
-|Hardware Development & Embdedded:|STM32, Atmel and ESP8266, Arduino, FreeRTOS, PlatformIO, Make, OpenWRT, Armbian, Eagle, Fusion360, PCB Design|
-|Web development frameworks:|Flask, NestJS, NodeJS, Express, FastAPI, Angular, Ionic, React, Drupal, Pylons|
-|Languages:| Dutch, English, Spanish, French, German|
+{% comment %}
+GIS:
+ * PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS
+{% endcomment %}
+* Data science:
+    * R, Jupyter, SciPy, SPSS, Bibtex, Latex, Apache Superset, AWS SageMaker
+* Programming languages:
+    * Python, Embedded C/C++, Typescript, Javascript, PHP, Java
+* IoT and Infrastructure:
+    * MQTT, RabbitMQ, LoRaWAN, WiFi, LTE, Powerline, AWS IoT, AWS SQS/Lambda/SNS
+* Dev-ops tools/services:
+    * Github/Lab/etc, Kubernetes, GitOps, FluxCD, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN
+* Databases:
+    *   PostgreSQL, InfluxDB, Redis, MongoDB, MySQL, SQLite
+* Hardware Development & Embdedded:
+    * STM32, Atmel, ESP8266, Arduino, FreeRTOS, PlatformIO, Make, OpenWRT, Armbian, Eagle, Fusion360, PCB Design
+* Web development frameworks:
+    * Flask, NestJS, NodeJS, Express, FastAPI, Angular, Ionic, React, Drupal, Pylons
+* Languages:
+    * Dutch, English, Spanish, French, German
 {: .skills}
 </section>

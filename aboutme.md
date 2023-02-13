@@ -9,14 +9,14 @@ tags:
 ---
 # {{ page.title }} #
 
-Below you can find my resumé, and for those réally interested, also my Bio. 
+Below you can find my resumé, and for those réally interested, also my Bio.
 For quicker navigation, jump to my:
 
  - [Resumé](#resumé)
  - [Bio](#bio)
 
 
- <span id="resum" >&nbsp;</span>
+ <span id="resume" >&nbsp;</span>
 ## Resumé ##
 My full resumé can also be [downloaded as pdf](/assets/ResumeDolfAndringa.pdf).
 {% include resume-it.md %}
@@ -33,4 +33,3 @@ During my university years I did a fair share of travelling in the tropics and m
 
 In 2016 I decided that although there a there a lot of interesting projects I worked on at MCP, my skills were best used by using technology to support conservation organizations. I furthermore missed software development and more technological work so decided to become a freelance consultant. I have always enjoyed wrestling with and analyzing large amounts of data (geographic and otherwise) and visualizing it in user-friendly ways (usually web-based). From a scientific point of view, that is where I think I can be of most value. I also enjoy helping businesses become more effective/efficient by implementing technological solutions. So when I was asked by East Solar Works to become a partner and aid them with making their solar water pumping business more efficient by implementing remote monitoring and management software and optimizing their business processes, I accepted. Since the work is sporadic, it still allows me to operate as freelance consultant. And what started to be voluntary activities at [Foundation University](http://www.foundationu.com) in Dumaguete in supporting a newly established hackerspace, quickly turned into an offer to be employed at the College of Computer Studies as a consultant for two days a week. They asked me to help start projects and support the establishment of a hackerspace/makerspace where we build "cool" technology stuff, preferably for environmentally or socially relevant projects. Most activities are extra-curricular for the students, but I also aid students with their thesis projects, and advise the college dean on research and education strategy. Recently we are trying to lift this initiative to a higher level with tighter cooperation with the industry and looking for grants to enable this. This job allows me to work more closely with young and enthusiastic Filipino's and to finally give voice to my long-lived desire to show kids from all walks of life that with access to a computer and internet you can make a living, no matter what your education or upbringing.
 According to other people I can be quite hyperactive and passionate in my opinions (I still don't believe them though). I love to try and learn new things and am quick to understand problems and new theory. I have a very analytical mind. I love solving technical problems much more than managing and having meetings. The more difficult the problem, the more I am committed in solving it.
-

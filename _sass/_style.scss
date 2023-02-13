@@ -1,6 +1,7 @@
 @import 'vars';
 @import 'mixins';
 @import 'nav';
+@import 'print';
 @import 'tables';
 @import 'font-awesome.min.css';
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic');
@@ -10,12 +11,12 @@ $size-header-width:		30%;
 $size-header-pad:		4em;
 
 /* Basic */
-html {
-	height: 100%;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-}
+	html {
+		height: 100%;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
 
 	body {
 		background: $color-bg;
@@ -23,9 +24,12 @@ html {
 		width: 100%;
 		padding: 0;
 		margin: 0;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
+		display: grid;
+		grid-template-areas:
+		"header nav"
+		"header main";
+		grid-template-columns:  $size-header-width calc(100% - #{$size-header-width});
+		grid-template-rows: 50px auto 0px;
 
 		&.is-loading {
 			*, *:before, *:after {
@@ -33,6 +37,10 @@ html {
 				@include vendor-property('transition', 'none !important');
 			}
 		}
+	}
+
+	nav {
+		grid-area: nav;
 	}
 
 	body, input, select, textarea {
@@ -880,20 +888,13 @@ html {
 		background-color:		$color-accent2-bg;
 		background-attachment:	scroll,								fixed;
 		background-image:		url('../../images/overlay.png'),			url('../../images/bg_negros_chocolatehills.jpg');
-		//background-image:		url('images/overlay.png'),			url('../images/bg.jpg');
 		background-position:	top left,							top left;
 		background-repeat:		repeat,								no-repeat;
 		background-size:		auto,								auto 100%;
 		color: $color-accent2-fg;
-		//height: 100%;
-		//left: 0;
 		padding: ($size-header-pad * 2) $size-header-pad 0 0;
-		//position: fixed;
 		text-align: right;
-		//top: 0;
-		//width: $size-header-width;
-		flex-basis: $size-header-width;
-		flex-shrink: 0;
+		grid-area: header;
 
 		strong, b {
 			color: $color-accent2-fg-bold;
@@ -961,26 +962,48 @@ html {
 		}
 	}
 
+
+ul.skills {
+	margin: 0px;
+	padding: 0;
+	> li {
+		font-weight: bold;
+		padding: 0;
+		list-style: none;
+		> ul {
+			margin: 0px;
+			>li {
+				font-weight: normal;
+				list-style: none;
+				padding: 0;
+			}
+		}
+
+	}
+}
+
+body.resume {
+}
+
+
 /* Main */
 
+	body.resume #main {
+		font-size: 10pt;
+		grid-row-gap: 20px;
+		grid-column-gap: 40px;
+		grid-template: auto auto auto auto auto auto auto auto auto auto / 20% calc(80% - 40px);
+	}
 	#main {
-		//margin-left: $size-header-width;
-		//max-width: 50em + $size-header-pad;
 		padding: $size-header-pad $size-header-pad $size-header-pad $size-header-pad;
-		//width: calc(100% - #{$size-header-width});
-		display: flex;
-		flex-flow: row wrap;
+		display: grid;
 		overflow: auto;
+		grid-area: main;
 
 		> section {
 			border: 0;
-			flex-grow: 4;
-			flex-shrink: 0;
-			flex-basis: 80%;
-			flex-grow: 5;
-			margin: $size-header-pad 0 0 0;
-			order: 3;
-			padding: 0 0 0 0;
+			padding: 00px;
+
 
 			&:first-of-type {
 				border-top: 0;
@@ -997,15 +1020,35 @@ html {
 				padding-top: 0;
     }
 		> section#me {
-			order: 0;
-			flex-basis: 100%;
-			flex-shrink: 0;
+			grid-row: 1 / span 1;
+			grid-column: 1 / span 2;
+			padding: 0px;
+			display: grid;
+  	  grid-auto-flow: row;
+			align-items: end;
+
+			.personalinfo {
+				grid-column: 1 / span 2;
+			}
+
+			h1.name {
+				font-weight: bold;
+				font-size: 3em;
+				color: $color-accent-bg;
+				margin-bottom: 0px;
+				display:inline;
+			}
+			.quote {
+				text-align: right;
+				vertical-align: bottom;
+				display: inline;
+				margin: 0px;
+				padding: 0px;
+				font-style: italic;
+			}
 		}
 		> section#skills {
-			order: 1;
-			flex-grow: 1;
-			flex-basis: 20%;
-			flex-shrink: 0;
+			grid-row: 2 / span 10;
 		}
 	}
 

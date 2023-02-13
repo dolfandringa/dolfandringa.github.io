@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Resumé
+body_class: resume
 tags:
     - Dolf-Andringa
     - About-me
@@ -8,29 +9,24 @@ tags:
     - Resume
 pdf: true
 ---
-## Curriculum Vitae Dolf Andringa, MSc ##
+<section markdown="1" id="me">
+# Dolf Andringa, MSc ##
+{: .name}
 
-<h3 class='date'>{{'now'|date: '%B %Y'}}</h3>
+"The hard part is understanding the problem."
+{: .quote}
 
-### Personal Information ###
-
-| Name                | Dolf Bouwe Joseph August ANDRINGA |
-| Birthday and -place | 05 October 1980, 's-Hertogenbosch, The Netherlands |
-| Nationality         | Dutch |
-| Gender              | Male |
-| Marital status      | Married |
+| dolfandringa@gmail.com | +639272892137 | Meyerhof, 8 Palmey Way, West Balabag, Valencia, Negros Oriental 6215, The Philippines |
 {: .personalinfo}
-
-### Contact information ###
-
-| Address | Meyherhof, 8 Palmey Way<br />brgy West-Balabag<br />Valencia<br />Negros Oriental 6215<br /> |
-| Mobile | +639272892137 |
-| Email | dolfandringa@gmail.com |
-{: .personalinfo}
-
-### References
-
-| Jomar Colao<br />jomar@hellotherma.com<br />cell:  0918-9300405 | David Andrew Francis Duldulao<br />david@hellotherma.com<br />cell: 0922-4342056 | Michelle Manlunas <br />michelle@hellotherma.com<br />cell: 0917-3057774 |
-{: .references}
+</section>
 
 {% include resume-it.md %}
+
+<section markdown="1" id="references">
+### References
+
+| Manik Suri | CEO at Therma | manik@hellotherma.com |
+| Andrew Hager | CTO at Therma | ando@hellotherma.com |
+| Jomar Colao | Director of operations APAC at Therma | jomar@hellotherma.com |
+{: .references}
+</section>

@@ -1,0 +1,27 @@
+@media print {
+  body {
+    grid-template-areas: "main" !important;
+		grid-template-columns:  100% !important;
+  }
+  #main>section {
+    padding: 0px !important;
+  }
+  #main {
+    padding: 0px !important;
+  }
+  body {
+    font-size: 8pt !important;
+  }
+  nav, header, footer {
+    display: none;
+  }
+  html, body {
+    height: auto;
+  }
+  #main {
+    overflow: visible !important;
+  }
+  table.resume>tbody,table.skills>tbody,  tr,td {
+    page-break-inside : avoid;
+  }
+}
