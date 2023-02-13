@@ -8,7 +8,7 @@
 
 
 $size-header-width:		30%;
-$size-header-pad:		4em;
+$size-header-pad:		40px;
 
 /* Basic */
 	html {
@@ -28,7 +28,7 @@ $size-header-pad:		4em;
 		grid-template-areas:
 		"header nav"
 		"header main";
-		grid-template-columns:  $size-header-width calc(100% - #{$size-header-width});
+		grid-template-columns:  calc(#{$size-header-width} - #{$size-header-pad}) calc(100% - #{$size-header-width} + #{$size-header-pad});
 		grid-template-rows: 50px auto 0px;
 
 		&.is-loading {
@@ -990,8 +990,8 @@ body.resume {
 
 	body.resume #main {
 		font-size: 10pt;
-		grid-row-gap: 20px;
-		grid-column-gap: 40px;
+		grid-row-gap: calc(#{$size-header-pad} /2);
+		grid-column-gap: $size-header-pad;
 		grid-template: auto auto auto auto auto auto auto auto auto auto / 20% calc(80% - 40px);
 	}
 	#main {
@@ -1026,6 +1026,7 @@ body.resume {
 			display: grid;
   	  grid-auto-flow: row;
 			align-items: end;
+			margin-bottom: $size-header-pad;
 
 			.personalinfo {
 				grid-column: 1 / span 2;

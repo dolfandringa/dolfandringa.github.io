@@ -1,14 +1,14 @@
 <section markdown="1" id="summary">
 ### Summary
 
-bla
-
+I am a software engineer with many years of experience and a strong affinity for IoT, hardware and embedded development. I am very hands-on, and eager to jump into new challenges. My many years of experience have given me great breadth, but have not kept me from diving deep into new fields, and gaining a serious depth. As solutions architect, I love understanding problems properly technically but also from a user's perspective. The solutions often follow logically once you understand the problem.
 </section>
 
 <section markdown="1" id="patents">
 ### Patents
 
-
+* a
+* b
 
 </section>
 
