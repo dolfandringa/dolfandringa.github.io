@@ -166,7 +166,7 @@ body {
   margin: 0;
   display: grid;
   grid-template-areas: "header nav" "header main";
-  grid-template-columns: 30% calc(100% - 30%);
+  grid-template-columns: calc(30% - 40px) calc(100% - 30% + 40px);
   grid-template-rows: 50px auto 0px;
 }
 body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -994,7 +994,7 @@ input[type=button]:disabled,
   background-repeat: repeat, no-repeat;
   background-size: auto, auto 100%;
   color: rgba(255, 255, 255, 0.5);
-  padding: 8em 4em 0 0;
+  padding: 80px 40px 0 0;
   text-align: right;
   grid-area: header;
 }
@@ -1019,7 +1019,7 @@ input[type=button]:disabled,
 #footer {
   bottom: 0;
   left: 0;
-  padding: 0 4em 0 0;
+  padding: 0 40px 0 0;
   position: fixed;
   text-align: left;
 }
@@ -1073,13 +1073,13 @@ ul.skills > li > ul > li {
 /* Main */
 body.resume #main {
   font-size: 10pt;
-  grid-row-gap: 20px;
+  grid-row-gap: calc(40px /2);
   grid-column-gap: 40px;
   grid-template: auto auto auto auto auto auto auto auto auto auto/20% calc(80% - 40px);
 }
 
 #main {
-  padding: 4em 4em 4em 4em;
+  padding: 40px 40px 40px 40px;
   display: grid;
   overflow: auto;
   grid-area: main;
@@ -1108,6 +1108,7 @@ body.resume #main {
   display: grid;
   grid-auto-flow: row;
   align-items: end;
+  margin-bottom: 40px;
 }
 #main > section#me .personalinfo {
   grid-column: 1/span 2;
