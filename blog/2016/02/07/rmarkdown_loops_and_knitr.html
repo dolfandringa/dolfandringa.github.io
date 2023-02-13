@@ -16,19 +16,14 @@
   		<script src="/js/jquery.min.js"></script>
   		<script src="/js/jquery.poptrox.min.js"></script>
   		<script src="/js/skel.min.js"></script>
-  		<script src="/js/init.js"></script>
+  		<!--script src="/js/init.js"></script-->
       <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
       <script src="/jesl/jesl.min.js"> </script>
-  	  <link rel="stylesheet" href="/css/syntax.css" />
-  		<noscript>
-  			<link rel="stylesheet" href="/css/skel.css" />
-  			<link rel="stylesheet" href="/css/style.css" />
-  			<link rel="stylesheet" href="/css/style-xlarge.css" />
-  		</noscript>
+      <link rel="stylesheet" href="/assets/css/main.css" />
   		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
   	</head>
 
-	<body id="top">
+    <body id="top" >
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -39,7 +34,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
       <header id="header">
-          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <a href="/resume.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
           <h1><strong>I am Dolf Andringa</strong>, an ecologist, geek and software developer.
             This site contains my personal ramblings.</h1>
       </header>
@@ -99,8 +94,7 @@ What about the <code class="language-plaintext highlighter-rouge">out&lt;-NULL</
 
 <p>The parent Rmd file:</p>
 
-<figure class="highlight"><pre><code class="language-md" data-lang="md"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-md" data-lang="md"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -139,8 +133,7 @@ What about the <code class="language-plaintext highlighter-rouge">out&lt;-NULL</
 37
 38
 39
-</pre></td>
-<td class="code"><pre><span class="nn">---</span>
+</pre></td><td class="code"><pre><span class="nn">---</span>
 <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">test"</span>
 <span class="na">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dolf</span><span class="nv"> </span><span class="s">Andringa'</span>
 <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
@@ -179,13 +172,11 @@ for(sg in species_groups){
 }</span>
 <span class="p">```</span>
 <span class="sb">`r paste(out, collapse='\n')`</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This is the child Rmd file (called individual_species_blog.Rmd):</p>
 
-<figure class="highlight"><pre><code class="language-md" data-lang="md"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-md" data-lang="md"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -225,8 +216,7 @@ for(sg in species_groups){
 38
 39
 40
-</pre></td>
-<td class="code"><pre><span class="nn">---</span>
+</pre></td><td class="code"><pre><span class="nn">---</span>
 <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Individual</span><span class="nv"> </span><span class="s">Species"</span>
 <span class="na">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dolf</span><span class="nv"> </span><span class="s">Andringa'</span>
 <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">February</span><span class="nv"> </span><span class="s">7,</span><span class="nv"> </span><span class="s">2016"</span>
@@ -266,8 +256,7 @@ coefs&lt;-as.data.frame(coefs)
 coefs&lt;-coefs[with(coefs,order(coefs$pvalue)),]
 knitr::kable(coefs)</span>
 <span class="p">```</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 
         </section>
@@ -285,7 +274,7 @@ knitr::kable(coefs)</span>
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
-              
+
               
               <li>
                 <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
@@ -335,7 +324,7 @@ knitr::kable(coefs)</span>
             <ul class="copyright">
                 <li>&copy; Dolf Andringa 2005</li>
             </ul>
-          
+
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -16,19 +16,14 @@
   		<script src="/js/jquery.min.js"></script>
   		<script src="/js/jquery.poptrox.min.js"></script>
   		<script src="/js/skel.min.js"></script>
-  		<script src="/js/init.js"></script>
+  		<!--script src="/js/init.js"></script-->
       <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
       <script src="/jesl/jesl.min.js"> </script>
-  	  <link rel="stylesheet" href="/css/syntax.css" />
-  		<noscript>
-  			<link rel="stylesheet" href="/css/skel.css" />
-  			<link rel="stylesheet" href="/css/style.css" />
-  			<link rel="stylesheet" href="/css/style-xlarge.css" />
-  		</noscript>
+      <link rel="stylesheet" href="/assets/css/main.css" />
   		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
   	</head>
 
-	<body id="top">
+    <body id="top" >
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -39,7 +34,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
       <header id="header">
-          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <a href="/resume.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
           <h1><strong>I am Dolf Andringa</strong>, an ecologist, geek and software developer.
             This site contains my personal ramblings.</h1>
       </header>
@@ -71,7 +66,7 @@
 <p>What I’m trying to do is load a static png image in the canvas, and draw text in that canvas as well that is stored in the scope of the controller. This is why I like Angular. You just define a variable in your controller, and whenever that value changes in the controller, automatically the web-interface changes according to the changing data. No complicated event handling necessary (well, Angular does that for you). This is a screenshot of the finished version of what I was trying to do:</p>
 
 <ul>
-  <li><img src="/images/solar_state_canvas_angular-thumb.png" alt="Dynamically changing text in solar system image" data-fullimage="/images/solar_state_canvas_angular.png"></li>
+  <li><img src="/images/solar_state_canvas_angular.png" alt="Dynamically changing text in solar system image" /></li>
 </ul>
 
 <p>All the numbers in the drawing change dynamically with changing data from a web-service, but are located within the canvas that the png image is in too, so there is not html/css positioning nightmare.</p>
@@ -106,7 +101,7 @@
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
-              
+
               
               <li>
                 <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
@@ -156,7 +151,7 @@
             <ul class="copyright">
                 <li>&copy; Dolf Andringa 2005</li>
             </ul>
-          
+
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

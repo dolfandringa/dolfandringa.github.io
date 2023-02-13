@@ -16,19 +16,14 @@
   		<script src="/js/jquery.min.js"></script>
   		<script src="/js/jquery.poptrox.min.js"></script>
   		<script src="/js/skel.min.js"></script>
-  		<script src="/js/init.js"></script>
+  		<!--script src="/js/init.js"></script-->
       <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
       <script src="/jesl/jesl.min.js"> </script>
-  	  <link rel="stylesheet" href="/css/syntax.css" />
-  		<noscript>
-  			<link rel="stylesheet" href="/css/skel.css" />
-  			<link rel="stylesheet" href="/css/style.css" />
-  			<link rel="stylesheet" href="/css/style-xlarge.css" />
-  		</noscript>
+      <link rel="stylesheet" href="/assets/css/main.css" />
   		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
   	</head>
 
-	<body id="top">
+    <body id="top" >
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -39,7 +34,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
       <header id="header">
-          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <a href="/resume.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
           <h1><strong>I am Dolf Andringa</strong>, an ecologist, geek and software developer.
             This site contains my personal ramblings.</h1>
       </header>
@@ -72,7 +67,7 @@
 
 <p>So what am I using for this? To create nice looking reports/dashboard for policy makers and managers, I decided to use <a href="https://superset.incubator.apache.org/">Apache Superset</a>. This is an awesome tool that allows not-too-technical people (depends on your point of view I guess) to create dashboards that are great for policy makers. It can connect to a whole host of databases and pull the data in, and provides drag-and-drop interfaces to create graphs, pivot tables, filters, maps, etc. Basically anyone with decent MS Excel skills can also use superset.</p>
 
-<p><a href="/images/modama%20stack.png"><img src="http://allican.be/images/modama%20stack.png" alt="The full application stack" height="700px"></a></p>
+<p><a href="/images/modama stack.png"><img src="http://allican.be/images/modama%20stack.png" alt="The full application stack" height="700px" /></a></p>
 
 <p>The nice thing for me personally, is that superset is developed using <a href="http://flaskappbuilder.pythonanywhere.com/">Flask App Builder</a> (FAB). I have been using Flask for a long time already so it allows me to extend Superset if needed. Also, it allows me to develop additional functionality in FAB and integrate the two in one application.</p>
 
@@ -101,7 +96,7 @@
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
-              
+
               
               <li>
                 <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
@@ -151,7 +146,7 @@
             <ul class="copyright">
                 <li>&copy; Dolf Andringa 2005</li>
             </ul>
-          
+
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

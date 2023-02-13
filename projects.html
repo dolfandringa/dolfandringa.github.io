@@ -14,19 +14,14 @@
   		<script src="/js/jquery.min.js"></script>
   		<script src="/js/jquery.poptrox.min.js"></script>
   		<script src="/js/skel.min.js"></script>
-  		<script src="/js/init.js"></script>
+  		<!--script src="/js/init.js"></script-->
       <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
       <script src="/jesl/jesl.min.js"> </script>
-  	  <link rel="stylesheet" href="/css/syntax.css" />
-  		<noscript>
-  			<link rel="stylesheet" href="/css/skel.css" />
-  			<link rel="stylesheet" href="/css/style.css" />
-  			<link rel="stylesheet" href="/css/style-xlarge.css" />
-  		</noscript>
+      <link rel="stylesheet" href="/assets/css/main.css" />
   		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
   	</head>
 
-	<body id="top">
+    <body id="top" >
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -37,7 +32,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
       <header id="header">
-          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <a href="/resume.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
           <h1><strong>I am Dolf Andringa</strong>, an ecologist, geek and software developer.
             This site contains my personal ramblings.</h1>
       </header>
@@ -69,7 +64,6 @@
             <section>
                 <p>There are many citizen science projects around the globe where scientists or policy makers try to involve the general public in collecting data. For conservation, citizen science is a powerful tool, allowing policy makers and conservationists to involve the public in helping to make policy, employ a large voluntary workforce and create awareness among the public. Traditionally this has been done by creating dedicated mobile apps, which citizen scientists use to report data. A plethora of apps exist for many different purposes.</p>
 
-
             </section>
             <footer>
               <ul class="actions">
@@ -89,7 +83,6 @@
                     <section>
                         <p>For my <a href="/tag/aquaponics/">aquaponics project</a> I need to create a timed switch that turns my pump on and off. I am doing this with a simple 555 timer in a-stable mode, a capacitor, a relais and two pot-meters. The timer in a-stable mode switches a pin between high and low state, for a fixed amount of time. Both the high and the low times can be adjusted with the potentiometers.</p>
 
-
                     </section>
                     <footer>
                         <ul class="actions">
@@ -108,7 +101,6 @@
 As a final step to the first implementation I need to regulate the flow of water from our fish tank to the grow bed. I decided to do this with a timer that switches the pump on and off. In order to create the electronics for this timer, I need to know accurately how much water is flowing from one compartment into the next.
 Of course I could just have done the maths for this on the back of a napkin, but I though writing an application that does the simulation would be much more fun.</p>
 
-
                     </section>
                     <footer>
                         <ul class="actions">
@@ -124,7 +116,6 @@ Of course I could just have done the maths for this on the back of a napkin, but
                     </header>
                     <section>
                         <p>Over the years I have wondered why researchers still rely on spreadsheet applications to record their research data. Although most people know how to use them, spreadsheets have very serious drawbacks, especially if multiple people contribute data to the same dataset/project. With spreadsheets it is usually not possible to have multiple people enter data concurrently. It is also hard to check the sanity of entered data unless you start working with complex formulas and macros, which quickly become very complex, error prone and hard to maintain. And lastly, transforming data in a spreadsheet where you combine data from different tabs/tables, transpose data, filter/sort data, group/split data, etc becomes hard and error prone. For these (and more) reasons, (relational) databases with a decent data entry application in front of it are much better suited for research data.</p>
-
 
                     </section>
                     <footer>
@@ -143,7 +134,7 @@ Of course I could just have done the maths for this on the back of a napkin, but
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
-              
+
               
               <li>
                 <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
@@ -193,7 +184,7 @@ Of course I could just have done the maths for this on the back of a napkin, but
             <ul class="copyright">
                 <li>&copy; Dolf Andringa 2005</li>
             </ul>
-          
+
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

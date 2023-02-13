@@ -16,19 +16,14 @@
   		<script src="/js/jquery.min.js"></script>
   		<script src="/js/jquery.poptrox.min.js"></script>
   		<script src="/js/skel.min.js"></script>
-  		<script src="/js/init.js"></script>
+  		<!--script src="/js/init.js"></script-->
       <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
       <script src="/jesl/jesl.min.js"> </script>
-  	  <link rel="stylesheet" href="/css/syntax.css" />
-  		<noscript>
-  			<link rel="stylesheet" href="/css/skel.css" />
-  			<link rel="stylesheet" href="/css/style.css" />
-  			<link rel="stylesheet" href="/css/style-xlarge.css" />
-  		</noscript>
+      <link rel="stylesheet" href="/assets/css/main.css" />
   		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
   	</head>
 
-	<body id="top">
+    <body id="top" >
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -39,7 +34,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
       <header id="header">
-          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <a href="/resume.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
           <h1><strong>I am Dolf Andringa</strong>, an ecologist, geek and software developer.
             This site contains my personal ramblings.</h1>
       </header>
@@ -73,7 +68,7 @@
 Knime does it’s work this by creating a chain of “nodes” (operations) that are connected by arrows. Each node does somethings small, like calculate a number, filter rows, rename columns, etc. The data flows through the chain of operations from the start node to the end node.</p>
 
 <ul>
-  <li><img src="/images/knime_workflow-thumb.png" alt="My knime workflow combining data from multiple sources into one workflow for analysis and visualisation." data-fullimage="/images/knime_workflow.png"></li>
+  <li><img src="/images/knime_workflow.png" alt="My knime workflow combining data from multiple sources into one workflow for analysis and visualisation." /></li>
 </ul>
 
 <p>With the nodes you can do calculations, filtering, joining data, grouping, pivot tables, transposing, etc. It also has graphing tools, and an enormous amount of plugins that let you go into seriously complex modelling, genetics, bioinformatics, geo-information, etc. It allows you to read a whole directory of files, databases, allows you to download data/files automatically from the internet or webservices and interface with online API’s like google analytics and twitter. Most of this stuff I haven’t tried out though.</p>
@@ -87,7 +82,7 @@ I for instance use the python scripting node to Date/Time manipulations and some
 <p>A larger python node that I created is for visualisation. Knime has quite a few graphing tools, from <a href="http://marcoghislanzoni.com/blog/2016/04/29/knime-3-charting-with-plotly-js/">javascript based ones which can use some awesome graphing libraries for webapplications like Plotly.js</a>, to it’s own internal graphing tool. But none of those were good enough for me. The performance of the javascript based ones was bad with large amounts of data (one of my workflows has a few 100.000 rows) while the internal one wasn’t interactive enough. I decided to go with Python’s <a href="http://matplotlib.org/">matplotlib</a> which is used a lot in the scientific community as is really good. Especially the <a href="http://matplotlib.org/users/pyplot_tutorial.html">Pyplot graphs</a>, which have an interactive interface are nice to use, enabling you to zoom in and out, switch data series on and off and save the resulting final graph as a png file.</p>
 
 <ul>
-  <li><img src="/images/knime-matplotlib-graph-thumb.png" alt="The resulting graph of using matplotlib in a Knime Python View node" data-fullimage="/images/knime-matplotlib-graph.png"></li>
+  <li><img src="/images/knime-matplotlib-graph.png" alt="The resulting graph of using matplotlib in a Knime Python View node" /></li>
 </ul>
 
 <p>The below code does the matplotlib work. The code is commented and together with the <a href="http://matplotlib.org/users/pyplot_tutorial.html">pyplot docs</a> is quite understandable.</p>
@@ -188,7 +183,7 @@ I for instance use the python scripting node to Date/Time manipulations and some
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
-              
+
               
               <li>
                 <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
@@ -238,7 +233,7 @@ I for instance use the python scripting node to Date/Time manipulations and some
             <ul class="copyright">
                 <li>&copy; Dolf Andringa 2005</li>
             </ul>
-          
+
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

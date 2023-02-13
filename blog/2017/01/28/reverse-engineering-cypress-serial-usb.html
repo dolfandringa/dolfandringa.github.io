@@ -16,19 +16,14 @@
   		<script src="/js/jquery.min.js"></script>
   		<script src="/js/jquery.poptrox.min.js"></script>
   		<script src="/js/skel.min.js"></script>
-  		<script src="/js/init.js"></script>
+  		<!--script src="/js/init.js"></script-->
       <link href="/jesl/jesl.min.css" rel="stylesheet" media="screen" type="text/css">
       <script src="/jesl/jesl.min.js"> </script>
-  	  <link rel="stylesheet" href="/css/syntax.css" />
-  		<noscript>
-  			<link rel="stylesheet" href="/css/skel.css" />
-  			<link rel="stylesheet" href="/css/style.css" />
-  			<link rel="stylesheet" href="/css/style-xlarge.css" />
-  		</noscript>
+      <link rel="stylesheet" href="/assets/css/main.css" />
   		<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
   	</head>
 
-	<body id="top">
+    <body id="top" >
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -39,7 +34,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
       <header id="header">
-          <a href="/aboutme.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
+          <a href="/resume.html" class="image avatar"><img src="/images/avatar.jpg" alt="Dolf Andringa" /></a>
           <h1><strong>I am Dolf Andringa</strong>, an ecologist, geek and software developer.
             This site contains my personal ramblings.</h1>
       </header>
@@ -166,7 +161,7 @@ Even though my device is not claimed by that driver, I hoped it might be support
 <p>From that point you need to look in wireshark at the USB data going back and forth. As I said I had two windows open, one with the data sent by the program I had (and it’s driver) the other with the data I sent back and forth. If you click on a packet in wireshark, you see two panels with the data being sent. The bottom panel contains the raw hexadecimal and text representations of that data side by side, while the middle one contains the interpretation of that for this protocol. So if you click on a field in the middle panel, it will highlight the hex and text data that correspond to it in the bottom. If you see differences between data between both wireshark windows, you can see that way which USB/URB fields are actually different. There are a few that will always be different, namely the URB id, URB sec and URB usec fields. So don’t worry about those. In my case, when talking USB control requests, the main points to get right where the bmRequestType (0x21 in the example below) bRequest (0x09), wValue (0x0200), wIndex(0x0000), wLength (0x0008) and the actual Data Fragment.</p>
 
 <ul>
-  <li><img src="/images/wireshark_usbmon-thumb.png" alt="Wireshark USB monitoring data" data-fullimage="/images/wireshark_usbmon.png"></li>
+  <li><img src="/images/wireshark_usbmon.png" alt="Wireshark USB monitoring data" /></li>
 </ul>
 
 <p>The Data Fragment is the real data you are sending in the body of the control request. That is the part that changed for me and I had to figure out myself. Basically for this inverter it consists of a string (QPI in the example), followed by a 2 byte CRC (<a href="https://pypi.python.org/pypi/crc16/">crc16.crcxmodem</a> in python helped here) and a linefeed character ‘\r’, and then padded with null characters up to 8 bytes. Knowing this, I could send any command to the inverter and get valid data back. In this case, the data comes back through an interrupt message.</p>
@@ -220,7 +215,7 @@ Of course I need to now abstract it to a level where I can request specific vari
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
-              
+
               
               <li>
                 <a href="https://stackoverflow.com/users/867162" class="icon fa-stack-overflow">
@@ -270,7 +265,7 @@ Of course I need to now abstract it to a level where I can request specific vari
             <ul class="copyright">
                 <li>&copy; Dolf Andringa 2005</li>
             </ul>
-          
+
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
