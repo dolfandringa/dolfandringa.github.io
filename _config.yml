@@ -43,6 +43,4 @@ tag_index_dir: "/archive/"
 plugins:
       - jekyll-last-modified-at
       - jekyll-feed
-      - jekyll-assets
-      - jekyll-coffeescript
 #      - jekyll-pdf

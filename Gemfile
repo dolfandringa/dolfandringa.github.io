@@ -19,7 +19,4 @@ gem 'jekyll-sitemap'
 gem 'pygments.rb'
 gem 'jekyll-feed'
 gem 'jekyll-coffeescript'
-#gem "sprockets"#, "~> 3.7"
-#gem "jekyll-assets"#, '~> 2'
-gem "jekyll-assets", group: :jekyll_plugins
 #gem 'jekyll-pdf', git: 'https://github.com/jekyll-pdf/jekyll-pdf'
