@@ -1073,7 +1073,7 @@ ul.skills > li > ul > li {
 /* Main */
 body.resume #main {
   font-size: 10pt;
-  grid-row-gap: calc(40px /2);
+  grid-row-gap: 0;
   grid-column-gap: 40px;
   grid-template: auto auto auto auto auto auto auto auto auto auto/20% calc(80% - 40px);
 }
@@ -1394,6 +1394,76 @@ body.is-touch .poptrox-popup .nav-next,
 body.is-touch .poptrox-popup .nav-previous,
 body.is-touch .poptrox-popup .closer {
   opacity: 1 !important;
+}
+
+@media only screen and (max-width: 600px) {
+  /* Basic */
+  h1 {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+  h3 {
+    font-size: 1em;
+  }
+  /* Section/Article */
+  section.special, article.special {
+    text-align: center;
+  }
+  header {
+    display: none;
+  }
+  header.major h2 {
+    font-size: 1.35em;
+  }
+  /* List */
+  ul.labeled-icons li {
+    padding-left: 2em;
+  }
+  ul.labeled-icons li h3 {
+    line-height: 1.75em;
+  }
+  /* Header */
+  #header {
+    display: none;
+  }
+  #header h1 {
+    font-size: 1.35em;
+  }
+  /* Footer */
+  #footer {
+    padding: 2.25em 1.5em;
+  }
+  /* Main */
+  body {
+    grid-template-areas: "header" "nav" "main";
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+  }
+  body.resume #main {
+    grid-column-gap: 1.5em;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+    grid-template-columns: 100%;
+  }
+  body.resume #main > section#skills {
+    grid-row: 5/span 1;
+  }
+  body.resume #main > section#me {
+    grid-row: 1/span 1;
+    grid-column: 1/span 1;
+  }
+  body.resume #main > section#me .personalinfo {
+    grid-column: 1/span 1;
+  }
+  /* Poptrox */
+  .poptrox-popup {
+    border-radius: 0;
+  }
+  .poptrox-popup .nav-next:before,
+  .poptrox-popup .nav-previous:before {
+    margin-top: -1em;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
