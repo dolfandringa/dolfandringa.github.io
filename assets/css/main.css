@@ -1059,6 +1059,7 @@ ul.skills {
 ul.skills > li {
   font-weight: bold;
   padding: 0;
+  margin-top: calc(40px /6);
   list-style: none;
 }
 ul.skills > li > ul {
