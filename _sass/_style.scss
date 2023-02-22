@@ -969,6 +969,7 @@ ul.skills {
 	> li {
 		font-weight: bold;
 		padding: 0;
+		margin-top: calc(#{$size-header-pad} /6);
 		list-style: none;
 		> ul {
 			margin: 0px;

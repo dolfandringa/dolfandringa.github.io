@@ -21,3 +21,12 @@ pdf: true
 </section>
 
 {% include resume-it.md %}
+
+<section markdown="1" id="references">
+### References
+
+| Manik Suri | CEO at Therma | manik@hellotherma.com |
+| Andrew Hager | CTO at Therma | ando@hellotherma.com |
+| Jomar Colao | Director of operations APAC at Therma | jomar@hellotherma.com |
+{: .references}
+</section>
