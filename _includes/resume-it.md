@@ -61,21 +61,21 @@ I am a software engineer with many years of experience and a strong affinity for
 ### Skills ###
 
 * Data science:
-    * R, Python, Jupyter, SciPy, SPSS, Bibtex, Latex, Apache Superset, AWS SageMaker
+    * R, Python, Jupyter, Pandas, SciPy, SPSS, AWS SageMaker
 * Programming languages:
     * Python, Embedded C/C++, Typescript, Javascript, PHP, Java
 * IoT and Infrastructure:
-    * MQTT, RabbitMQ, LoRaWAN, WiFi, LTE, Powerline, AWS IoT, AWS SQS/Lambda/SNS
+    * MQTT, RabbitMQ, LoRaWAN, WiFi, LTE, Powerline, PoE, AWS IoT, AWS SQS/Lambda/SNS
 * Dev-ops tools/services:
-    * Github/Lab/etc, Kubernetes, GitOps, FluxCD, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache, OpenVPN
+    * Github/Lab/etc, Kubernetes, GitOps, FluxCD, TravisCI, Ansible, Jenkins, Vagrant, AWS EC2, Heroku, Nginx, Apache
 * Databases:
     *   PostgreSQL, InfluxDB, Redis, MongoDB, MySQL, SQLite
 * Hardware & Embdedded:
-    * STM32, Atmel, ESP8266, Arduino, FreeRTOS, PlatformIO, Make, OpenWRT, Armbian, Eagle, Fusion360, PCB Design
+    * STM32, Atmel, ESP8266, Arduino, FreeRTOS, PlatformIO, Make, OpenWRT, Armbian, Fusion360, PCB Design
 * Web development frameworks:
     * Flask, NestJS, NodeJS, Express, FastAPI, Angular, Ionic, React, Drupal, Pylons
 * GIS:
-    * PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS
+    * PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork, ArcGIS
 * Languages:
     * Dutch, English, Spanish, French, German
 {: .skills}
