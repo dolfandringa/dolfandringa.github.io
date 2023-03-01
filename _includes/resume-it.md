@@ -60,10 +60,6 @@ I am a software engineer with many years of experience and a strong affinity for
 <section markdown="1" id="skills">
 ### Skills ###
 
-{% comment %}
-GIS:
- * PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS
-{% endcomment %}
 * Data science:
     * R, Python, Jupyter, SciPy, SPSS, Bibtex, Latex, Apache Superset, AWS SageMaker
 * Programming languages:
@@ -78,6 +74,8 @@ GIS:
     * STM32, Atmel, ESP8266, Arduino, FreeRTOS, PlatformIO, Make, OpenWRT, Armbian, Eagle, Fusion360, PCB Design
 * Web development frameworks:
     * Flask, NestJS, NodeJS, Express, FastAPI, Angular, Ionic, React, Drupal, Pylons
+* GIS:
+    * PostGIS, QGIS, Grass GIS, OpenLayers, Leaflet, GeoExt, Geoserver, GDAL, Geonetwork Open Source, ArcGIS
 * Languages:
     * Dutch, English, Spanish, French, German
 {: .skills}
