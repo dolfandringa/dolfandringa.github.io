@@ -63,7 +63,7 @@ I am a software engineer with many years of experience and a strong affinity for
 * Data science:
     * R, Python, Jupyter, Pandas, SciPy, SPSS, AWS SageMaker
 * Programming languages:
-    * Python, Embedded C/C++, Typescript, Javascript, PHP, Java
+    * Python, Embedded C/C++, Typescript, Lua, Javascript, PHP, Java
 * IoT and Infrastructure:
     * MQTT, RabbitMQ, LoRaWAN, WiFi, LTE, Powerline, PoE, AWS IoT, AWS SQS/Lambda/SNS
 * Dev-ops tools/services:
