@@ -1,4 +1,4 @@
-@import 'font-awesome.min.css';
+@import "font-awesome.min.css";
 @import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic");
 body nav {
   padding: 0 4em 0px 0px;
@@ -101,7 +101,7 @@ body.is-touch nav ul li {
   #main {
     overflow: visible !important;
   }
-  table.resume > tbody, table.skills > tbody, tr, td {
+  section#education_section, section#employment > ul > li {
     page-break-inside: avoid;
   }
 }
@@ -110,35 +110,82 @@ table.personalinfo {
   margin: 0px;
   border-top: 1px solid #dfdfdf;
 }
-table.personalinfo tbody tr, table.personalinfo tbody tr:nth-child(2n+1) {
+table.personalinfo tbody tr,
+table.personalinfo tbody tr:nth-child(2n+1) {
   background-color: transparent;
   border: 0px;
 }
-table.personalinfo tbody tr td, table.personalinfo tbody tr:nth-child(2n+1) td {
+table.personalinfo tbody tr td,
+table.personalinfo tbody tr:nth-child(2n+1) td {
   border-left: 1px solid #dfdfdf;
   line-height: 1em;
   padding: 0px 10px;
 }
-table.personalinfo tbody tr td:first-of-type, table.personalinfo tbody tr:nth-child(2n+1) td:first-of-type {
+table.personalinfo tbody tr td:first-of-type,
+table.personalinfo tbody tr:nth-child(2n+1) td:first-of-type {
   border-left: 0px;
   padding-left: 0px;
 }
 
-table.skills thead, table.resume thead, table.education thead {
+section#education_section > ul, section#employment > ul {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+section#education_section > ul > li, section#employment > ul > li {
+  list-style: none;
+  margin-left: 0px;
+  padding-left: 0px;
+  display: grid;
+  margin-bottom: 1em;
+  grid-template-areas: "title period" "content content";
+  grid-template-columns: 5fr 1fr;
+}
+section#education_section > ul > li ul, section#employment > ul > li ul {
+  margin-bottom: 0px;
+}
+section#education_section > ul > li > .period, section#employment > ul > li > .period {
+  grid-area: period;
+  font-style: italic;
+  text-align: right;
+}
+section#education_section > ul > li > .title, section#employment > ul > li > .title {
+  grid-area: title;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+section#education_section > ul > li > .content, section#employment > ul > li > .content {
+  grid-area: content;
+  padding-left: 2em;
+}
+
+section#education_section > ul > li {
+  margin-bottom: 5px;
+}
+
+table.skills thead,
+table.resume thead,
+table.education thead {
   display: none;
 }
-table.skills p, table.resume p, table.education p {
+table.skills p,
+table.resume p,
+table.education p {
   margin: 5px 0px;
   line-height: 1em;
 }
-table.skills tr td, table.resume tr td, table.education tr td {
+table.skills tr td,
+table.resume tr td,
+table.education tr td {
   padding: 0.2em 0.75em;
 }
-table.skills tr td:first-of-type, table.resume tr td:first-of-type, table.education tr td:first-of-type {
+table.skills tr td:first-of-type,
+table.resume tr td:first-of-type,
+table.education tr td:first-of-type {
   width: 110px;
 }
 
-table.resume tbody tr, table.resume tbody tr:nth-child(2n+1) {
+table.resume tbody tr,
+table.resume tbody tr:nth-child(2n+1) {
   background-color: transparent;
   border-width: 0px;
 }
@@ -166,10 +213,14 @@ body {
   margin: 0;
   display: grid;
   grid-template-areas: "header nav" "header main";
-  grid-template-columns: calc(30% - 40px) calc(100% - 30% + 40px);
+  grid-template-columns: calc(30% - 40px) calc(
+      100% - 30% + 40px
+    );
   grid-template-rows: 50px auto 0px;
 }
-body.is-loading *, body.is-loading *:before, body.is-loading *:after {
+body.is-loading *,
+body.is-loading *:before,
+body.is-loading *:after {
   -moz-animation: none !important;
   -webkit-animation: none !important;
   -o-animation: none !important;
@@ -186,7 +237,10 @@ nav {
   grid-area: nav;
 }
 
-body, input, select, textarea {
+body,
+input,
+select,
+textarea {
   color: #a2a2a2;
   font-family: "Source Sans Pro", Helvetica, sans-serif;
   font-size: 14pt;
@@ -210,12 +264,14 @@ a:hover {
   text-decoration: none;
 }
 
-strong, b {
+strong,
+b {
   color: #787878;
   font-weight: 400;
 }
 
-em, i {
+em,
+i {
   font-style: italic;
 }
 
@@ -223,13 +279,23 @@ p {
   margin: 0 0 2em 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #787878;
   font-weight: 400;
   line-height: 1em;
   margin: 0 0 1em 0;
 }
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
   color: inherit;
   text-decoration: none;
 }
@@ -318,7 +384,8 @@ pre code {
 }
 
 /* Section/Article */
-section.special, article.special {
+section.special,
+article.special {
   text-align: center;
 }
 
@@ -998,10 +1065,15 @@ input[type=button]:disabled,
   text-align: right;
   grid-area: header;
 }
-#header strong, #header b {
+#header strong,
+#header b {
   color: #ffffff;
 }
-#header h2, #header h3, #header h4, #header h5, #header h6 {
+#header h2,
+#header h3,
+#header h4,
+#header h5,
+#header h6 {
   color: #ffffff;
 }
 #header h1 {
@@ -1059,7 +1131,7 @@ ul.skills {
 ul.skills > li {
   font-weight: bold;
   padding: 0;
-  margin-top: calc(40px /6);
+  margin-top: calc(40px / 6);
   list-style: none;
 }
 ul.skills > li > ul {
@@ -1076,7 +1148,8 @@ body.resume #main {
   font-size: 10pt;
   grid-row-gap: 0;
   grid-column-gap: 40px;
-  grid-template: auto auto auto auto auto auto auto auto auto auto/20% calc(80% - 40px);
+  grid-template-areas: "me me" "contact contact" "skills ." "skills ." "skills ." "skills ." "skills ." "skills ." "skills ." "skills ." "skills ." "skills .";
+  grid-template-columns: 20% calc(80% - 40px);
 }
 
 #main {
@@ -1097,22 +1170,28 @@ body.resume #main {
 #main > section#tags {
   float: right;
 }
+#main > section#contact {
+  grid-area: contact;
+  margin-bottom: 40px;
+}
+#main > section#contact > p > span {
+  padding: 0px 10px;
+  border-left: 1px solid #dfdfdf;
+}
+#main > section#contact > p > span:last-of-type {
+  border-right: 1px solid #dfdfdf;
+}
 #main > section#posts {
   border-top: 0;
   margin-top: 0;
   padding-top: 0;
 }
 #main > section#me {
-  grid-row: 1/span 1;
-  grid-column: 1/span 2;
+  grid-area: me;
   padding: 0px;
   display: grid;
-  grid-auto-flow: row;
+  grid-auto-flow: column;
   align-items: end;
-  margin-bottom: 40px;
-}
-#main > section#me .personalinfo {
-  grid-column: 1/span 2;
 }
 #main > section#me h1.name {
   font-weight: bold;
@@ -1129,8 +1208,8 @@ body.resume #main {
   padding: 0px;
   font-style: italic;
 }
-#main > section#skills {
-  grid-row: 2/span 10;
+#main > section#skills_section {
+  grid-area: skills;
 }
 
 /* Poptrox */
