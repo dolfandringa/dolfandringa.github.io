@@ -21,7 +21,7 @@
   #main {
     overflow: visible !important;
   }
-  table.resume>tbody,table.skills>tbody,  tr,td {
+  section#education_section, section#employment >ul >li {
     page-break-inside : avoid;
   }
 }

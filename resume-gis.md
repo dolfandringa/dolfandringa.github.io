@@ -22,4 +22,4 @@ pdf: true
 <span class="email">email: dolfandringa@gmail.com</span><span class="cell">cell: +639272892137</span><span class="address">address: Meyerhof, 8 Palmey Way, West Balabag, Valencia, Negros Oriental 6215, The Philippines</span>
 </section>
 
-{% include resume-it.md %}
+{% include resume-gis.md %}

@@ -3,7 +3,8 @@ table.personalinfo {
   margin: 0px;
   border-top: 1px solid $color-border2;
   tbody {
-    tr, tr:nth-child(2n+1) {
+    tr,
+    tr:nth-child(2n + 1) {
       background-color: transparent;
       border: 0px;
       td {
@@ -11,7 +12,7 @@ table.personalinfo {
         line-height: 1em;
         padding: 0px 10px;
       }
-      td:first-of-type{
+      td:first-of-type {
         border-left: 0px;
         padding-left: 0px;
       }
@@ -19,38 +20,77 @@ table.personalinfo {
   }
 }
 
+section#education_section > ul, section#employment > ul {
+  margin-left: 0px;
+  padding-left: 0px;
+  > li {
+    ul{
+      margin-bottom: 0px;
+    }
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    display: grid;
+    margin-bottom: 1em;
+    grid-template-areas:
+      "title period"
+      "content content";
+    grid-template-columns: 5fr 1fr;
+     > .period {
+      grid-area: period;
+      font-style: italic;
+      text-align: right;
+    }
+    > .title {
+      grid-area: title;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    > .content {
+      grid-area: content;
+      padding-left: 2em;
+    }
+  }
+}
 
-table.skills, table.resume, table.education{
+section#education_section > ul > li {
+  margin-bottom: 5px;
+}
+
+table.skills,
+table.resume,
+table.education {
   thead {
     display: none;
   }
-  p{
+  p {
     margin: 5px 0px;
     line-height: 1em;
   }
-  tr{
-    td{
+  tr {
+    td {
       padding: 0.2em 0.75em;
     }
-    td:first-of-type{
+    td:first-of-type {
       width: 110px;
     }
   }
 }
-table.resume{
-  tbody{
-    tr, tr:nth-child(2n + 1){
+table.resume {
+  tbody {
+    tr,
+    tr:nth-child(2n + 1) {
       background-color: transparent;
       border-width: 0px;
     }
-    tr:first-child{
+    tr:first-child {
       background-color: #f2f2f2;
     }
   }
 }
-table.resume{
-  tbody{
-    tr:first-child td{
+table.resume {
+  tbody {
+    tr:first-child td {
       font-weight: bold;
     }
   }
