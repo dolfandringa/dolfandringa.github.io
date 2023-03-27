@@ -38,12 +38,12 @@
   - Consult with doctors and managers to create useful efficiency and quality of care reports for internal use and external accountability. This involved highly complex queries and the development of a unified data model across 7 different sources of customer data.
   - Cooperate with 7 electronic medical record software vendors to extract our customers data from their system, and understand their data models.
   - Cooperate with vendors in strategic partnerships to integrate our product into theirs.
-  - Take part in technical health care platforms covering data privacy and development medical reporting standards.
+  - Take part in technical health care platforms covering data privacy and development of medical reporting standards.
 - <span class="period">2004 - 2013</span><span class="title">Independent contractor in Elcyon.</span>
   - System and network administration at various companies
   - System administration at the main office of my university
   - Web-design and web-application development for university and private customers
-  - Proof of concept web-based GIS development, that culminated in the founding of Proigia.
+  - Proof of concept web-based GIS development, which culminated in the founding of Proigia.
 {: .resume}
 
 </section>
