@@ -1,49 +1,52 @@
 <section markdown="1" id="employment">
 ### Professional experience ###
 
-- <span class="period">2022 - 2023</span><span class="title">Solutions Architect at Therma, Cebu City, Cebu, The Philippines.</span>
-  - Architecture of IoT infrastructure (LoRaWAN, Chirpstack, AWS IoT, RabbitMQ, Influxdb, Redis, PostgreSQL, Kubernetes and FluxCI/CD), machine learning pipeline (Python, Kubernetes and Docker containers) and backend (Typescript and Next.js) for their HVAC/R energy product.
-  - Technical lead of the US based energy product development team of 6 engineers.
-  - Collaborate with the hardware engineer in designing a hardware prototype for smart refrigeration energy management.
-  - Support HVAC/R technicians and operational managers in installation and field testing of our off-the-shelf and prototype hardware in 50 refrigeration and HVAC units in restaurants in the bay area.
-  - This product was pivotal in Therma closing its $19M Series A funding.
-  - Contribute to the filing of 2 provisional patent applications.
+- <span class="period">2023 - present</span><span class="title">Senior Software Engineer at Scene Connect Ltd, UK</span>
+  - I am technical lead on the software and IoT solutions employed by Scene Connect Ltd and ZUoS Ltd to bring the energy transition to everybody, focused around community energy flexibility and retrofitting. My responsibilities include:
+    - Translate business requirements into technical requirements and solutions
+    - Design and build backend and modelling and IoT infrastructure
+    - Assist the company in bringing projects with successful public funding to market
+- <span class="period">2023 - present</span><span class="title">Consultant/Onwer at Intelliconnect LLC, Wyoming, USA</span>
+  - Consulting with tech startups to design and build PoC and MVP products and bring them to market.
+  - Example projects:
+    - Proposal for a Dutch energy flexibility and net congestion solution for home and SME market
+    - Energy optimization algorithm and IoT infrastructure development based on Losant for a Thermal Energy Storage startup in the Netherlands through ICr3ate
+    - MVP Backend and AI pipeline design and development based on Terraform, AWS DynamoDB, Lamba and API Gateway, and FastAPI for SunriseAI, a fintech startup in the US.
+- <span class="period">2022 - 2023</span><span class="title">Solutions Architect at Therma (Glacier Grid), Cebu City, Cebu, The Philippines + San Fransisco,  USA.</span>
+  - I designed and was the technical lead on the PoC development of the energy management application for commercial refrigeration that resulted in the company closing its $19 series A funding. This included:
+    - IoT infrastructure based on LoraWAN and RabbitMQ
+    - NodeJS + Typescript event driven back-end
+    - machine learning pipeline (based on Kubernetes, RabbitMQ, Python and Typescript)
+    - prototype hardware integration and testing of the HVACR energy product of Therma, tested at 50 restaurant locations around the Bay Area in california in collaboration with HVACR technicans. 
+    - I contributed heavily on two provisional patent applications, both regarding using the unique properties of refrigeration and HVAC systems to respond to dynamic energy demands and pricing from utility companies. This product was a major factor in Therma closing its $19M Series A funding.
   {: .content }
-- <span class="period">2019 - 2022 </span><span class="title">Lead IoT Engineer at CoInspect Philippines Inc (dba Therma), Cebu City, Cebu, The Philippines.</span>
-  - Build the Philippine embedded team of 6 engineers towards independence, in charge of the IoT infrastructure and software-hardware integration of Therma's monitoring platform for commercial refrigeration.
-  - Design and setup the IoT infrastructure (LoRaWAN, AWS IoT, RabbitMQ, Chirpstack, Kubernetes) for Therma's monitoring product.
-  - Prototype hardware design (PCB, schematics and CAD) and development for Therma's own gateways and sensors, collaborating with a consultant for the actual manufacturing. 
-  - Firmware development (using embedded C and C++, OpenWRT, PlatformIO, Armbian and STM32) for Therma's own sensors and gateways
-  - Once the team was built up, I was able to move on to the development of the new energy product. 
-  - The product was in constant use at around 4000 restaurants and educational institutes in the US and beyond.
-  - Together with the energy product this product was pivotal for Therma closing its $19M Series A funding.
+- <span class="period">2019 - 2022 </span><span class="title">Lead IoT Engineer at CoInspect Philippines Inc (Therma), Cebu City, Cebu, The Philippines.</span>
+I was the technical lead IoT engineer for our Therma LoRaWAN based wireless sensors for commercial refrigeration, including backend architecture, electronics prototyping, embedded development and gateway development.
   {: .content}
-- <span class="period">2016 - present </span><span class="title">Consultant</span>
-  - Geospatial and scientific data analysis and visualization and co-authoring the report for the Philippine Department of Environment and Natural Resources and Marine Wildlife Watch of the Philippines and funded by the German GIZ, of a large Marine Turtle monitoring dataset covering 20 years of data. The age of the dataset and inconsistent monitoring effort made the data cleanup and consultancy on what questions could actually be answered with the data an interesting and fun but tough challenge. 
-  - Design and build a smart classroom and dormitory system at Foundation University, Dumaguete, The Philippines. This served as an educational tool to teach students software and IoT engineering practices, and provide Capstone topics for their Computer Science education.
-  - Lead the Nightowl technhology incubator at Foundation University, Dumaguete, The Philippines
+- <span class="period">2016 - 2019 </span><span class="title">Consultant</span>
+  - Geospatial and scientific data analysis and visualization using Python, Jupyter notebooks, Pandas, QGIS, PostgreSQL/PostGIS and Apache Superset and co-authoring the report for the Philippine Department of Environment and Natural Resources and Marine Wildlife Watch of the Philippines and funded by the German GIZ of a large Marine Turtle monitoring dataset covering 20 years of data.
   {: .content }
-- <span class="period">2016 - 2019 </span><span class="title">Partner at East Solar Works</span>
-  - Investigate new technologies (mostly direct PV solar pumping using Variable Frequency Drives) and opportunities for the local solar market in the Philippines
-  - Structure the pre-sales and engineering processes for domestic and municipal solar installation projects.
-  - Build a custom monitoring tool to replace a badly designed manufacturer supplied solution for a solar inverter.
+- <span class="period">2016 - 2019</span><span class="title">Consultant Software Engineering and IoT at Foundation University</span>
+  - Design and build a smart classroom and dormitory system as an educational tool to teach students software and IoT engineering practices, and provide Capstone topics for their Computer Science education.
+  - Lead the Nightowl technhology incubator
+  {: .content}
+- <span class="period">2016 - 2024 </span><span class="title">Partner at East Solar Works</span>
+  - New technology R&D (mostly direct PV solar pumping using VFD's) and restructure the engineering and pre-sales process.
   {: .content}
  - <span class="period">2014 - 2016 </span><span class="title">Science Officer at Marine Conservation Philippines</span>
-  <span class="content">MCP is a non-profit nature conservation organization, funded by its volunteer program. My main responsibility was research and monitoring setup and execution, and supervision of interns and volunteers in those activities as well as coordination of conservation efforts with stakeholders. Later on my role shifted towards technical activities like data management and analysis, GIS and remote sensing.</span>
+  - Design and execute scientific and marine conservation projects 
+  - Supervise and train interns, MSc thesis students and volunteers
+  - Support local government conservation efforts with scientific and GIS data
+  {: .content}
 - <span class="period">2013 - 2014</span><span class="title">Lecciones Amazonicas project coordinator at Amazon Fund, Bolivia</span>
-  <span class="content">Coordination of an environmental education project in two consecutive secondary school years, in the Bolivian Amazon. Responsibilities included design and layout (in LateX) of educational material for a field practical and ecology course for secondary schools, and the coordination of the project with schools, teachers, directors, the municipality and local indigenous guides. The educational material was published in a web-portal that I implemented in Drupal.</span>
-- <span class="period">2010 - 2013</span><span class="title">Chief Technical Officer at [Proigia](//www.proigia.nl)</span>
-  - Co-founding a company, eventually with around 7 employees, building business intelligence software (using Python, PostgreSQL and PostGIS) used at large primary healthcare practices and cooperatives in the Netherlands. The customers covered the large majority of patients in multiple metropolitan areas and smaller towns. The company still exists and some of the original employees I hired are still there, but at my exit, the company was taken over by a larger competitor.
-  - Design and build the web-based reporting software and web-based GIS.
-  - Consult with doctors and managers to create useful efficiency and quality of care reports for internal use and external accountability. This involved highly complex queries and the development of a unified data model across 7 different sources of customer data.
-  - Cooperate with 7 electronic medical record software vendors to extract our customers data from their system, and understand their data models.
-  - Cooperate with vendors in strategic partnerships to integrate our product into theirs.
-  - Take part in technical health care platforms covering data privacy and development of medical reporting standards.
+  - For an environmental education project I will develop (together with Annelies Andringa) the educational material for the Tacana indigenous community from San Miguel del Bala, who will use it when teaching at 4 highschools in Rurrenabaque, Bolivia.
+  {: .content}
+- <span class="period">2010 - 2013</span><span class="title">Founder/CTO at [Proigia](//www.proigia.nl)</span>
+  - I lead and built business intelligence software used at large primary healthcare practices and cooperatives in the Netherlands, integrating with the 7 large electronic medical record systems in the Netherlands and covering close to half a million patients. The company eventually had around 7 employees and was taken over by a competitor, but still exists to this day. I made the technical decisions, and co-lead strategic decision making. I also took part in governmental bodies creating the standards for privacy by design in health care business intelligence in the Netherlands.
 - <span class="period">2004 - 2013</span><span class="title">Independent contractor in Elcyon.</span>
-  - System and network administration at various companies
-  - System administration at the main office of my university
-  - Web-design and web-application development for university and private customers
-  - Proof of concept web-based GIS development, which culminated in the founding of Proigia.
+  - System and network administration at various companies including my university
+  - Developed a web-based GIS application prototype for healthcare, a grant project management application for the university and various websites.
+  {: .content}
 {: .resume}
 
 </section>

@@ -19,7 +19,7 @@ pdf: true
 
 </section>
 <section markdown="1" id="contact">
-<span class="email">email: dolfandringa@gmail.com</span><span class="cell">cell: +639272892137</span><span class="address">address: Meyerhof, 8 Palmey Way, West Balabag, Valencia, Negros Oriental 6215, The Philippines</span>
+<span class="email">email: dolf@intelliconnect.tech</span><span class="cell">cell: +31630959727</span><span class="address">Wherever I lay my head is home, but working at NL and UK timezones</span>
 </section>
 
 {% include resume-it.md %}
