@@ -101,6 +101,14 @@ body.is-touch nav ul li {
   #main {
     overflow: visible !important;
   }
+  section#summary,
+  section#summary > p {
+    page-break-after: avoid;
+  }
+  section#employment,
+  section#employment h3#professional-experience {
+    page-break-before: avoid;
+  }
   section#education_section, section#employment > ul > li {
     page-break-inside: avoid;
   }
