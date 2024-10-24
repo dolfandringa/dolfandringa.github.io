@@ -47,21 +47,25 @@
       <div id="main">
 
 
-            <article>
-        <header class="major">
-            <h2 class="post-title">Reverse Engineering a Cypress USB to Serial driver</h2>
-                <p class="post-meta">
-                  Jan 28, 2017
-                  
-                  
-                  <span class="tags">
-                    Tags:  <a href="/tag/usb">usb</a>  <a href="/tag/reverse_engineering">reverse_engineering</a>  <a href="/tag/python">python</a>  <a href="/tag/usbip">usbip</a>  <a href="/tag/cypress">cypress</a>  <a href="/tag/driver">driver</a>  <a href="/tag/solar">solar</a> 
-                  </span>
-                </p>
-        </header>
+        <article>
+  <header class="major">
+    <h2 class="post-title">Reverse Engineering a Cypress USB to Serial driver</h2>
+    <p class="post-meta">
+      Jan 28, 2017  
+      <span class="tags">
+        Tags: 
+        <a href="/tag/usb">usb</a> 
+        <a href="/tag/reverse_engineering">reverse_engineering</a> 
+        <a href="/tag/python">python</a> 
+        <a href="/tag/usbip">usbip</a> 
+        <a href="/tag/cypress">cypress</a> 
+        <a href="/tag/driver">driver</a> 
+        <a href="/tag/solar">solar</a> 
+      </span>
+    </p>
+  </header>
 
-        <section>
-            <p>The last few weeks I have been busy on a solar monitoring project. I have a minimal viable product working based on an RS232 enabled inverter I have here. The first client I wanted to deploy it with has a similar inverter from the same company, just with a usb port instead of RS232. I was expecting it to be a serial over USB port that would just work as-is with a usb to serial driver, especially because it advertises itself as a Cypress USB to Serial device when you attach it to your computer. Unfortunately this wasn’t true, requiring me to reverse-engineer the USB communication for it. In the end this was easier than I thought it would be and it was a whole lot of fun. This post just shares the quest I went through.</p>
+  <section><p>The last few weeks I have been busy on a solar monitoring project. I have a minimal viable product working based on an RS232 enabled inverter I have here. The first client I wanted to deploy it with has a similar inverter from the same company, just with a usb port instead of RS232. I was expecting it to be a serial over USB port that would just work as-is with a usb to serial driver, especially because it advertises itself as a Cypress USB to Serial device when you attach it to your computer. Unfortunately this wasn’t true, requiring me to reverse-engineer the USB communication for it. In the end this was easier than I thought it would be and it was a whole lot of fun. This post just shares the quest I went through.</p>
 
 <p>The inverter uses a Cypress Serial to USB chip for communication with device ID 0665:5161.
 This is the lsusb output:</p>
@@ -199,16 +203,21 @@ Even though my device is not claimed by that driver, I hoped it might be support
 
 <p>It’s the world’s smallest driver ever, once again <a href="https://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants">standing on the shoulders of giants</a>.
 Of course I need to now abstract it to a level where I can request specific variables from the inverter, check the integrity of the returned data, which also contains a 2-byte CRC16, etc. But at this point that is a matter of either knowing what the messages and it’s responses mean (which I do) or just repeating the messages yourself using python code and then looking at the returned data and looking at the inverter to see which number means what (a bit less reliable). One tip is to attach a device to the inverter and request all those variables frequently and logging it in a database or CSV file. Looking at the numbers over time, combined with knowledge about the inverter and how they work can get you a long way to figure this out.</p>
+</section>
 
-        </section>
-        
-        <footer>
-          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
-          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
-        </footer>
-
-    </article>
-
+  <footer>
+    <div
+      class="fb-comments"
+      id="FC"
+      data-href=""
+      data-width="600"
+      data-numposts="10"
+    ></div>
+    <script type="text/javascript" language="javascript">
+      jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);
+    </script>
+  </footer>
+</article>
 
       </div>
 

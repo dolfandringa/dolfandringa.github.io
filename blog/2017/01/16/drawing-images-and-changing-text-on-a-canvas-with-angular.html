@@ -47,21 +47,24 @@
       <div id="main">
 
 
-            <article>
-        <header class="major">
-            <h2 class="post-title">Drawing images and interactively change text on a canvas using Angular JS.</h2>
-                <p class="post-meta">
-                  Jan 16, 2017
-                  
-                  
-                  <span class="tags">
-                    Tags:  <a href="/tag/angularjs">angularjs</a>  <a href="/tag/web-application">web-application</a>  <a href="/tag/website">website</a>  <a href="/tag/development">development</a>  <a href="/tag/canvas">canvas</a>  <a href="/tag/html5">html5</a> 
-                  </span>
-                </p>
-        </header>
+        <article>
+  <header class="major">
+    <h2 class="post-title">Drawing images and interactively change text on a canvas using Angular JS.</h2>
+    <p class="post-meta">
+      Jan 16, 2017  
+      <span class="tags">
+        Tags: 
+        <a href="/tag/angularjs">angularjs</a> 
+        <a href="/tag/web-application">web-application</a> 
+        <a href="/tag/website">website</a> 
+        <a href="/tag/development">development</a> 
+        <a href="/tag/canvas">canvas</a> 
+        <a href="/tag/html5">html5</a> 
+      </span>
+    </p>
+  </header>
 
-        <section>
-            <p>So I love <a href="https://angularjs.org/">AngularJS</a> (or Angular as <a href="https://www.infoq.com/news/2016/12/angular-4">you’re supposed to call it now</a>) for creating the interfaces of web-applications. I have really started to decouple the interfaces I make from the backend, by using Angular for the front-end and <a href="http://flask.pocoo.org">flask</a> to create a RESTful backend with which Angular communicates. It’s awesome. Right now I am making a web-interface that draws an image and dynamically changes numbers in that image depending on data it fetches from the backend. It is used in this case to show an image of a Solar Power system and dynamically change numbers in the image, showing the current state (battery capacity, panel output, power consumption, etc) of their system. I am using Angular for this and the <a href="http://www.w3schools.com/html/html5_canvas.asp">HTML5 Canvas</a> object.</p>
+  <section><p>So I love <a href="https://angularjs.org/">AngularJS</a> (or Angular as <a href="https://www.infoq.com/news/2016/12/angular-4">you’re supposed to call it now</a>) for creating the interfaces of web-applications. I have really started to decouple the interfaces I make from the backend, by using Angular for the front-end and <a href="http://flask.pocoo.org">flask</a> to create a RESTful backend with which Angular communicates. It’s awesome. Right now I am making a web-interface that draws an image and dynamically changes numbers in that image depending on data it fetches from the backend. It is used in this case to show an image of a Solar Power system and dynamically change numbers in the image, showing the current state (battery capacity, panel output, power consumption, etc) of their system. I am using Angular for this and the <a href="http://www.w3schools.com/html/html5_canvas.asp">HTML5 Canvas</a> object.</p>
 
 <p>What I’m trying to do is load a static png image in the canvas, and draw text in that canvas as well that is stored in the scope of the controller. This is why I like Angular. You just define a variable in your controller, and whenever that value changes in the controller, automatically the web-interface changes according to the changing data. No complicated event handling necessary (well, Angular does that for you). This is a screenshot of the finished version of what I was trying to do:</p>
 
@@ -85,16 +88,21 @@
 <p>The last thing I want to explain is how I fixed that my png image wasn’t actually showing up on my canvas. I could see in the “Network” tab of the developer tools of my browser that the image was loading, it just didn’t show up. The trick was to first create an onload function for the image object in which the image is drawn on the canvas, and only then set the src attribute. That way, the image starts loading as soon as you set the src attribute for it, and when it finishes, the onload method is called, which puts it on the canvas.</p>
 
 <p>I hope this code and explanation helps someone out there with some mad google skills.</p>
+</section>
 
-        </section>
-        
-        <footer>
-          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
-          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
-        </footer>
-
-    </article>
-
+  <footer>
+    <div
+      class="fb-comments"
+      id="FC"
+      data-href=""
+      data-width="600"
+      data-numposts="10"
+    ></div>
+    <script type="text/javascript" language="javascript">
+      jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);
+    </script>
+  </footer>
+</article>
 
       </div>
 

@@ -47,21 +47,25 @@
       <div id="main">
 
 
-            <article>
-        <header class="major">
-            <h2 class="post-title">Biodata: a flexible research data entry application</h2>
-                <p class="post-meta">
-                  Jan 4, 2016
-                  
-                  
-                  <span class="tags">
-                    Tags:  <a href="/tag/python">python</a>  <a href="/tag/flask">flask</a>  <a href="/tag/web-application">web-application</a>  <a href="/tag/database">database</a>  <a href="/tag/research">research</a>  <a href="/tag/postgresql">postgresql</a>  <a href="/tag/data-entry">data-entry</a> 
-                  </span>
-                </p>
-        </header>
+        <article>
+  <header class="major">
+    <h2 class="post-title">Biodata: a flexible research data entry application</h2>
+    <p class="post-meta">
+      Jan 4, 2016  
+      <span class="tags">
+        Tags: 
+        <a href="/tag/python">python</a> 
+        <a href="/tag/flask">flask</a> 
+        <a href="/tag/web-application">web-application</a> 
+        <a href="/tag/database">database</a> 
+        <a href="/tag/research">research</a> 
+        <a href="/tag/postgresql">postgresql</a> 
+        <a href="/tag/data-entry">data-entry</a> 
+      </span>
+    </p>
+  </header>
 
-        <section>
-            <p>Over the years I have wondered why researchers still rely on spreadsheet applications to record their research data. Although most people know how to use them, spreadsheets have very serious drawbacks, especially if multiple people contribute data to the same dataset/project. With spreadsheets it is usually not possible to have multiple people enter data concurrently. It is also hard to check the sanity of entered data unless you start working with complex formulas and macros, which quickly become very complex, error prone and hard to maintain. And lastly, transforming data in a spreadsheet where you combine data from different tabs/tables, transpose data, filter/sort data, group/split data, etc becomes hard and error prone. For these (and more) reasons, (relational) databases with a decent data entry application in front of it are much better suited for research data.</p>
+  <section><p>Over the years I have wondered why researchers still rely on spreadsheet applications to record their research data. Although most people know how to use them, spreadsheets have very serious drawbacks, especially if multiple people contribute data to the same dataset/project. With spreadsheets it is usually not possible to have multiple people enter data concurrently. It is also hard to check the sanity of entered data unless you start working with complex formulas and macros, which quickly become very complex, error prone and hard to maintain. And lastly, transforming data in a spreadsheet where you combine data from different tabs/tables, transpose data, filter/sort data, group/split data, etc becomes hard and error prone. For these (and more) reasons, (relational) databases with a decent data entry application in front of it are much better suited for research data.</p>
 
 <p>Although a lot of applications exist for specific research projects or fields, there is very little available for generic research data entry applications which allow a researcher to define their own datasets and let multiple people enter the data using a simple interface that validates the user input. So when I started working at <a href="http://www.marineconservationphilippines.org">Marine Conservation Philippines</a> as science officer, I decided to build Biodata to solve this problem.</p>
 
@@ -78,16 +82,21 @@
 <p>It is written using a test driven development approach, and the <a href="http://github.com/dolfandringa/biodata">code is hosted on GitHub</a>.</p>
 
 <p>Because of the test-driven approach, and because Flask is a framework that puts very few restrictions on the development of the application with very little “magic” going on behind the scenes, this combination of technologies allows for very quick development of the application. In practice it has often proved to be quicker to just develop a new feature than write it down in a project management application and get back to it later.</p>
+</section>
 
-        </section>
-        
-        <footer>
-          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
-          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
-        </footer>
-
-    </article>
-
+  <footer>
+    <div
+      class="fb-comments"
+      id="FC"
+      data-href=""
+      data-width="600"
+      data-numposts="10"
+    ></div>
+    <script type="text/javascript" language="javascript">
+      jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);
+    </script>
+  </footer>
+</article>
 
       </div>
 

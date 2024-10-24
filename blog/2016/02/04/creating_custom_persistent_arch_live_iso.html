@@ -47,21 +47,25 @@
       <div id="main">
 
 
-            <article>
-        <header class="major">
-            <h2 class="post-title">Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems</h2>
-                <p class="post-meta">
-                  Feb 4, 2016
-                  
-                  
-                  <span class="tags">
-                    Tags:  <a href="/tag/ArchLinux">ArchLinux</a>  <a href="/tag/UEFI">UEFI</a>  <a href="/tag/live">live</a>  <a href="/tag/remaster">remaster</a>  <a href="/tag/iso">iso</a>  <a href="/tag/persistent">persistent</a>  <a href="/tag/cow">cow</a> 
-                  </span>
-                </p>
-        </header>
+        <article>
+  <header class="major">
+    <h2 class="post-title">Creating a custom persistent Arch Linux live cd for UEFI and BIOS systems</h2>
+    <p class="post-meta">
+      Feb 4, 2016  
+      <span class="tags">
+        Tags: 
+        <a href="/tag/ArchLinux">ArchLinux</a> 
+        <a href="/tag/UEFI">UEFI</a> 
+        <a href="/tag/live">live</a> 
+        <a href="/tag/remaster">remaster</a> 
+        <a href="/tag/iso">iso</a> 
+        <a href="/tag/persistent">persistent</a> 
+        <a href="/tag/cow">cow</a> 
+      </span>
+    </p>
+  </header>
 
-        <section>
-            <p>I am running Arch Linux for a while now and am quite happy with it. Even though it is not the easiest n00b distro, in the end the documentation is so good that if you’re new to Linux, you can probably find out how to do most stuff if you’re inquisitive. One thing I had trouble with though, is getting a custom Live CD that could boot from my USB drive, has a persistence layer so changes are saved when booting, and booted both from UEFI only systems (my laptop) and preferably also BIOS only systems. It took me a while to figure this out, but I got it in the end. So I’ll document it for posterity.</p>
+  <section><p>I am running Arch Linux for a while now and am quite happy with it. Even though it is not the easiest n00b distro, in the end the documentation is so good that if you’re new to Linux, you can probably find out how to do most stuff if you’re inquisitive. One thing I had trouble with though, is getting a custom Live CD that could boot from my USB drive, has a persistence layer so changes are saved when booting, and booted both from UEFI only systems (my laptop) and preferably also BIOS only systems. It took me a while to figure this out, but I got it in the end. So I’ll document it for posterity.</p>
 
 <p>The three main sources of documentation that helped me setting this up is the <a href="https://wiki.archlinux.org/index.php/Remastering_the_Install_ISO">Arch Linux documentation on Remastering the Install ISO</a>, the <a href="https://github.com/djgera/archiso/blob/master/docs/README.bootparams">Boot Parameter documentation of ArchISO</a> and <a href="https://adayinthelifeof.nl/2011/10/11/creating-partitioned-virtual-disk-images/">a blog post by Joshua Thijssen on creating partitioned disk images</a>.</p>
 
@@ -180,16 +184,21 @@ Setup the loopback device and format it with ext3 with</p>
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">dd </span><span class="k">if</span><span class="o">=</span>arch-custom.iso <span class="nv">of</span><span class="o">=</span>/dev/sdb</code></pre></figure>
 
 <p>At this point you can reboot and start from the usb drive (you might need to do something to the UEFI/BIOS to make it start from USB). If you are in the archlinux live boot menu, pres “e” to edit the default menu, and add cow_device=/dev/sdb3 to make it use /dev/sdb3 as the persistent cow device.</p>
+</section>
 
-        </section>
-        
-        <footer>
-          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
-          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
-        </footer>
-
-    </article>
-
+  <footer>
+    <div
+      class="fb-comments"
+      id="FC"
+      data-href=""
+      data-width="600"
+      data-numposts="10"
+    ></div>
+    <script type="text/javascript" language="javascript">
+      jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);
+    </script>
+  </footer>
+</article>
 
       </div>
 

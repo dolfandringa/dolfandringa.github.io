@@ -47,21 +47,24 @@
       <div id="main">
 
 
-            <article>
-        <header class="major">
-            <h2 class="post-title">NRF24L01 and SPIDEV on the Beagle Bone Black</h2>
-                <p class="post-meta">
-                  Nov 1, 2016
-                  
-                  
-                  <span class="tags">
-                    Tags:  <a href="/tag/wireless">wireless</a>  <a href="/tag/sensor_node">sensor_node</a>  <a href="/tag/beaglebone">beaglebone</a>  <a href="/tag/nrf24l01">nrf24l01</a>  <a href="/tag/linux">linux</a>  <a href="/tag/electronics">electronics</a> 
-                  </span>
-                </p>
-        </header>
+        <article>
+  <header class="major">
+    <h2 class="post-title">NRF24L01 and SPIDEV on the Beagle Bone Black</h2>
+    <p class="post-meta">
+      Nov 1, 2016  
+      <span class="tags">
+        Tags: 
+        <a href="/tag/wireless">wireless</a> 
+        <a href="/tag/sensor_node">sensor_node</a> 
+        <a href="/tag/beaglebone">beaglebone</a> 
+        <a href="/tag/nrf24l01">nrf24l01</a> 
+        <a href="/tag/linux">linux</a> 
+        <a href="/tag/electronics">electronics</a> 
+      </span>
+    </p>
+  </header>
 
-        <section>
-            <p>I am working on various electronics projects where I want to have a sensor node that collects data from a sensor and either logs it to a micro-SD-card directly or sens it wirelessly to another machine that uses/logs/etc the data. I opted for a set of <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">NRF24L01+</a> boards for the wireless communication between the nodes and data loggers. So to test it out I want to communicate between my <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">Beagle Bone Black</a> and an <a href="https://www.arduino.cc/">Arduino</a>. The <a href="https://www.arduino.cc/">NRF24 library by TMRh20</a> supplies a unified API for the NRF24L01 that should work on Arduino, linux (like Beagle Bone Black and Raspberry Pi) and other platforms. It also includes some examples that are identical across platforms so you can test between platforms with the same code. Really cool. I had trouble getting it to work on my Beagle Bone Black. This post hopefully will help other getting it to work on a Beagle Bone Black running Debian Jessy.</p>
+  <section><p>I am working on various electronics projects where I want to have a sensor node that collects data from a sensor and either logs it to a micro-SD-card directly or sens it wirelessly to another machine that uses/logs/etc the data. I opted for a set of <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">NRF24L01+</a> boards for the wireless communication between the nodes and data loggers. So to test it out I want to communicate between my <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">Beagle Bone Black</a> and an <a href="https://www.arduino.cc/">Arduino</a>. The <a href="https://www.arduino.cc/">NRF24 library by TMRh20</a> supplies a unified API for the NRF24L01 that should work on Arduino, linux (like Beagle Bone Black and Raspberry Pi) and other platforms. It also includes some examples that are identical across platforms so you can test between platforms with the same code. Really cool. I had trouble getting it to work on my Beagle Bone Black. This post hopefully will help other getting it to work on a Beagle Bone Black running Debian Jessy.</p>
 
 <p>There are various howto’s about the Beagle Bone Black and RF24, and as so often with the BBB, there are many articles contradicting eachother, using different pinouts than my BBB uses I guess. What I have found is that the only reliable pinout for a BBB is the one specified on the standard webinterface of your BBB (on the front-page at the bottom). So the only really useful how-to I ended up using is about the RF24 library on [https://tmrh20.github.io/RF24/Linux.html], which doesn’t talk about the BBB specifically. So after installing the RF24 library I just tried what some other how-to’s said but as soon as I started the “gettingstarted” example from there, I got the error</p>
 
@@ -192,16 +195,21 @@ PA Power     <span class="o">=</span> PA_LOW
  Now sending...
  Got response 525942337, round-trip delay: 2</code></pre></figure>
 
+</section>
 
-        </section>
-        
-        <footer>
-          <div class="fb-comments" id="FC" data-href="" data-width="600" data-numposts="10"></div>
-          <script type="text/javascript" language="javascript">jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);</script>
-        </footer>
-
-    </article>
-
+  <footer>
+    <div
+      class="fb-comments"
+      id="FC"
+      data-href=""
+      data-width="600"
+      data-numposts="10"
+    ></div>
+    <script type="text/javascript" language="javascript">
+      jQuery(“#FC”).attr(“data-href”, window.location.href.split(‘?’)[0]);
+    </script>
+  </footer>
+</article>
 
       </div>
 
