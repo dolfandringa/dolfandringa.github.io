@@ -19,7 +19,7 @@ pdf: true
 
 </section>
 <section markdown="1" id="contact">
-<span class="email">email: dolf@intelliconnect.tech</span><span class="cell">cell: +31630959727</span><span class="address">Wherever I lay my head is home, but working at NL and UK timezones</span>
+<span class="email">dolf@intelliconnect.tech</span><span class="cell">cell: +31630959727</span><span class="address">Medellín, Colombia (US Eastern timezone) but working NL and UK hours</span>
 </section>
 
 {% include resume-it.md %}

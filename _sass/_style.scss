@@ -1031,9 +1031,6 @@ body.resume #main {
     "skills ."
     "skills ."
     "skills ."
-    "skills ."
-    "skills ."
-    "skills ."
     "skills .";
   grid-template-columns: 20% calc(80% - 40px);
 }
@@ -1098,6 +1095,8 @@ body.resume #main {
   }
   > section#skills_section {
     grid-area: skills;
+  }
+  > section#education_section {
   }
 }
 

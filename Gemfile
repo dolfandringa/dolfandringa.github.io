@@ -10,6 +10,7 @@ source 'https://rubygems.org'
 #puts versions
 
 #gem 'github-pages', versions['github-pages']
+gem "rmagick", :require => 'RMagick'#, "~> 2.13.1"
 gem "liquid-tag-parser"#, "~> 1.9"
 #gem "jekyll"
 gem "jekyll", "~> 4.0"
